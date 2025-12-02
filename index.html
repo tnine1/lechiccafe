@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Le Chic Cafe</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="images/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS (if you want a JS map later) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta name="description" content="Le Chic Cafe - Fresh espresso-based drinks, pizzas, burgers and fresh juices. Order with one click." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <h1>Le Chic Cafe</h1>
+        </a>
+        <p class="tag">GOOD VIBES ONLY</p>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a class="nav-link" href="#menu">Menu</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+        <!-- PDF menu example -->
+        <a class="nav-link" href="https://qr1.be/QUW2FW" target="_blank" rel="noopener">Download PDF</a>
+      </nav>
+
+      <div class="header-controls">
+        <div class="social-icons" aria-hidden="false">
+          <a href="https://facebook.com/YOURPAGE" target="_blank" rel="noopener" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/le_chic_cafe__/" target="_blank" rel="noopener" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/0781043532" target="_blank" rel="noopener" class="social-link"><i class="fab fa-whatsapp"></i></a>
+        </div>
+
+        <div class="cart">
+          <button id="cartBtn" class="cart-btn" aria-label="Open cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cartCount" class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Welcome to Le Chic Cafe</h2>
+        <p class="hero-sub">Fresh espresso drinks, pizzas, burgers and cold-pressed juices. Order quickly — we prepare fast.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#menu">See Menu</a>
+          <a class="btn btn-outline" href="#contact">Contact</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="container menu-section">
+      <div class="section-header">
+        <h3>Menu</h3>
+        <p class="muted">Tap Buy Now to add the item and prepare your order. Then confirm in the cart.</p>
+      </div>
+
+      <div class="menu-grid" id="menuGrid">
+
+        <!-- Espresso-based drinks: data-price values MUST be numeric (RWF) -->
+        <article class="menu-item" data-id="espresso" data-name="Espresso (Single)" data-price="1500">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80" alt="Espresso" />
+          <h4>Espresso (Single)</h4>
+          <p class="price">RF 1500</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="double-espresso" data-name="Double Espresso" data-price="2000">
+          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80" alt="Double Espresso" />
+          <h4>Double Espresso</h4>
+          <p class="price">RF 2000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="americano" data-name="Americano" data-price="2000">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Americano" />
+          <h4>Americano</h4>
+          <p class="price">RF 2000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="latte" data-name="Latte" data-price="2500">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80" alt="Latte" />
+          <h4>Latte</h4>
+          <p class="price">RF 2500</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="cappuccino" data-name="Cappuccino" data-price="2500">
+          <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80" alt="Cappuccino" />
+          <h4>Cappuccino</h4>
+          <p class="price">RF 2500</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="flat-white" data-name="Flat White" data-price="2500">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80" alt="Flat White" />
+          <h4>Flat White</h4>
+          <p class="price">RF 2500</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="macchiato" data-name="Macchiato" data-price="3000">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80" alt="Macchiato" />
+          <h4>Macchiato</h4>
+          <p class="price">RF 3000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <!-- Pizzas -->
+        <article class="menu-item" data-id="margherita" data-name="Margherita Pizza" data-price="10000">
+          <img src="https://images.unsplash.com/photo-1601924582975-4a1c73d4b0f9?auto=format&fit=crop&w=800&q=80" alt="Margherita Pizza" />
+          <h4>Margherita Pizza</h4>
+          <p class="price">RF 10,000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="pepperoni" data-name="Pepperoni Pizza" data-price="12500">
+          <img src="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=800&q=80" alt="Pepperoni Pizza" />
+          <h4>Pepperoni Pizza</h4>
+          <p class="price">RF 12,500</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <!-- Burgers -->
+        <article class="menu-item" data-id="classic-burger" data-name="Classic Beef Burger" data-price="11000">
+          <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=800&q=80" alt="Classic Beef Burger" />
+          <h4>Classic Beef Burger</h4>
+          <p class="price">RF 11,000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="veggie-burger" data-name="Veggie Burger" data-price="10000">
+          <img src="https://images.unsplash.com/photo-1562967914-6085a1b2a6a7?auto=format&fit=crop&w=800&q=80" alt="Veggie Burger" />
+          <h4>Veggie Burger</h4>
+          <p class="price">RF 10,000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <!-- Fresh juices -->
+        <article class="menu-item" data-id="orange-juice" data-name="Fresh Orange Juice" data-price="4500">
+          <img src="https://images.unsplash.com/photo-1542444459-db7e6f6f9fda?auto=format&fit=crop&w=800&q=80" alt="Fresh Orange Juice" />
+          <h4>Fresh Orange Juice</h4>
+          <p class="price">RF 4,500</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+        <article class="menu-item" data-id="green-juice" data-name="Green Detox Juice" data-price="5000">
+          <img src="https://images.unsplash.com/photo-1506806732259-39c2d0268443?auto=format&fit=crop&w=800&q=80" alt="Green Juice" />
+          <h4>Green Detox Juice</h4>
+          <p class="price">RF 5,000</p>
+          <div class="item-actions">
+            <button class="btn buy-btn">Buy Now</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="about" class="container about-section">
+      <h3>About Us</h3>
+      <p>Le Chic Cafe is a cozy neighborhood spot serving espresso-based beverages, stone-baked pizzas, handcrafted burgers and fresh, cold-pressed juices. We source seasonal beans and bake in-house daily.</p>
+    </section>
+
+    <section id="contact" class="container contact-section">
+      <h3>Contact & Ordering</h3>
+      <p>
+        Phone/WhatsApp: <strong id="phoneText">+250 781 043 532</strong> <br />
+        Email: <strong id="emailText">lechiccafe.info@gmail.com</strong>
+      </p>
+
+      <h4>Find us</h4>
+
+      <!-- Embedded Google map (iframe) -->
+      <div class="map-wrap">
+        <iframe
+          title="Le Chic Cafe location"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.6097155850715!2d30.1041022!3d-1.9745847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca7995a9cb5ab%3A0x454a55612a864303!2sLe%20Chic%20Cafe%20Kicukiro!5e0!3m2!1sen!2s!4v0000000000000"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+      <p class="muted">
+        Quick ordering: add items with Buy Now, then confirm your details in the cart modal and send.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Le Chic Cafe — All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Cart / Order Modal -->
+  <div id="cartModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeCart" aria-label="Close">×</button>
+      <h4 id="cartTitle">Your Order</h4>
+
+      <div id="cartItems" class="cart-items"></div>
+
+      <div class="cart-summary">
+        <p>Total: RF <span id="cartTotal">0</span></p>
+      </div>
+
+      <form id="orderForm" class="order-form" autocomplete="on">
+        <label>
+          Your name
+          <input id="customerName" name="name" type="text" required placeholder="e.g. John Doe" />
+        </label>
+
+        <label>
+          Phone (WhatsApp)
+          <input id="customerPhone" name="phone" type="tel" required placeholder="+2507XXXXXXXX" />
+        </label>
+
+        <label>
+          Notes (optional)
+          <textarea id="customerNotes" name="notes" rows="2" placeholder="Pickup time, allergies..."></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="button" id="placeOrderBtn" class="btn">Send Order</button>
+          <button type="button" id="clearCartBtn" class="btn btn-outline">Clear Cart</button>
+        </div>
+
+        <p class="muted small">We will send your order to our kitchen. You may be contacted on WhatsApp to confirm pickup time.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Leaflet (unused for iframe map but included if you want JS map later) -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script src="scripts.js" defer></script>
+</body>
+</html>
