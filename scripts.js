@@ -229,7 +229,28 @@ document.addEventListener("DOMContentLoaded", () => {
       placeOrderBtn.textContent = "Sending...";
 
       try {
-        await sendOrderToEmail(cart, { name, phone, notes });
+        try {
+  // 1) Send to Email
+  await sendOrderToEmail(cart, { name, phone, notes });
+
+  // 2) Send to WhatsApp after email success
+  sendOrderToWhatsApp(cart, { name, phone, notes });
+
+  // 3) Clear cart
+  Object.keys(cart).forEach(k => delete cart[k]);
+  saveCart();
+  renderCart();
+  closeCart();
+
+  alert("Order sent successfully!");
+  
+} catch (err) {
+  console.warn("Send to email failed, opening WhatsApp only", err);
+
+  // Fallback → only WhatsApp if email fails
+  sendOrderToWhatsApp(cart, { name, phone, notes });
+}
+
         // success: clear cart and close
         Object.keys(cart).forEach(k => delete cart[k]);
         saveCart();
@@ -246,43 +267,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-<script>
-  document.getElementById("placeOrderBtn").addEventListener("click", function () {
 
-    // Aha ushobora gushyiramo function isoma cart yawe
-    // For example:
-    let orderText = "";
-
-    // Example y’items (usimbuze n’iyawe)
-    const cart = [
-      { name: "Cappuccino", qty: 2, price: 3000 },
-      { name: "Iced Latte", qty: 1, price: 3500 }
-    ];
-
-    cart.forEach(item => {
-      orderText += `${item.qty} x ${item.name} - ${item.price} FRW\n`;
-    });
-
-    // WhatsApp number (hindura)
-    const phoneNumber = "250781043532";  
-
-    // Encode message
-    const message = encodeURIComponent("Hello, I would like to place this order:\n\n" + orderText);
-    
-    // WhatsApp URL
-    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
-
-    // Open WhatsApp
-    window.open(whatsappURL, "_blank");
-  });
-
-</script>
 
   // Build order message (used by email fallback and posting)
+  function sendOrderToWhatsApp(orderObj, customer) {
+  let message = `*Order for ${CONFIG.cafeName}*\n`;
+  message += `Customer: ${customer.name}\n`;
+  message += `Phone: ${customer.phone}\n`;
+  if (customer.notes) message += `Notes: ${customer.notes}\n`;
+  message += `----------------------\n`;
+
+  let total = 0;
+  for (const id in orderObj) {
+    const it = orderObj[id];
+    const subtotal = it.qty * Number(it.price);
+    total += subtotal;
+    message += `${it.qty} × ${it.name} — RF ${formatMoney(subtotal)}\n`;
+  }
+
+  message += `----------------------\n`;
+  message += `Total: RF ${formatMoney(total)}\n`;
+  message += `Pickup: ${CONFIG.address}`;
+
+  const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
+}
+
   function buildOrderMessage(orderObj, customer) {
     const lines = [];
     lines.push(`Order for ${CONFIG.cafeName}`);
-    lines.push(`Customer: ${customer.name}`);
+    lines.push(`Customer: ${customer.name}`); 
     lines.push(`Phone: ${customer.phone}`);
     if (customer.notes) lines.push(`Notes: ${customer.notes}`);
     lines.push(`--`);
@@ -337,3 +351,4 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 
 });
+
