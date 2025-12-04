@@ -1,8 +1,10 @@
-// Improved cart wiring: Buy Now buttons add items to the cart and update UI (persistent)
-// Replace your existing script.js with this file.
+/* =====================================================
+   Le Chic Cafe – Unified Cart + WhatsApp + Email System
+   FREE — No API Keys Needed
+   ===================================================== */
 
 const CONFIG = {
-  emailAddress: "lechiccafe.info@gmail.com", // your email (used elsewhere)
+  emailAddress: "lechiccafe.info@gmail.com",
   whatsappNumber: "250781043532",
   cafeName: "Le Chic Cafe",
   address: "Kicukiro, Kigali, Rwanda",
@@ -11,7 +13,7 @@ const CONFIG = {
 const CART_KEY = "leChicCart_v1";
 
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM refs
+
   const cartCountEl = document.getElementById("cartCount");
   const cartItemsEl = document.getElementById("cartItems");
   const cartTotalEl = document.getElementById("cartTotal");
@@ -24,70 +26,50 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneInput = document.getElementById("customerPhone");
   const notesInput = document.getElementById("customerNotes");
 
-  // Load or init cart
+  // ---------- CART CORE ----------
   let cart = loadCart();
 
-  // Utilities
   function saveCart() {
-    try {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    } catch (e) {
-      console.warn("Could not save cart to localStorage", e);
-    }
-  }
-  function loadCart() {
-    try {
-      const raw = localStorage.getItem(CART_KEY);
-      if (!raw) return {};
-      return JSON.parse(raw) || {};
-    } catch (e) {
-      return {};
-    }
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
   }
 
-  // Parse a dataset price into integer RWF amount.
-  // Accepts numbers or strings like "2500", "RF 2,500", "2,500", "2500.00"
+  function loadCart() {
+    const raw = localStorage.getItem(CART_KEY);
+    return raw ? JSON.parse(raw) : {};
+  }
+
   function parsePriceRaw(v) {
-    if (v == null) return 0;
-    if (typeof v === "number") return Math.round(v);
-    // strip non-digit characters except dot and comma
-    const cleaned = String(v).replace(/[^\d.,\-]/g, "").replace(/,/g, "");
-    const n = parseFloat(cleaned);
-    return Number.isFinite(n) ? Math.round(n) : 0;
+    if (!v) return 0;
+    const cleaned = String(v).replace(/[^\d]/g, "");
+    return parseInt(cleaned) || 0;
   }
 
   function formatMoney(n) {
-    // RWF typically no decimals; format with thousands separators
-    try {
-      return Number(n).toLocaleString();
-    } catch (e) {
-      return String(n);
-    }
+    return Number(n).toLocaleString();
   }
 
-  // Render cart UI
   function renderCart() {
-    if (!cartItemsEl) return;
     cartItemsEl.innerHTML = "";
     let total = 0;
     const ids = Object.keys(cart);
+
     if (ids.length === 0) {
       cartItemsEl.innerHTML = `<p class="muted">Your cart is empty.</p>`;
-      if (cartTotalEl) cartTotalEl.textContent = formatMoney(0);
+      cartTotalEl.textContent = "0";
       updateCartCount();
       return;
     }
 
     ids.forEach(id => {
       const it = cart[id];
-      const subtotal = it.qty * Number(it.price);
+      const subtotal = it.qty * it.price;
       total += subtotal;
 
       const row = document.createElement("div");
       row.className = "cart-item";
       row.innerHTML = `
         <div>
-          <strong>${escapeHtml(it.name)}</strong>
+          <strong>${it.name}</strong>
           <div class="muted">${it.qty} × RF ${formatMoney(it.price)}</div>
         </div>
         <div>
@@ -101,229 +83,144 @@ document.addEventListener("DOMContentLoaded", () => {
       cartItemsEl.appendChild(row);
     });
 
-    if (cartTotalEl) cartTotalEl.textContent = formatMoney(total);
+    cartTotalEl.textContent = formatMoney(total);
     updateCartCount();
     wireQtyButtons();
     saveCart();
   }
 
   function updateCartCount() {
-    const count = Object.values(cart).reduce((s, it) => s + it.qty, 0);
-    if (cartCountEl) cartCountEl.textContent = count;
+    const count = Object.values(cart).reduce((n, it) => n + it.qty, 0);
+    cartCountEl.textContent = count;
   }
 
   function wireQtyButtons() {
-    if (!cartItemsEl) return;
     cartItemsEl.querySelectorAll(".qty-btn.inc").forEach(btn => {
-      btn.onclick = (e) => {
-        const id = e.currentTarget.dataset.id;
-        if (!cart[id]) return;
-        cart[id].qty += 1;
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        cart[id].qty++;
         renderCart();
-        showToast(`${cart[id].name} quantity: ${cart[id].qty}`);
       };
     });
     cartItemsEl.querySelectorAll(".qty-btn.dec").forEach(btn => {
-      btn.onclick = (e) => {
-        const id = e.currentTarget.dataset.id;
-        if (!cart[id]) return;
-        cart[id].qty -= 1;
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        cart[id].qty--;
         if (cart[id].qty <= 0) delete cart[id];
         renderCart();
       };
     });
   }
 
-  // Escape helper
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
-
-  // Toast helper
-  function showToast(text, ms = 1600) {
-    const t = document.createElement("div");
-    t.className = "le-toast";
-    t.textContent = text;
-    Object.assign(t.style, {
-      position: "fixed",
-      right: "16px",
-      bottom: "18px",
-      background: "#222",
-      color: "#fff",
-      padding: "8px 12px",
-      borderRadius: "8px",
-      boxShadow: "0 6px 18px rgba(0,0,0,0.2)",
-      zIndex: 99999,
-      fontSize: "14px",
-    });
-    document.body.appendChild(t);
-    setTimeout(() => {
-      t.style.transition = "opacity 220ms";
-      t.style.opacity = "0";
-    }, ms - 220);
-    setTimeout(() => t.remove(), ms);
-  }
-
-  // Add item to cart (public)
-  function addToCart({ id, name, price, qty = 1 }) {
-    if (!id) return;
-    if (!cart[id]) cart[id] = { name, price: Number(price), qty: 0 };
-    cart[id].qty += qty;
-    saveCart();
+  // ---------- ADD TO CART ----------
+  function addToCart({ id, name, price }) {
+    if (!cart[id]) cart[id] = { name, price, qty: 0 };
+    cart[id].qty++;
     renderCart();
-    showToast(`Added ${name} ×${qty}`);
   }
 
-  // Attach Buy Now buttons
   document.querySelectorAll(".menu-item").forEach(node => {
     const id = node.dataset.id;
-    const name = node.dataset.name || node.querySelector("h4")?.textContent || id;
-    const rawPrice = node.dataset.price;
-    const price = parsePriceRaw(rawPrice);
+    const name = node.dataset.name;
+    const price = parsePriceRaw(node.dataset.price);
+    const btn = node.querySelector(".buy-btn");
 
-    const buyBtn = node.querySelector(".buy-btn");
-    if (!buyBtn) return;
-
-    buyBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      addToCart({ id, name, price, qty: 1 });
-      // open cart modal so user can confirm
+    btn.onclick = () => {
+      addToCart({ id, name, price });
       openCart();
-      // focus name input if present so user can quickly type details
-      if (nameInput) nameInput.focus();
-    });
+    };
   });
 
-  // Cart modal controls
-  if (cartBtn) cartBtn.addEventListener("click", () => {
-    renderCart();
-    openCart();
-  });
-  if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
-  if (clearCartBtn) clearCartBtn.addEventListener("click", () => {
-    Object.keys(cart).forEach(k => delete cart[k]);
-    renderCart();
-  });
-
+  // ---------- CART MODAL ----------
   function openCart() {
-    if (!cartModal) return;
     cartModal.classList.remove("hidden");
   }
+
   function closeCart() {
-    if (!cartModal) return;
     cartModal.classList.add("hidden");
   }
 
-  // Place order: basic validation and send via FormSubmit (existing flow)
-  if (placeOrderBtn) {
-    placeOrderBtn.addEventListener("click", async () => {
-      const name = nameInput?.value?.trim();
-      const phone = phoneInput?.value?.trim();
-      const notes = notesInput?.value?.trim();
+  cartBtn.onclick = openCart;
+  closeCartBtn.onclick = closeCart;
 
-      if (!name) { alert("Please enter your name."); nameInput?.focus(); return; }
-      if (!phone) { alert("Please enter your phone (WhatsApp)."); phoneInput?.focus(); return; }
-      if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
+  clearCartBtn.onclick = () => {
+    cart = {};
+    saveCart();
+    renderCart();
+  };
 
-      placeOrderBtn.disabled = true;
-      placeOrderBtn.textContent = "Sending...";
+  // ---------- ORDER SENDING ----------
+  placeOrderBtn.onclick = async () => {
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const notes = notesInput.value.trim();
 
-      try {
-        try {
-  // 1) Send to Email
-  await sendOrderToEmail(cart, { name, phone, notes });
+    if (!name) return alert("Enter your name");
+    if (!phone) return alert("Enter your WhatsApp number");
+    if (Object.keys(cart).length === 0) return alert("Cart is empty!");
 
-  // 2) Send to WhatsApp after email success
-  sendOrderToWhatsApp(cart, { name, phone, notes });
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = "Sending...";
 
-  // 3) Clear cart
-  Object.keys(cart).forEach(k => delete cart[k]);
-  saveCart();
-  renderCart();
-  closeCart();
+    try {
 
-  alert("Order sent successfully!");
-  
-} catch (err) {
-  console.warn("Send to email failed, opening WhatsApp only", err);
+      // 1) Send Email
+      await sendOrderToEmail(cart, { name, phone, notes });
 
-  // Fallback → only WhatsApp if email fails
-  sendOrderToWhatsApp(cart, { name, phone, notes });
-}
+      // 2) Send WhatsApp
+      sendOrderToWhatsApp(cart, { name, phone, notes });
 
-        // success: clear cart and close
-        Object.keys(cart).forEach(k => delete cart[k]);
-        saveCart();
-        renderCart();
-        closeCart();
-        alert("Order sent — we'll contact you on WhatsApp to confirm pickup.");
-      } catch (err) {
-        console.warn("Send failed, fallback to mailto", err);
-        const body = buildOrderMessage(cart, { name, phone, notes });
-        window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent("Order from website")}&body=${encodeURIComponent(body)}`;
-      } finally {
-        placeOrderBtn.disabled = false;
-        placeOrderBtn.textContent = "Send Order";
-      }
-    });
-  }
+      // 3) Clear cart
+      cart = {};
+      saveCart();
+      renderCart();
+      closeCart();
 
+      alert("Order sent successfully!");
 
-  // Build order message (used by email fallback and posting)
-  function sendOrderToWhatsApp(orderObj, customer) {
-  let message = `*Order for ${CONFIG.cafeName}*\n`;
-  message += `Customer: ${customer.name}\n`;
-  message += `Phone: ${customer.phone}\n`;
-  if (customer.notes) message += `Notes: ${customer.notes}\n`;
-  message += `----------------------\n`;
-
-  let total = 0;
-  for (const id in orderObj) {
-    const it = orderObj[id];
-    const subtotal = it.qty * Number(it.price);
-    total += subtotal;
-    message += `${it.qty} × ${it.name} — RF ${formatMoney(subtotal)}\n`;
-  }
-
-  message += `----------------------\n`;
-  message += `Total: RF ${formatMoney(total)}\n`;
-  message += `Pickup: ${CONFIG.address}`;
-
-  const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
-  window.open(url, "_blank");
-}
-
-  function buildOrderMessage(orderObj, customer) {
-    const lines = [];
-    lines.push(`Order for ${CONFIG.cafeName}`);
-    lines.push(`Customer: ${customer.name}`); 
-    lines.push(`Phone: ${customer.phone}`);
-    if (customer.notes) lines.push(`Notes: ${customer.notes}`);
-    lines.push(`--`);
-    let total = 0;
-    for (const id in orderObj) {
-      const it = orderObj[id];
-      const subtotal = it.qty * Number(it.price);
-      lines.push(`${it.qty} x ${it.name} — RF ${formatMoney(subtotal)}`);
-      total += subtotal;
+    } catch (err) {
+      console.error(err);
+      alert("Email failed — sending WhatsApp only");
+      sendOrderToWhatsApp(cart, { name, phone, notes });
     }
-    lines.push(`--`);
-    lines.push(`Total: RF ${formatMoney(total)}`);
-    lines.push(`Address/Pickup: ${CONFIG.address}`);
-    lines.push(`Sent from website`);
-    return lines.join("\n");
+
+    placeOrderBtn.disabled = false;
+    placeOrderBtn.textContent = "Send Order";
+  };
+
+  // ---------- WhatsApp ----------
+  function sendOrderToWhatsApp(order, customer) {
+    let msg = `*Order — ${CONFIG.cafeName}*\n`;
+    msg += `Customer: ${customer.name}\n`;
+    msg += `Phone: ${customer.phone}\n`;
+    if (customer.notes) msg += `Notes: ${customer.notes}\n`;
+    msg += `----------------------\n`;
+
+    let total = 0;
+    for (let id in order) {
+      let it = order[id];
+      let sub = it.qty * it.price;
+      total += sub;
+      msg += `${it.qty} × ${it.name} — RF ${formatMoney(sub)}\n`;
+    }
+
+    msg += `----------------------\n`;
+    msg += `Total: RF ${formatMoney(total)}\n`;
+    msg += `Pickup: ${CONFIG.address}`;
+
+    let url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
   }
 
-  // Send order to FormSubmit (same helper as earlier)
-  async function sendOrderToEmail(orderObj, customer) {
-    if (!CONFIG.emailAddress) throw new Error("No email configured");
-    const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(CONFIG.emailAddress)}`;
+  // ---------- Email (FormSubmit — FREE) ----------
+  async function sendOrderToEmail(order, customer) {
+    const endpoint = `https://formsubmit.co/ajax/${CONFIG.emailAddress}`;
     const payload = {
-      _subject: `New order from ${CONFIG.cafeName} (${customer.name})`,
+      _subject: `New Order — ${customer.name}`,
       name: customer.name,
       phone: customer.phone,
       notes: customer.notes || "",
-      message: buildOrderMessage(orderObj, customer),
+      message: buildOrderMessage(order, customer),
       _captcha: "false"
     };
 
@@ -333,23 +230,24 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify(payload)
     });
 
-    if (!res.ok) {
-      const txt = await res.text().catch(() => "");
-      throw new Error(`FormSubmit error ${res.status} ${txt}`);
-    }
-    const json = await res.json().catch(() => ({}));
-    if (json.success || res.status === 200) return json;
-    throw new Error("FormSubmit did not return success");
+    if (!res.ok) throw new Error("Email failed");
   }
 
-  // Close modal on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeCart();
-  });
+  function buildOrderMessage(order, customer) {
+    let msg = `Order from ${customer.name}\n`;
+    msg += `Phone: ${customer.phone}\n`;
+    if (customer.notes) msg += `Notes: ${customer.notes}\n`;
+    msg += `-----------------\n`;
+    let total = 0;
+    for (let id in order) {
+      let it = order[id];
+      let sub = it.qty * it.price;
+      msg += `${it.qty} × ${it.name} — RF ${sub}\n`;
+      total += sub;
+    }
+    msg += `-----------------\nTotal: RF ${total}`;
+    return msg;
+  }
 
-  // Initial UI render
   renderCart();
-
 });
-
-
