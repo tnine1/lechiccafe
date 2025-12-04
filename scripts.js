@@ -75,37 +75,34 @@ clearCartBtn.onclick = () => {
 };
 
 // ----------------------------
-// SEND ORDER → WHATSAPP ONLY
+// SEND ORDER → EMAIL ONLY
 // ----------------------------
 placeOrderBtn.onclick = () => {
   if (!nameInput.value.trim()) return alert("Please enter your name.");
   if (!phoneInput.value.trim()) return alert("Please enter your phone.");
   if (Object.keys(cart).length === 0) return alert("Your cart is empty.");
 
-  let message = `*New Order — Le Chic Cafe*\n\n`;
-  message += `*Name:* ${nameInput.value}\n`;
-  message += `*Phone:* ${phoneInput.value}\n`;
+  let message = `New Order — Le Chic Cafe\n\n`;
+  message += `Name: ${nameInput.value}\n`;
+  message += `Phone: ${phoneInput.value}\n`;
   if (notesInput.value.trim()) {
-    message += `*Notes:* ${notesInput.value.trim()}\n`;
+    message += `Notes: ${notesInput.value.trim()}\n`;
   }
-  message += `\n*Order Items:*\n`;
+  message += `\nOrder Items:\n`;
 
   Object.values(cart).forEach(item => {
     message += `- ${item.name} x${item.qty} = RF ${item.price * item.qty}\n`;
   });
 
-  message += `\n*Total:* RF ${cartTotal.textContent}`;
-  const encoded = encodeURIComponent(message);
+  message += `\nTotal: RF ${cartTotal.textContent}`;
 
-  // WhatsApp number of the café
-  const cafeNumber = "250781043532";
+  const email = "lechiccafe.info@gmail.com";
 
-  // Open WhatsApp
-  window.open(`https://wa.me/${cafeNumber}?text=${encoded}`, "_blank");
+  window.location.href =
+    `mailto:${email}?subject=New Order&body=${encodeURIComponent(message)}`;
 
-  alert("Order sent to WhatsApp!");
+  alert("Order sent to email!");
 
-  // Clear cart
   cart = {};
   saveCart();
   renderCart();
