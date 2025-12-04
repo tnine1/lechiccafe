@@ -3,7 +3,7 @@
 
 const CONFIG = {
   emailAddress: "lechiccafe.info@gmail.com", // your email (used elsewhere)
-  whatsappNumber: "+250781043532",
+  whatsappNumber: "250781043532",
   cafeName: "Le Chic Cafe",
   address: "Kicukiro, Kigali, Rwanda",
 };
@@ -351,4 +351,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 
 });
+
 
