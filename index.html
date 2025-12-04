@@ -60,6 +60,27 @@
         </div>
       </div>
     </section>
+    <style>
+  .line-marquee {
+    width: 100%;
+    padding: 10px 0;
+    background: #ffffff;
+
+    /* INNER LINE LOOK */
+    box-shadow: 
+        inset 0 2px 0 gold,       /* Upper inner line */
+        inset 0 -2px 0 gold;      /* Lower inner line */
+
+    color: navy;                 /* Text color */
+    font-size: 20px;
+    font-weight: bold;
+  }
+</style>
+
+<marquee class="line-marquee" behavior="scroll" direction="left" scrollamount="6">
+  Urubuga tururimo kubaka… Murakoze kwihangana!
+</marquee>
+
 <marquee behavior="scroll" direction="left" scrollamount="6">
   Urubuga rurimo kubakwa... Murakoze kwihangana!
 </marquee>
@@ -279,6 +300,7 @@
 </body>
 
 </html>
+
 
 
 
