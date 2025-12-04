@@ -246,6 +246,37 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+<script>
+  document.getElementById("placeOrderBtn").addEventListener("click", function () {
+
+    // Aha ushobora gushyiramo function isoma cart yawe
+    // For example:
+    let orderText = "";
+
+    // Example y’items (usimbuze n’iyawe)
+    const cart = [
+      { name: "Cappuccino", qty: 2, price: 3000 },
+      { name: "Iced Latte", qty: 1, price: 3500 }
+    ];
+
+    cart.forEach(item => {
+      orderText += `${item.qty} x ${item.name} - ${item.price} FRW\n`;
+    });
+
+    // WhatsApp number (hindura)
+    const phoneNumber = "250781043532";  
+
+    // Encode message
+    const message = encodeURIComponent("Hello, I would like to place this order:\n\n" + orderText);
+    
+    // WhatsApp URL
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+    // Open WhatsApp
+    window.open(whatsappURL, "_blank");
+  });
+
+</script>
 
   // Build order message (used by email fallback and posting)
   function buildOrderMessage(orderObj, customer) {
@@ -304,4 +335,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial UI render
   renderCart();
+
 });
