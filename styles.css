@@ -103,10 +103,12 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:var(--text);-we
   cursor: pointer;
 }
 
+
 .whatsapp-icon {
   width: 36px;
   height: 36px;
 }
+
 
 
 
