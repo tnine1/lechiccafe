@@ -1,84 +1,64 @@
-// Improved cart wiring: Buy Now buttons add items to the cart and update UI (persistent)
-// Replace your existing script.js with this file.
-
+// Configuration - set your real email and optional WhatsApp fallback
 const CONFIG = {
-  emailAddress: "lechiccafe.info@gmail.com", // your email (used elsewhere)
-  whatsappNumber: "+250781043532",
+  emailAddress: "lechiccafe.info@gmail.com", // set your cafe email
+  whatsappNumber: "+250781043532", // optional fallback or contact display
   cafeName: "Le Chic Cafe",
-  address: "Kicukiro, Kigali, Rwanda",
+  locationNote: "Pickup at counter",
+  address: "Kicukiro, Kigali, Rwanda"
 };
 
-const CART_KEY = "leChicCart_v1";
+// FormSubmit helper endpoint
+function formSubmitEndpoint(email) {
+  return `https://formsubmit.co/ajax/${encodeURIComponent(email)}`;
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  // DOM refs
+  // Elements
+  const cartBtn = document.getElementById("cartBtn");
   const cartCountEl = document.getElementById("cartCount");
+  const cartModal = document.getElementById("cartModal");
+  const closeCartBtn = document.getElementById("closeCart");
   const cartItemsEl = document.getElementById("cartItems");
   const cartTotalEl = document.getElementById("cartTotal");
-  const cartModal = document.getElementById("cartModal");
-  const cartBtn = document.getElementById("cartBtn");
-  const closeCartBtn = document.getElementById("closeCart");
-  const clearCartBtn = document.getElementById("clearCartBtn");
   const placeOrderBtn = document.getElementById("placeOrderBtn");
+  const clearCartBtn = document.getElementById("clearCartBtn");
+  const orderForm = document.getElementById("orderForm");
   const nameInput = document.getElementById("customerName");
   const phoneInput = document.getElementById("customerPhone");
   const notesInput = document.getElementById("customerNotes");
+  const emailText = document.getElementById("emailText");
+  const yearEl = document.getElementById("year");
 
-  // Load or init cart
-  let cart = loadCart();
+  if (emailText) emailText.textContent = CONFIG.emailAddress;
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Utilities
-  function saveCart() {
-    try {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    } catch (e) {
-      console.warn("Could not save cart to localStorage", e);
-    }
-  }
-  function loadCart() {
-    try {
-      const raw = localStorage.getItem(CART_KEY);
-      if (!raw) return {};
-      return JSON.parse(raw) || {};
-    } catch (e) {
-      return {};
-    }
-  }
+  // Cart state
+  const cart = {};
 
-  // Parse a dataset price into integer RWF amount.
-  // Accepts numbers or strings like "2500", "RF 2,500", "2,500", "2500.00"
-  function parsePriceRaw(v) {
-    if (v == null) return 0;
-    if (typeof v === "number") return Math.round(v);
-    // strip non-digit characters except dot and comma
-    const cleaned = String(v).replace(/[^\d.,\-]/g, "").replace(/,/g, "");
-    const n = parseFloat(cleaned);
-    return Number.isFinite(n) ? Math.round(n) : 0;
-  }
-
+  // Utility: format money (RWF no decimals)
   function formatMoney(n) {
-    // RWF typically no decimals; format with thousands separators
-    try {
-      return Number(n).toLocaleString();
-    } catch (e) {
-      return String(n);
-    }
+    // if prices are large integers, format with commas
+    return Number(n).toLocaleString();
   }
 
-  // Render cart UI
+  function updateCartCount() {
+    const count = Object.values(cart).reduce((s, it) => s + it.qty, 0);
+    cartCountEl.textContent = count;
+  }
+
   function renderCart() {
-    if (!cartItemsEl) return;
+    // Empty
     cartItemsEl.innerHTML = "";
     let total = 0;
-    const ids = Object.keys(cart);
-    if (ids.length === 0) {
+
+    if (Object.keys(cart).length === 0) {
       cartItemsEl.innerHTML = `<p class="muted">Your cart is empty.</p>`;
-      if (cartTotalEl) cartTotalEl.textContent = formatMoney(0);
+      cartTotalEl.textContent = formatMoney(0);
       updateCartCount();
       return;
     }
 
-    ids.forEach(id => {
+    for (const id in cart) {
       const it = cart[id];
       const subtotal = it.qty * Number(it.price);
       total += subtotal;
@@ -99,155 +79,78 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
       cartItemsEl.appendChild(row);
-    });
+    }
 
-    if (cartTotalEl) cartTotalEl.textContent = formatMoney(total);
+    cartTotalEl.textContent = formatMoney(total);
     updateCartCount();
     wireQtyButtons();
-    saveCart();
-  }
-
-  function updateCartCount() {
-    const count = Object.values(cart).reduce((s, it) => s + it.qty, 0);
-    if (cartCountEl) cartCountEl.textContent = count;
   }
 
   function wireQtyButtons() {
-    if (!cartItemsEl) return;
     cartItemsEl.querySelectorAll(".qty-btn.inc").forEach(btn => {
-      btn.onclick = (e) => {
+      btn.addEventListener("click", (e) => {
         const id = e.currentTarget.dataset.id;
-        if (!cart[id]) return;
         cart[id].qty += 1;
         renderCart();
-        showToast(`${cart[id].name} quantity: ${cart[id].qty}`);
-      };
+      });
     });
     cartItemsEl.querySelectorAll(".qty-btn.dec").forEach(btn => {
-      btn.onclick = (e) => {
+      btn.addEventListener("click", (e) => {
         const id = e.currentTarget.dataset.id;
-        if (!cart[id]) return;
         cart[id].qty -= 1;
         if (cart[id].qty <= 0) delete cart[id];
         renderCart();
-      };
+      });
     });
   }
 
-  // Escape helper
+  // Escape helper to avoid HTML injection in item names
   function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
-
-  // Toast helper
-  function showToast(text, ms = 1600) {
-    const t = document.createElement("div");
-    t.className = "le-toast";
-    t.textContent = text;
-    Object.assign(t.style, {
-      position: "fixed",
-      right: "16px",
-      bottom: "18px",
-      background: "#222",
-      color: "#fff",
-      padding: "8px 12px",
-      borderRadius: "8px",
-      boxShadow: "0 6px 18px rgba(0,0,0,0.2)",
-      zIndex: 99999,
-      fontSize: "14px",
-    });
-    document.body.appendChild(t);
-    setTimeout(() => {
-      t.style.transition = "opacity 220ms";
-      t.style.opacity = "0";
-    }, ms - 220);
-    setTimeout(() => t.remove(), ms);
-  }
-
-  // Add item to cart (public)
-  function addToCart({ id, name, price, qty = 1 }) {
-    if (!id) return;
-    if (!cart[id]) cart[id] = { name, price: Number(price), qty: 0 };
-    cart[id].qty += qty;
-    saveCart();
-    renderCart();
-    showToast(`Added ${name} ×${qty}`);
+    return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
 
   // Attach Buy Now buttons
   document.querySelectorAll(".menu-item").forEach(node => {
     const id = node.dataset.id;
-    const name = node.dataset.name || node.querySelector("h4")?.textContent || id;
-    const rawPrice = node.dataset.price;
-    const price = parsePriceRaw(rawPrice);
+    const name = node.dataset.name;
+    const price = Number(node.dataset.price); // must be numeric
 
     const buyBtn = node.querySelector(".buy-btn");
     if (!buyBtn) return;
 
-    buyBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      addToCart({ id, name, price, qty: 1 });
-      // open cart modal so user can confirm
+    buyBtn.addEventListener("click", () => {
+      // Add item to cart
+      if (!cart[id]) cart[id] = { name, price, qty: 0 };
+      cart[id].qty += 1;
+
+      // Open cart modal and focus on name input to collect customer info
+      renderCart();
       openCart();
-      // focus name input if present so user can quickly type details
-      if (nameInput) nameInput.focus();
+      nameInput && nameInput.focus();
     });
   });
 
-  // Cart modal controls
+  // Cart open/close
   if (cartBtn) cartBtn.addEventListener("click", () => {
     renderCart();
     openCart();
   });
   if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+
+  function openCart() {
+    cartModal.classList.remove("hidden");
+  }
+  function closeCart() {
+    cartModal.classList.add("hidden");
+  }
+
+  // Clear cart
   if (clearCartBtn) clearCartBtn.addEventListener("click", () => {
     Object.keys(cart).forEach(k => delete cart[k]);
     renderCart();
   });
 
-  function openCart() {
-    if (!cartModal) return;
-    cartModal.classList.remove("hidden");
-  }
-  function closeCart() {
-    if (!cartModal) return;
-    cartModal.classList.add("hidden");
-  }
-
-  // Place order: basic validation and send via FormSubmit (existing flow)
-  if (placeOrderBtn) {
-    placeOrderBtn.addEventListener("click", async () => {
-      const name = nameInput?.value?.trim();
-      const phone = phoneInput?.value?.trim();
-      const notes = notesInput?.value?.trim();
-
-      if (!name) { alert("Please enter your name."); nameInput?.focus(); return; }
-      if (!phone) { alert("Please enter your phone (WhatsApp)."); phoneInput?.focus(); return; }
-      if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
-
-      placeOrderBtn.disabled = true;
-      placeOrderBtn.textContent = "Sending...";
-
-      try {
-        await sendOrderToEmail(cart, { name, phone, notes });
-        // success: clear cart and close
-        Object.keys(cart).forEach(k => delete cart[k]);
-        saveCart();
-        renderCart();
-        closeCart();
-        alert("Order sent — we'll contact you on WhatsApp to confirm pickup.");
-      } catch (err) {
-        console.warn("Send failed, fallback to mailto", err);
-        const body = buildOrderMessage(cart, { name, phone, notes });
-        window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent("Order from website")}&body=${encodeURIComponent(body)}`;
-      } finally {
-        placeOrderBtn.disabled = false;
-        placeOrderBtn.textContent = "Send Order";
-      }
-    });
-  }
-
-  // Build order message (used by email fallback and posting)
+  // Build order message text
   function buildOrderMessage(orderObj, customer) {
     const lines = [];
     lines.push(`Order for ${CONFIG.cafeName}`);
@@ -264,21 +167,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     lines.push(`--`);
     lines.push(`Total: RF ${formatMoney(total)}`);
-    lines.push(`Address/Pickup: ${CONFIG.address}`);
+    lines.push(`Pickup / Address: ${CONFIG.address}`);
     lines.push(`Sent from website`);
     return lines.join("\n");
   }
 
-  // Send order to FormSubmit (same helper as earlier)
+  // Send order to email using FormSubmit.co AJAX
   async function sendOrderToEmail(orderObj, customer) {
-    if (!CONFIG.emailAddress) throw new Error("No email configured");
-    const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(CONFIG.emailAddress)}`;
+    if (!CONFIG.emailAddress) throw new Error("No email configured in CONFIG.emailAddress");
+    const endpoint = formSubmitEndpoint(CONFIG.emailAddress);
+    const subject = `New order from ${CONFIG.cafeName} (${customer.name})`;
+    const message = buildOrderMessage(orderObj, customer);
+
     const payload = {
-      _subject: `New order from ${CONFIG.cafeName} (${customer.name})`,
+      _subject: subject,
       name: customer.name,
       phone: customer.phone,
       notes: customer.notes || "",
-      message: buildOrderMessage(orderObj, customer),
+      message: message,
       _captcha: "false"
     };
 
@@ -289,12 +195,52 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (!res.ok) {
-      const txt = await res.text().catch(() => "");
-      throw new Error(`FormSubmit error ${res.status} ${txt}`);
+      const text = await res.text().catch(() => "");
+      throw new Error(`FormSubmit failed: ${res.status} ${res.statusText} ${text}`);
     }
+
     const json = await res.json().catch(() => ({}));
     if (json.success || res.status === 200) return json;
-    throw new Error("FormSubmit did not return success");
+    throw new Error("FormSubmit didn't return success");
+  }
+
+  // Place order button action
+  if (placeOrderBtn) {
+    placeOrderBtn.addEventListener("click", async () => {
+      // simple validation
+      const name = nameInput.value && nameInput.value.trim();
+      const phone = phoneInput.value && phoneInput.value.trim();
+      const notes = notesInput.value && notesInput.value.trim();
+
+      if (!name) { alert("Please enter your name."); nameInput.focus(); return; }
+      if (!phone) { alert("Please enter your phone number (WhatsApp)."); phoneInput.focus(); return; }
+      if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
+
+      // prepare customer object
+      const customer = { name, phone, notes };
+
+      // disable button to prevent duplicates
+      placeOrderBtn.disabled = true;
+      placeOrderBtn.textContent = "Sending...";
+
+      try {
+        await sendOrderToEmail(cart, customer);
+        // success: clear cart and show confirmation
+        Object.keys(cart).forEach(k => delete cart[k]);
+        renderCart();
+        closeCart();
+        alert("Thank you — your order was sent. We'll contact you on WhatsApp to confirm pickup.");
+      } catch (err) {
+        console.warn("Send failed:", err);
+        // fallback: open mail client
+        const subject = `New order for ${CONFIG.cafeName} - ${encodeURIComponent(name)}`;
+        const body = buildOrderMessage(cart, customer);
+        window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      } finally {
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.textContent = "Send Order";
+      }
+    });
   }
 
   // Close modal on ESC
@@ -302,6 +248,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape") closeCart();
   });
 
-  // Initial UI render
+  // Initial render (empty cart)
   renderCart();
 });
