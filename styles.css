@@ -1,4 +1,4 @@
-/* Minimal professional stylesheet updates (replace/merge with your existing styles) */
+ /* Minimal professional stylesheet updates (replace/merge with your existing styles) */
 :root{
   --accent:#b94b83;
   --bg:#fffdfb;
@@ -13,7 +13,7 @@
 
 *{box-sizing:border-box}
 html,body{height:100%}
-body{font-family:var(--font);margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-font-smoothing:antialiased}
 .container{max-width:var(--container);margin:0 auto;padding:1rem}
 
 .site-header{background:var(--panel);border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:50}
@@ -108,6 +108,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:var(--text);-we
   width: 36px;
   height: 36px;
 }
+
 
 
 
