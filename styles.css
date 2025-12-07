@@ -14,7 +14,7 @@
 
 /* Name text */
 .profile-name {
-  color: #fff;
+  color: cyan;
   font-size: 15px;
   font-weight: 500;
 }
@@ -131,6 +131,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-fo
   width: 36px;
   height: 36px;
 }
+
 
 
 
