@@ -47,7 +47,7 @@
 :root {
   --accent:#b94b83;
   --bg:cyan;
-  --panel:cyan; /* cyan */
+  --panel:#6A4139; /* cyan */
   --text:#fff;
   --muted:#d7b4dd;
 
@@ -427,6 +427,7 @@ body {
     height: 220px;
   }
 }
+
 
 
 
