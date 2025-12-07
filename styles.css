@@ -1,4 +1,36 @@
-  /* Minimal professional stylesheet updates (replace/merge with your existing styles) */
+/* Container (top-left like ChatGPT) */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  position: fixed;       /* stays at top-left */
+  top: 10px;
+  left: 10px;
+  background: #1e1e2f;   /* dark panel like ChatGPT */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 999;
+}
+
+/* Avatar */
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;     /* round */
+  object-fit: cover;
+  border: 2px solid #444;
+}
+
+/* Name text */
+.profile-name {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+/* Minimal professional stylesheet updates (replace/merge with your existing styles) */
 :root{
   --accent:#b94b83;
   --bg:navy; /* changed from #fffdfb to navy */
@@ -109,6 +141,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-fo
   width: 36px;
   height: 36px;
 }
+
 
 
 
