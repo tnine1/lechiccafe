@@ -4,7 +4,7 @@
   --bg:navy; /* changed from #fffdfb to navy */
   --panel:#ffffff;
   --text:#fff; /* optional: change text to white for contrast */
-  --muted:#ccc; /* optional: muted text lighter for contrast */
+  
   --container:1100px;
   --radius:10px;
   --shadow: 0 6px 18px rgba(0,0,0,0.06);
@@ -109,6 +109,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-fo
   width: 36px;
   height: 36px;
 }
+
 
 
 
