@@ -1,6 +1,6 @@
 .profile-avatar {
   position: fixed;       /* stays in the top-left */
-  top: 10px;
+  top: 30px;
   left: 10px;
   width: 70px;
   height: 70px;
@@ -131,6 +131,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-fo
   width: 36px;
   height: 36px;
 }
+
 
 
 
