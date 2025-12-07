@@ -4,7 +4,7 @@
 .profile-avatar {
   position: fixed;
   top: 12px;
-  right: 12px;
+  left: 12px;
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -27,7 +27,7 @@
 -------------------------------------------------------------*/
 :root {
   --accent:#b94b83;
-  --bg:#470237;
+  --bg:cyan;
   --panel:cyan; /* cyan */
   --text:#fff;
   --muted:#d7b4dd;
@@ -404,5 +404,6 @@ body {
     height: 220px;
   }
 }
+
 
 
