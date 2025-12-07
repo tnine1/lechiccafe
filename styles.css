@@ -2,8 +2,8 @@
   position: fixed;       /* stays in the top-left */
   top: 10px;
   left: 10px;
-  width: 30px;
-  height: 30px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;     /* round */
   object-fit: cover;      /* clean crop */
   border: 2px solid #444; /* subtle border */
@@ -131,6 +131,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-fo
   width: 36px;
   height: 36px;
 }
+
 
 
 
