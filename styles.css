@@ -2,8 +2,8 @@
   position: fixed;       /* stays in the top-left */
   top: 10px;
   left: 10px;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;     /* round */
   object-fit: cover;      /* clean crop */
   border: 2px solid #444; /* subtle border */
@@ -23,7 +23,7 @@
 /* Minimal professional stylesheet updates (replace/merge with your existing styles) */
 :root{
   --accent:#b94b83;
-  --bg:navy; /* changed from #fffdfb to navy */
+  --bg:#470237; /* changed from #fffdfb to navy */
   --panel:gold;
   --text:#fff; /* optional: change text to white for contrast */
   
@@ -131,6 +131,7 @@ body{font-family:var(--font);margin:0;background:var(--bg);color:navy;-webkit-fo
   width: 36px;
   height: 36px;
 }
+
 
 
 
