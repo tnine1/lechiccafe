@@ -79,6 +79,10 @@ body {
   padding: 1rem;
 }
 
+.fa-whatsapp {
+  font-size: 38px;
+  color: #25D366;
+}
 
 /* ------------------------------------------------------------
    HEADER
@@ -423,6 +427,7 @@ body {
     height: 220px;
   }
 }
+
 
 
 
