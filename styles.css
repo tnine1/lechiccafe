@@ -11,6 +11,7 @@
   animation: marquee 12s linear infinite;
   font-size: 18px;
   color: gold;
+  border: cyan ;
 }
 
 @keyframes marquee {
@@ -427,6 +428,7 @@ body {
     height: 220px;
   }
 }
+
 
 
 
