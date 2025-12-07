@@ -28,7 +28,7 @@
 :root {
   --accent:#b94b83;
   --bg:#470237;
-  --panel:#f7d900; /* gold */
+  --panel:#f7d900; /* cyan */
   --text:#fff;
   --muted:#d7b4dd;
 
@@ -404,3 +404,4 @@ body {
     height: 220px;
   }
 }
+
