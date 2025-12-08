@@ -429,4 +429,65 @@ body {
     height: 220px;
   }
 }
+/* Menu icon */
+.menu-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  background: #111;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px; /* Hidden by default */
+  width: 260px;
+  height: 100vh;
+  background: #1e1e1e;
+  padding: 20px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.25);
+  overflow-y: auto;
+  transition: 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 10px 0;
+  font-size: 17px;
+}
+
+.sidebar a:hover {
+  color: #ffc107;
+}
+
+/* Panel inside sidebar */
+.sidebar .panel {
+  margin-top: 25px;
+  background: #333;
+  padding: 12px;
+  border-radius: 8px;
+  color: #eee;
+}
+
+/* Push content when sidebar is open (optional) */
+.main-content.shift {
+  margin-left: 260px;
+  transition: 0.3s ease;
+}
+
 
