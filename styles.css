@@ -116,6 +116,7 @@ body {
 }
 
 .tag {
+  align-item: center;
   margin: 0;
   font-size: 0.75rem;
   color: var(--muted);
@@ -489,6 +490,7 @@ body {
   margin-left: 260px;
   transition: 0.3s ease;
 }
+
 
 
 
