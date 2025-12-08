@@ -446,7 +446,7 @@ body {
 /* Sidebar */
 .sidebar {
   position: fixed;
-  top: 0;
+  top:50px;
   left: -260px; /* Hidden by default */
   width: 260px;
   height: 100vh;
@@ -489,5 +489,6 @@ body {
   margin-left: 260px;
   transition: 0.3s ease;
 }
+
 
 
