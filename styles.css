@@ -47,7 +47,7 @@
 -------------------------------------------------------------*/
 :root {
   --accent:#b94b83;
-  --bg:smoke-white;
+  --bg:white-green;
   --panel:#3A8C94; /* #673A94 */
   --text:#fff;
   --muted:#d7b4dd;
@@ -428,6 +428,7 @@ body {
     height: 220px;
   }
 }
+
 
 
 
