@@ -1,94 +1,183 @@
-/* ------------------------------------------------------------
-   ROOT THEME — PREMIUM CAFE DESIGN
--------------------------------------------------------------*/
-:root {
-  --primary: #0A1A2F;       /* Navy */
-  --gold: #D4AF37;          /* Royal Gold */
-  --dark: #111;             /* Deep Black */
-  --light: #ffffff;         /* White */
-  --muted: #6e6e6e;         /* Grey text */
-  --panel: #f4f4f4;         /* Light grey panels */
-
-  --radius: 14px;
-  --shadow: 0 6px 22px rgba(0,0,0,0.12);
-  --font: 'Inter', system-ui, sans-serif;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font);
-  background: var(--light);
-  color: var(--dark);
-}
-
-
-/* ------------------------------------------------------------
-   MARQUEE
--------------------------------------------------------------*/
 .marquee {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
-  background: var(--primary);
-  padding: 6px 0;
-  color: var(--gold);
+  box-sizing: border-box;
 }
 
 .marquee span {
   display: inline-block;
   padding-left: 100%;
   animation: marquee 12s linear infinite;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 18px;
+  color: gold;
+  border: cyan ;
 }
 
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
+/* ------------------------------------------------------------
+   PROFILE AVATAR (TOP RIGHT)
+-------------------------------------------------------------*/
+.profile-avatar {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  z-index: 9999;
+}
 
+.profile-name {
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+
+/* ------------------------------------------------------------
+   ROOT VARIABLES
+-------------------------------------------------------------*/
+:root {
+  --accent:#b94b83;
+  --bg:#673A94;
+  --panel:#3A8C94; /* #673A94 */
+  --text:#fff;
+  --muted:#d7b4dd;
+
+  --container:1100px;
+  --radius:12px;
+  --shadow:0 6px 18px rgba(0,0,0,0.2);
+  --font:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+}
+
+
+/* ------------------------------------------------------------
+   GLOBAL
+-------------------------------------------------------------*/
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font);
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.fa-whatsapp {
+  font-size: 38px;
+  color: #25D366;
+}
 
 /* ------------------------------------------------------------
    HEADER
 -------------------------------------------------------------*/
 .site-header {
-  background: var(--primary);
-  color: var(--light);
+  background: var(--panel);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   position: sticky;
   top: 0;
-  z-index: 1000;
-  padding: 14px 0;
-  box-shadow: var(--shadow);
+  z-index: 50;
 }
 
 .header-inner {
-  max-width: 1100px;
-  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+.brand-link {
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .brand h1 {
   margin: 0;
-  font-size: 1.7rem;
-  color: var(--gold);
+  font-size: 1.2rem;
+  color: var(--accent);
 }
 
 .tag {
-  font-size: 0.8rem;
+  align-item: center;
+  margin: 0;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
+.nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .nav-link {
+  color: var(--bg);
   text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
   font-weight: 500;
-  padding: 6px 12px;
-  color: var(--light);
 }
 
 .nav-link:hover {
-  color: var(--gold);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.social-link {
+  color: var(--accent);
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  opacity: 0.8;
+}
+
+.cart-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--bg);
+}
+
+.cart-count {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.2rem 0.55rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
 }
 
 
@@ -96,20 +185,18 @@ body {
    HERO
 -------------------------------------------------------------*/
 .hero {
-  max-width: 1100px;
-  margin: auto;
-  padding: 2.5rem 1rem;
-  text-align: center;
+  padding: 2rem 0;
 }
 
 .hero h2 {
-  font-size: 2.4rem;
-  color: var(--primary);
+  margin: 0;
+  font-size: 2rem;
+  color: #fff;
 }
 
 .hero-sub {
   color: var(--muted);
-  margin-top: 0.5rem;
+  margin: 0.5rem 0 1rem;
 }
 
 
@@ -117,24 +204,26 @@ body {
    BUTTONS
 -------------------------------------------------------------*/
 .btn {
-  background: var(--gold);
-  color: var(--dark);
-  border: none;
-  padding: 0.7rem 1.4rem;
-  border-radius: 10px;
-  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.25s ease;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: var(--shadow);
 }
 
 .btn:hover {
-  transform: scale(1.06);
+   transform: scale(1.08);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
 }
 
 .btn-outline {
   background: transparent;
-  border: 2px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--accent);
+  color: var(--accent);
 }
 
 
@@ -142,68 +231,74 @@ body {
    MENU CARDS
 -------------------------------------------------------------*/
 .menu-section {
-  max-width: 1100px;
-  margin: auto;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
-.section-header h3 {
-  font-size: 1.7rem;
-  color: var(--primary);
-  border-left: 6px solid var(--gold);
-  padding-left: 8px;
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.muted {
+  color: var(--muted);
 }
 
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
 }
 
 .menu-item {
   background: var(--panel);
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   text-align: center;
+  color: #470237;
 }
 
 .menu-item img {
   width: 100%;
-  height: 160px;
+  height: 150px;
   object-fit: cover;
-  border-radius: var(--radius);
-}
-
-.menu-item h4 {
-  margin-top: 0.6rem;
-  font-size: 1.1rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .price {
-  font-weight: 700;
-  color: var(--gold);
-  margin-top: 0.4rem;
+  color: #470237;
+  font-weight: 600;
+  margin: 0.4rem 0;
+}
+
+.item-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
 }
 
 
 /* ------------------------------------------------------------
-   ABOUT / CONTACT
+   ABOUT + CONTACT SECTION
 -------------------------------------------------------------*/
 .about-section,
 .contact-section {
-  max-width: 1100px;
-  margin: 1.5rem auto;
   background: var(--panel);
-  padding: 1.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  color: #470237;
 }
 
 .map-wrap iframe {
   width: 100%;
   height: 300px;
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 10px;
 }
 
 
@@ -211,16 +306,89 @@ body {
    FOOTER
 -------------------------------------------------------------*/
 .site-footer {
-  background: var(--primary);
-  color: var(--gold);
+  padding: 1rem 0;
   text-align: center;
-  padding: 1.2rem 0;
-  margin-top: 2rem;
+  color: var(--muted);
+  margin-top: 1rem;
 }
 
 
 /* ------------------------------------------------------------
-   WHATSAPP FLOAT BUTTON
+   MODAL
+-------------------------------------------------------------*/
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal.hidden { display: none; }
+
+.modal-panel {
+  background: var(--panel);
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  color: #470237;
+}
+
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  border: 0;
+  background: transparent;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.cart-items {
+  max-height: 230px;
+  overflow: auto;
+  margin-bottom: 1rem;
+  padding-right: 0.25rem;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed rgba(0,0,0,0.15);
+  color: #470237;
+}
+
+
+/* ------------------------------------------------------------
+   FORM
+-------------------------------------------------------------*/
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.order-form label {
+  color: #470237;
+  font-size: 0.9rem;
+}
+
+.order-form input,
+.order-form textarea {
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 0.95rem;
+}
+
+
+/* ------------------------------------------------------------
+   WHATSAPP FLOATING BUTTON
 -------------------------------------------------------------*/
 .whatsapp-float {
   position: fixed;
@@ -233,52 +401,97 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow);
-  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.whatsapp-icon {
+  width: 36px;
+  height: 36px;
 }
 
 
 /* ------------------------------------------------------------
-   SIDEBAR (NEW)
+   RESPONSIVE
 -------------------------------------------------------------*/
+@media (max-width: 600px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .map-wrap iframe {
+    height: 220px;
+  }
+}
+/* Menu icon */
 .menu-btn {
   position: fixed;
-  top: 18px;
-  left: 16px;
-  font-size: 26px;
-  background: var(--gold);
-  color: var(--dark);
-  padding: 8px 12px;
-  border-radius: 8px;
+  top: 15px;
+  left: 15px;
+  font-size: 28px;
+  background: #111;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
   cursor: pointer;
-  z-index: 2000;
+  z-index: 1001;
 }
 
+/* Sidebar */
 .sidebar {
   position: fixed;
-  top: 0;
-  left: -260px;
+  top:50px;
+  left: -260px; /* Hidden by default */
   width: 260px;
   height: 100vh;
-  background: var(--primary);
-  padding: 18px;
-  color: var(--light);
-  transition: 0.35s ease;
-  z-index: 1999;
+  background: #1e1e1e;
+  padding: 20px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.25);
+  overflow-y: auto;
+  transition: 0.3s ease;
+  z-index: 1000;
 }
 
 .sidebar.active {
   left: 0;
 }
 
+/* Sidebar links */
 .sidebar a {
-  color: var(--light);
+  display: block;
+  color: white;
   text-decoration: none;
   padding: 10px 0;
-  display: block;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .sidebar a:hover {
-  color: var(--gold);
+  color: #ffc107;
 }
+
+/* Panel inside sidebar */
+.sidebar .panel {
+  margin-top: 25px;
+  background: #333;
+  padding: 12px;
+  border-radius: 8px;
+  color: #eee;
+}
+
+/* Push content when sidebar is open (optional) */
+.main-content.shift {
+  margin-left: 260px;
+  transition: 0.3s ease;
+}
+
+
+
+
+
