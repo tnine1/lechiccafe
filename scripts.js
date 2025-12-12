@@ -1,3 +1,37 @@
+function getQueryParams() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return {
+    item: urlParams.get("item"),
+    price: urlParams.get("price"),
+  };
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const params = getQueryParams();
+
+  if (params.item && params.price) {
+    // Clear cart
+    Object.keys(cart).forEach(k => delete cart[k]);
+
+    // Add selected item
+    cart[params.item] = {
+      name: params.item.replace(/-/g, " ").toUpperCase(),
+      price: Number(params.price),
+      qty: 1
+    };
+
+    renderCart();
+    openCart();
+
+    // Change modal title
+    const title = document.getElementById("cartTitle");
+    if (title) title.textContent = `Order: ${cart[params.item].name}`;
+
+    if (nameInput) nameInput.focus();
+  }
+});
+
+
 // Configuration - set your real email and optional WhatsApp fallback
 const CONFIG = {
   emailAddress: "lechiccafe.info@gmail.com", // set your cafe email
@@ -261,4 +295,5 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebar.classList.toggle("active");
     main.classList.toggle("shift");
   };
+
 
