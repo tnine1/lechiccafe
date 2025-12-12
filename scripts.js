@@ -322,3 +322,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial render (empty cart)
     renderCart();
 });
+
+const menuBtn = document.getElementById("menuBtn");
+  const sidebar = document.getElementById("sidebar");
+  const main = document.querySelector(".main-content");
+
+  menuBtn.onclick = () => {
+    sidebar.classList.toggle("active");
+    main.classList.toggle("shift");
+  };
+
