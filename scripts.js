@@ -22,7 +22,29 @@ function formatMoney(n) {
 }
 
 // Escape helper to avoid HTML injection in item names
-function escapeHtml(s) {
+function escapeHtml(s) 
+// --- GPS helper (non-blocking, safe) ---
+function getCustomerLocation() {
+    return new Promise((resolve) => {
+        if (!navigator.geolocation) return resolve(null);
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+                resolve({
+                    lat,
+                    lng,
+                    mapLink: `https://www.google.com/maps?q=${lat},${lng}`
+                });
+            },
+            () => resolve(null),
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
+    });
+}
+
+{
     return String(s).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
@@ -127,6 +149,12 @@ function buildOrderMessage(orderObj, customer) {
     lines.push(`--`);
     lines.push(`Total: RF ${formatMoney(total)}`);
     lines.push(`Pickup / Address: ${CONFIG.address}`);
+    if (customer.location && customer.location.mapLink) {
+    lines.push(`Customer Location: ${customer.location.mapLink}`);
+} else {
+    lines.push(`Customer Location: Not shared`);
+}
+
     lines.push(`Sent from website`);
     return lines.join("\n");
 }
@@ -269,7 +297,10 @@ document.addEventListener("DOMContentLoaded", () => {
             if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
 
             // prepare customer object
-            const customer = { name, phone, notes };
+            const location = await getCustomerLocation();
+
+// prepare customer object
+const customer = { name, phone, notes, location };
 
             // disable button to prevent duplicates
             placeOrderBtn.disabled = true;
@@ -331,4 +362,5 @@ const menuBtn = document.getElementById("menuBtn");
     sidebar.classList.toggle("active");
     main.classList.toggle("shift");
   };
+
 
