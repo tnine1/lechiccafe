@@ -87,7 +87,7 @@ function buildOrderMessage(orderObj, customer) {
 
 // Build WhatsApp URL (includes order details and map link if available)
 function buildWhatsappUrl(orderObj, customer) {
-  const phone = normalizePhoneNumber(CONFIG.whatsappNumber);
+  const phone = normalizePhoneNumber(CONFIG.250790812587);
   const lines = [];
   lines.push(`*New Order for ${CONFIG.cafeName}*`);
   lines.push(`Customer: ${customer.name || "N/A"}`);
@@ -361,3 +361,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial render
   renderCart();
 });
+
