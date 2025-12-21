@@ -286,81 +286,71 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- 5. Place Order button action ---
     if (placeOrderBtn) {
-        placeOrderBtn.addEventListener("click", async () => {
-            // simple validation
-            const name = nameInput.value && nameInput.value.trim();
-            const phone = phoneInput.value && phoneInput.value.trim();
-            const notes = notesInput.value && notesInput.value.trim();
+    placeOrderBtn.addEventListener("click", async () => {
+        // simple validation
+        const name = nameInput.value && nameInput.value.trim();
+        const phone = phoneInput.value && phoneInput.value.trim();
+        const notes = notesInput.value && notesInput.value.trim();
 
-            if (!name) { alert("Please enter your name."); nameInput.focus(); return; }
-            if (!phone) { alert("Please enter your phone number (WhatsApp)."); phoneInput.focus(); return; }
-            if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
+        if (!name) { alert("Please enter your name."); nameInput.focus(); return; }
+        if (!phone) { alert("Please enter your phone number (WhatsApp)."); phoneInput.focus(); return; }
+        if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
 
-            // prepare customer object
-            const location = await getCustomerLocation();
+        // prepare customer object
+        const location = await getCustomerLocation();
+        const customer = { name, phone, notes, location };
 
-// prepare customer object
-const customer = { name, phone, notes, location };
+        // disable button to prevent duplicates
+        placeOrderBtn.disabled = true;
+        placeOrderBtn.textContent = "Sending...";
 
-            // disable button to prevent duplicates
-            placeOrderBtn.disabled = true;
-            placeOrderBtn.textContent = "Sending...";
+        try {
+            // 1. Send to Email
+            await sendOrderToEmail(cart, customer);
+            
+            // 2. Open WhatsApp (only on successful email send)
+            sendOrderToWhatsapp(cart, customer);
+            
+            // Success: clear cart and show confirmation
+            Object.keys(cart).forEach(k => delete cart[k]);
+            renderCart();
+            closeCart();
+            alert("✅ Success! Your order was sent via email and WhatsApp chat is now opening. Please use WhatsApp to finalize.");
+        } catch (err) {
+            console.warn("Send failed:", err);
+            alert("⚠️ Order sending failed. Please check your internet connection or use the email fallback.");
 
-            try {
-                // 1. Send to Email
-                await sendOrderToEmail(cart, customer);
-                
-                // 2. Open WhatsApp (only on successful email send)
-                sendOrderToWhatsapp(cart, customer);
-                
-                // Success: clear cart and show confirmation
-                Object.keys(cart).forEach(k => delete cart[k]);
-                renderCart();
-                closeCart();
-                alert("✅ Success! Your order was sent via email and WhatsApp chat is now opening. Please use WhatsApp to finalize.");
-            } catch (err) {
-                console.warn("Send failed:", err);
-                alert("⚠️ Order sending failed. Please check your internet connection or use the email fallback.");
-
-                // fallback: open mail client
-                const subject = `New order for ${CONFIG.cafeName} - ${encodeURIComponent(name)}`;
-                const body = buildOrderMessage(cart, customer);
-                window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            } finally {
-                placeOrderBtn.disabled = false;
-                placeOrderBtn.textContent = "Send Order";
-            }
-        });
-    }
-
-    // --- 6. Close modal on ESC ---
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeCart();
+            // fallback: open mail client
+            const subject = `New order for ${CONFIG.cafeName} - ${encodeURIComponent(name)}`;
+            const body = buildOrderMessage(cart, customer);
+            window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        } finally {
+            placeOrderBtn.disabled = false;
+            placeOrderBtn.textContent = "Send Order";
+        }
     });
+}
 
-    // --- 7. Sidebar/Menu Toggle ---
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebar = document.getElementById("sidebar");
-    const main = document.querySelector(".main-content");
-
-    if (menuBtn && sidebar && main) {
-        menuBtn.onclick = () => {
-            sidebar.classList.toggle("active");
-            main.classList.toggle("shift");
-        };
-    }
-
-    // Initial render (empty cart)
-    renderCart();
+// --- 6. Close modal on ESC ---
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeCart();
 });
 
+// --- 7. Sidebar/Menu Toggle ---
 const menuBtn = document.getElementById("menuBtn");
-  const sidebar = document.getElementById("sidebar");
-  const main = document.querySelector(".main-content");
+const sidebar = document.getElementById("sidebar");
+const main = document.querySelector(".main-content");
 
-  menuBtn.onclick = () => {
-    sidebar.classList.toggle("active");
-    main.classList.toggle("shift");
-  };
+if (menuBtn && sidebar && main) {
+    menuBtn.onclick = () => {
+        sidebar.classList.toggle("active");
+        main.classList.toggle("shift");
+    };
+}
+
+// Initial render (empty cart)
+renderCart();
+
+
 
 
