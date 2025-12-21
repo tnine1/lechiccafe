@@ -22,6 +22,11 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
 }
 
+function normalizePhoneNumber(n) {
+  return String(n || "").replace(/\D/g, "");
+}
+
+// Get customer location (returns {lat,lng,mapLink} or null)
 function getCustomerLocation() {
   return new Promise((resolve) => {
     if (!navigator.geolocation) return resolve(null);
@@ -44,6 +49,7 @@ function getCustomerLocation() {
   });
 }
 
+// Query params helper
 function getQueryParams() {
   const urlParams = new URLSearchParams(window.location.search);
   return {
@@ -52,14 +58,10 @@ function getQueryParams() {
   };
 }
 
-function normalizePhoneNumber(n) {
-  return String(n || "").replace(/\D/g, "");
-}
-
-function buildWhatsappUrl(orderObj, customer) {
-  const phone = normalizePhoneNumber(CONFIG.whatsappNumber);
+// Build plain text order message (email / mailto fallback)
+function buildOrderMessage(orderObj, customer) {
   const lines = [];
-  lines.push(`*New Order for ${CONFIG.cafeName}*`);
+  lines.push(`Order for ${CONFIG.cafeName}`);
   lines.push(`Customer: ${customer.name || "N/A"}`);
   lines.push(`Phone: ${customer.phone || "N/A"}`);
   if (customer.notes) lines.push(`Notes: ${customer.notes}`);
@@ -79,8 +81,70 @@ function buildWhatsappUrl(orderObj, customer) {
   } else {
     lines.push(`Customer Location: Not shared`);
   }
+  lines.push(`Sent from website`);
+  return lines.join("\n");
+}
+
+// Build WhatsApp URL (includes order details and map link if available)
+function buildWhatsappUrl(orderObj, customer) {
+  const phone = normalizePhoneNumber(CONFIG.whatsappNumber);
+  const lines = [];
+  lines.push(`*New Order for ${CONFIG.cafeName}*`);
+  lines.push(`Customer: ${customer.name || "N/A"}`);
+  lines.push(`Phone: ${customer.phone || "N/A"}`);
+  if (customer.notes) lines.push(`Notes: ${customer.notes}`);
+  lines.push(`--`);
+  let total = 0;
+  for (const id in orderObj) {
+    const it = orderObj[id];
+    const subtotal = (it.qty || 0) * Number(it.price || 0);
+    lines.push(`${it.qty} x ${it.name} — RF ${formatMoney(subtotal)}`);
+    total += subtotal;
+  }
+  lines.push(`--`);
+  lines.push(`Total: RF ${formatMoney(total)}`);
+  lines.push(`Pickup / Address: ${CONFIG.address}`);
+  if (customer.location?.mapLink) {
+    // include a short human-friendly map link and coordinates
+    lines.push(`Customer Location: ${customer.location.mapLink}`);
+    lines.push(`Coordinates: ${customer.location.lat}, ${customer.location.lng}`);
+  } else {
+    lines.push(`Customer Location: Not shared`);
+  }
   lines.push(`Please confirm and arrange pickup.`);
   return `https://wa.me/${phone}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
+
+// Send order to email via FormSubmit
+async function sendOrderToEmail(orderObj, customer) {
+  if (!CONFIG.emailAddress) throw new Error("No email configured in CONFIG.emailAddress");
+  const endpoint = formSubmitEndpoint(CONFIG.emailAddress);
+  const subject = `New order from ${CONFIG.cafeName} (${customer.name || "Unknown"})`;
+  const message = buildOrderMessage(orderObj, customer);
+
+  const payload = {
+    _subject: subject,
+    name: customer.name || "",
+    phone: customer.phone || "",
+    notes: customer.notes || "",
+    message,
+    _captcha: "false"
+  };
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`FormSubmit failed: ${res.status} ${res.statusText} ${text}`);
+  }
+
+  const json = await res.json().catch(() => ({}));
+  if (json.success || res.status === 200) return json;
+  throw new Error("FormSubmit didn't return success");
 }
 
 // Cart rendering and controls
@@ -155,64 +219,6 @@ function closeCart() {
   if (cartModal) cartModal.classList.add("hidden");
 }
 
-function buildOrderMessage(orderObj, customer) {
-  const lines = [];
-  lines.push(`Order for ${CONFIG.cafeName}`);
-  lines.push(`Customer: ${customer.name || "N/A"}`);
-  lines.push(`Phone: ${customer.phone || "N/A"}`);
-  if (customer.notes) lines.push(`Notes: ${customer.notes}`);
-  lines.push(`--`);
-  let total = 0;
-  for (const id in orderObj) {
-    const it = orderObj[id];
-    const subtotal = (it.qty || 0) * Number(it.price || 0);
-    lines.push(`${it.qty} x ${it.name} — RF ${formatMoney(subtotal)}`);
-    total += subtotal;
-  }
-  lines.push(`--`);
-  lines.push(`Total: RF ${formatMoney(total)}`);
-  lines.push(`Pickup / Address: ${CONFIG.address}`);
-  if (customer.location?.mapLink) {
-    lines.push(`Customer Location: ${customer.location.mapLink}`);
-  } else {
-    lines.push(`Customer Location: Not shared`);
-  }
-  lines.push(`Sent from website`);
-  return lines.join("\n");
-}
-
-// Send order to email via FormSubmit
-async function sendOrderToEmail(orderObj, customer) {
-  if (!CONFIG.emailAddress) throw new Error("No email configured in CONFIG.emailAddress");
-  const endpoint = formSubmitEndpoint(CONFIG.emailAddress);
-  const subject = `New order from ${CONFIG.cafeName} (${customer.name || "Unknown"})`;
-  const message = buildOrderMessage(orderObj, customer);
-
-  const payload = {
-    _subject: subject,
-    name: customer.name || "",
-    phone: customer.phone || "",
-    notes: customer.notes || "",
-    message,
-    _captcha: "false"
-  };
-
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(`FormSubmit failed: ${res.status} ${res.statusText} ${text}`);
-  }
-
-  const json = await res.json().catch(() => ({}));
-  if (json.success || res.status === 200) return json;
-  throw new Error("FormSubmit didn't return success");
-}
-
 // Main initialization
 document.addEventListener("DOMContentLoaded", () => {
   const cartBtn = document.getElementById("cartBtn");
@@ -274,9 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCart();
   });
 
-  // Place order handler with popup-safe WhatsApp opening
+  // Place order handler: open WhatsApp immediately, include live location and order details
   if (placeOrderBtn) {
-    placeOrderBtn.addEventListener("click", async (e) => {
+    placeOrderBtn.addEventListener("click", async () => {
       const name = nameInput?.value?.trim();
       const phone = phoneInput?.value?.trim();
       const notes = notesInput?.value?.trim();
@@ -292,21 +298,23 @@ document.addEventListener("DOMContentLoaded", () => {
       placeOrderBtn.textContent = "Sending...";
 
       try {
+        // Get live location (may prompt user)
         const location = await getCustomerLocation();
         console.log("Customer location:", location);
         const customer = { name, phone, notes, location };
 
-        // 1. Send email
+        // 1. Send email (optional)
         await sendOrderToEmail(cart, customer);
 
-        // 2. Build WhatsApp URL and navigate the already-opened window
+        // 2. Build WhatsApp URL (includes order details and map link if available)
         const whatsappUrl = buildWhatsappUrl(cart, customer);
         console.log("WhatsApp URL:", whatsappUrl);
+
+        // Navigate the already-opened window (avoids popup blocking)
         if (whatsappWin) {
           try {
             whatsappWin.location.href = whatsappUrl;
           } catch (navErr) {
-            // If navigation fails, open fallback
             window.open(whatsappUrl, "_blank");
           }
         } else {
