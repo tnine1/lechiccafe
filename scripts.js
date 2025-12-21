@@ -285,12 +285,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // --- 5. Place Order button action ---
-    if (placeOrderBtn) {
+  // --- Place Order Button ---
+const placeOrderBtn = document.getElementById("placeOrderBtn");
+const nameInput = document.getElementById("nameInput");
+const phoneInput = document.getElementById("phoneInput");
+const notesInput = document.getElementById("notesInput");
+
+if (placeOrderBtn) {
     placeOrderBtn.addEventListener("click", async () => {
         // simple validation
-        const name = nameInput.value && nameInput.value.trim();
-        const phone = phoneInput.value && phoneInput.value.trim();
-        const notes = notesInput.value && notesInput.value.trim();
+        const name = nameInput?.value.trim();
+        const phone = phoneInput?.value.trim();
+        const notes = notesInput?.value.trim();
 
         if (!name) { alert("Please enter your name."); nameInput.focus(); return; }
         if (!phone) { alert("Please enter your phone number (WhatsApp)."); phoneInput.focus(); return; }
@@ -307,10 +313,10 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // 1. Send to Email
             await sendOrderToEmail(cart, customer);
-            
+
             // 2. Open WhatsApp (only on successful email send)
             sendOrderToWhatsapp(cart, customer);
-            
+
             // Success: clear cart and show confirmation
             Object.keys(cart).forEach(k => delete cart[k]);
             renderCart();
@@ -331,12 +337,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 }
 
-// --- 6. Close modal on ESC ---
+// --- Close modal on ESC ---
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeCart();
 });
 
-// --- 7. Sidebar/Menu Toggle ---
+// --- Sidebar/Menu Toggle ---
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 const main = document.querySelector(".main-content");
@@ -348,8 +354,10 @@ if (menuBtn && sidebar && main) {
     };
 }
 
-// Initial render (empty cart)
+// --- Initial render (empty cart) ---
 renderCart();
+
+
 
 
 
