@@ -214,94 +214,109 @@ document.addEventListener("DOMContentLoaded", () => {
     cartModal.classList.add("hidden");
   }
 
-  // Place order: basic validation and send via FormSubmit (existing flow)
   if (placeOrderBtn) {
-    placeOrderBtn.addEventListener("click", async () => {
-      const name = nameInput?.value?.trim();
-      const phone = phoneInput?.value?.trim();
-      const notes = notesInput?.value?.trim();
+  placeOrderBtn.addEventListener("click", async () => {
+    const name = nameInput?.value?.trim();
+    const phone = phoneInput?.value?.trim();
+    const notes = notesInput?.value?.trim();
 
-      if (!name) { alert("Please enter your name."); nameInput?.focus(); return; }
-      if (!phone) { alert("Please enter your phone (WhatsApp)."); phoneInput?.focus(); return; }
-      if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
+    if (!name) { alert("Please enter your name."); nameInput?.focus(); return; }
+    if (!phone) { alert("Please enter your phone (WhatsApp)."); phoneInput?.focus(); return; }
+    if (Object.keys(cart).length === 0) { alert("Your cart is empty."); return; }
 
-      placeOrderBtn.disabled = true;
-      placeOrderBtn.textContent = "Sending...";
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = "Sending...";
 
-      try {
-        await sendOrderToEmail(cart, { name, phone, notes });
-        // success: clear cart and close
-        Object.keys(cart).forEach(k => delete cart[k]);
-        saveCart();
-        renderCart();
-        closeCart();
-        alert("Order sent — we'll contact you on WhatsApp to confirm pickup.");
-      } catch (err) {
-        console.warn("Send failed, fallback to mailto", err);
-        const body = buildOrderMessage(cart, { name, phone, notes });
-        window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent("Order from website")}&body=${encodeURIComponent(body)}`;
-      } finally {
-        placeOrderBtn.disabled = false;
-        placeOrderBtn.textContent = "Send Order";
+    try {
+      // Ask for location permission
+      let locationText = "";
+      if (navigator.geolocation) {
+        await new Promise((resolve) => {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              locationText = `Lat: ${pos.coords.latitude}, Lng: ${pos.coords.longitude}`;
+              resolve();
+            },
+            () => resolve() // ignore errors, continue
+          );
+        });
       }
-    });
-  }
 
-  // Build order message (used by email fallback and posting)
-  function buildOrderMessage(orderObj, customer) {
-    const lines = [];
-    lines.push(`Order for ${CONFIG.cafeName}`);
-    lines.push(`Customer: ${customer.name}`);
-    lines.push(`Phone: ${customer.phone}`);
-    if (customer.notes) lines.push(`Notes: ${customer.notes}`);
-    lines.push(`--`);
-    let total = 0;
-    for (const id in orderObj) {
-      const it = orderObj[id];
-      const subtotal = it.qty * Number(it.price);
-      lines.push(`${it.qty} x ${it.name} — RF ${formatMoney(subtotal)}`);
-      total += subtotal;
+      // Send to email first
+      await sendOrderToEmail(cart, { name, phone, notes, location: locationText });
+
+      // Build WhatsApp message
+      const body = buildOrderMessage(cart, { name, phone, notes, location: locationText });
+      const whatsappUrl = `https://wa.me/250781043532?text=${encodeURIComponent(body)}`;
+
+      // Open WhatsApp with prefilled message
+      window.open(whatsappUrl, "_blank");
+
+      // success: clear cart and close
+      Object.keys(cart).forEach(k => delete cart[k]);
+      saveCart();
+      renderCart();
+      closeCart();
+      alert("Order sent — we'll contact you on WhatsApp to confirm pickup.");
+    } catch (err) {
+      console.warn("Send failed, fallback to mailto", err);
+      const body = buildOrderMessage(cart, { name, phone, notes });
+      window.location.href = `mailto:${encodeURIComponent(CONFIG.emailAddress)}?subject=${encodeURIComponent("Order from website")}&body=${encodeURIComponent(body)}`;
+    } finally {
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.textContent = "Send Order";
     }
-    lines.push(`--`);
-    lines.push(`Total: RF ${formatMoney(total)}`);
-    lines.push(`Address/Pickup: ${CONFIG.address}`);
-    lines.push(`Sent from website`);
-    return lines.join("\n");
+  });
+}
+
+// Build order message (used by email, WhatsApp, and fallback)
+function buildOrderMessage(orderObj, customer) {
+  const lines = [];
+  lines.push(`Order for ${CONFIG.cafeName}`);
+  lines.push(`Customer: ${customer.name}`);
+  lines.push(`Phone: ${customer.phone}`);
+  if (customer.notes) lines.push(`Notes: ${customer.notes}`);
+  if (customer.location) lines.push(`Location: ${customer.location}`);
+  lines.push(`--`);
+  let total = 0;
+  for (const id in orderObj) {
+    const it = orderObj[id];
+    const subtotal = it.qty * Number(it.price);
+    lines.push(`${it.qty} x ${it.name} — RF ${formatMoney(subtotal)}`);
+    total += subtotal;
   }
+  lines.push(`--`);
+  lines.push(`Total: RF ${formatMoney(total)}`);
+  lines.push(`Address/Pickup: ${CONFIG.address}`);
+  lines.push(`Sent from website`);
+  return lines.join("\n");
+}
 
-  // Send order to FormSubmit (same helper as earlier)
-  async function sendOrderToEmail(orderObj, customer) {
-    if (!CONFIG.emailAddress) throw new Error("No email configured");
-    const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(CONFIG.emailAddress)}`;
-    const payload = {
-      _subject: `New order from ${CONFIG.cafeName} (${customer.name})`,
-      name: customer.name,
-      phone: customer.phone,
-      notes: customer.notes || "",
-      message: buildOrderMessage(orderObj, customer),
-      _captcha: "false"
-    };
+// Send order to FormSubmit (same helper as earlier)
+async function sendOrderToEmail(orderObj, customer) {
+  if (!CONFIG.emailAddress) throw new Error("No email configured");
+  const endpoint = `https://formsubmit.co/ajax/${encodeURIComponent(CONFIG.emailAddress)}`;
+  const payload = {
+    _subject: `New order from ${CONFIG.cafeName} (${customer.name})`,
+    name: customer.name,
+    phone: customer.phone,
+    notes: customer.notes || "",
+    location: customer.location || "",
+    message: buildOrderMessage(orderObj, customer),
+    _captcha: "false"
+  };
 
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (!res.ok) {
-      const txt = await res.text().catch(() => "");
-      throw new Error(`FormSubmit error ${res.status} ${txt}`);
-    }
-    const json = await res.json().catch(() => ({}));
-    if (json.success || res.status === 200) return json;
-    throw new Error("FormSubmit did not return success");
-  }
-
-  // Close modal on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeCart();
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
   });
 
-  // Initial UI render
-  renderCart();
-});
+  if (!res.ok) {
+    const txt = await res.text().catch(() => "");
+    throw new Error(`FormSubmit error ${res.status} ${txt}`);
+  }
+  const json = await res.json().catch(() => ({}));
+  if (json.success || res.status === 200) return json;
+  throw new Error("FormSubmit did not return success");
+}
