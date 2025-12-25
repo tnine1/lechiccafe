@@ -353,3 +353,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial UI render
   renderCart();
 });
+
+ const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const main = document.querySelector(".main-content");
+
+    if (menuBtn && sidebar && main) {
+        menuBtn.onclick = () => {
+            sidebar.classList.toggle("active");
+            main.classList.toggle("shift");
+        };
+    }
+
