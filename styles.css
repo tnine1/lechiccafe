@@ -445,23 +445,25 @@ body {
 }
 
 /* Sidebar */
-.sidebar {
+..sidebar {
   position: fixed;
-  top:50px;
-  left: -260px; /* Hidden by default */
-  width: 260px;
-  height: 100vh;
-  background: #1e1e1e;
+  left: -250px;
+  width: 250px;
+  top: 0;
+  bottom: 0;
+  background: #333;
+  color: #fff;
+  transition: left 0.3s ease;
   padding: 20px;
-  box-shadow: 4px 0 12px rgba(0,0,0,0.25);
-  overflow-y: auto;
-  transition: 0.3s ease;
-  z-index: 1000;
 }
-
 .sidebar.active {
   left: 0;
 }
+.main-content.shift {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
 
 /* Sidebar links */
 .sidebar a {
@@ -490,6 +492,7 @@ body {
   margin-left: 260px;
   transition: 0.3s ease;
 }
+
 
 
 
