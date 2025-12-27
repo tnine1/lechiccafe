@@ -11,7 +11,7 @@
   animation: marquee 12s linear infinite;
   font-size: 18px;
   color: gold;
-  border: cyan ;
+  /* removed invalid border value */
 }
 
 @keyframes marquee {
@@ -116,7 +116,7 @@ body {
 }
 
 .tag {
-  align-item: center;
+  align-items: center;
   margin: 0;
   font-size: 0.75rem;
   color: var(--muted);
@@ -213,6 +213,7 @@ body {
   text-decoration: none;
   font-weight: 500;
   box-shadow: var(--shadow);
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
 .btn:hover {
@@ -229,6 +230,8 @@ body {
 
 /* ------------------------------------------------------------
    MENU CARDS
+   (new styles inspired by fadharcoffeeresto cards: image media,
+   overlay badges, hover lift, subtle transitions)
 -------------------------------------------------------------*/
 .menu-section {
   padding: 1rem 0;
@@ -251,35 +254,179 @@ body {
   gap: 1rem;
 }
 
-.menu-item {
-  background: var(--panel);
-  padding: 0.8rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  text-align: center;
-  color: #470237;
-}
-
-.menu-item img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-}
-
-.price {
-  color: #470237;
-  font-weight: 600;
-  margin: 0.4rem 0;
-}
-
-.item-actions {
+/* Card base */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03));
+  border-radius: calc(var(--radius) - 2px);
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  color: #470237;
+  position: relative;
+}
+
+/* Hover lift */
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 18px 32px rgba(0,0,0,0.28);
+}
+
+/* Media area */
+.card-media {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  background: #2a2a2a;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+
+/* subtle zoom on hover */
+.card:hover .card-media img {
+  transform: scale(1.06);
+}
+
+/* overlay gradient (soften image / make text readable) */
+.card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.25) 70%);
+  pointer-events: none;
+}
+
+/* Card body */
+.card-body {
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1 1 auto;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0;
+  color: #2b1024;
+}
+
+.card-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+  flex: 1 0 auto;
+}
+
+/* item actions inside card */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 0.5rem;
 }
 
+/* price badge inside card */
+.price {
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), #ff7bb3);
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 12px rgba(185,75,131,0.18);
+}
+
+/* add to cart button smaller */
+.card .btn {
+  padding: 0.45rem 0.7rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+/* small helper text */
+.card-note {
+  font-size: 0.8rem;
+  color: #6a3a59;
+}
+
+/* ------------------------------------------------------------
+   NOTATIONS / BADGES / RIBBONS
+-------------------------------------------------------------*/
+/* simple badge */
+.badge {
+  display: inline-block;
+  background: rgba(0,0,0,0.08);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  backdrop-filter: blur(4px);
+}
+
+/* top-left colored badge (e.g. "New") */
+.card .badge-top {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.35rem 0.6rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  box-shadow: 0 6px 14px rgba(185,75,131,0.18);
+}
+
+/* small circular count badge */
+.count-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  padding: 0.25rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+/* ribbon (angled label at top-right) */
+.ribbon {
+  position: absolute;
+  right: -36px;
+  top: 12px;
+  width: 140px;
+  transform: rotate(45deg);
+  background: linear-gradient(90deg, #ffc107, #ff8a00);
+  color: #111;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+  padding: 6px 0;
+}
+
+/* price badge pinned to bottom-left */
+.price-badge {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: rgba(255,255,255,0.92);
+  color: #470237;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
 
 /* ------------------------------------------------------------
    ABOUT + CONTACT SECTION
@@ -302,7 +449,7 @@ body {
 }
 
 
-/* ------------------------------------------------------------
+ /* ------------------------------------------------------------
    FOOTER
 -------------------------------------------------------------*/
 .site-footer {
@@ -445,7 +592,7 @@ body {
 }
 
 /* Sidebar */
-..sidebar {
+.sidebar {
   position: fixed;
   left: -250px;
   width: 250px;
@@ -455,6 +602,7 @@ body {
   color: #fff;
   transition: left 0.3s ease;
   padding: 20px;
+  z-index: 1002;
 }
 .sidebar.active {
   left: 0;
@@ -489,12 +637,76 @@ body {
 
 /* Push content when sidebar is open (optional) */
 .main-content.shift {
-  margin-left: 260px;
+  margin-left: 250px;
   transition: 0.3s ease;
 }
 
+/* ------------------------------------------------------------
+   MOTIONS / ANIMATIONS (notations that add life)
+-------------------------------------------------------------*/
+/* gentle pulse for badges or highlights */
+.pulse {
+  animation: pulse 2000ms infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.03); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
 
+/* slow floating motion for decorative items */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
 
+/* small slide-in entrance */
+.slide-in {
+  animation: slideIn 420ms cubic-bezier(.2,.9,.2,1) both;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
+/* tilt micro-interaction for cards (works with pointer devices) */
+.card-tilt {
+  transform-origin: center;
+  transition: transform 220ms ease;
+}
+.card-tilt:hover {
+  transform: perspective(600px) rotateX(2deg) rotateY(-2deg) translateY(-6px);
+}
 
+/* shimmer / shine (for special attention) */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  animation: shimmer 1.6s infinite;
+}
+@keyframes shimmer {
+  0% { left: -120%; }
+  100% { left: 120%; }
+}
 
+/* small utilities */
+.text-muted { color: var(--muted); }
+.text-accent { color: var(--accent); font-weight: 700; }
+.center { text-align: center; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
