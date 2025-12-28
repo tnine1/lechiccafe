@@ -92,7 +92,7 @@ body {
 .profile-avatar {
   position: fixed;
   top: 12px;
-  right: 12px;
+  left: 12px;
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -159,7 +159,7 @@ body {
 
 .nav-link {
   color: var(--text); /* make visible on panel */
-  text-decoration: none;
+  text-decoration: none ;
   padding: 0.35rem 0.6rem;
   border-radius: 6px;
   font-weight: 600;
@@ -535,7 +535,7 @@ body {
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.12);
   font-size: 0.95rem;
-   background-color: rgba(255, 255, 255, 0.02); /* semi-transparent white */
+   background-color: white;
   backdrop-filter: blur(10px); /* blurs the background behind it */
   -webkit-backdrop-filter: blur(10px); /* Safari support */
   color: var(--text);
@@ -656,5 +656,6 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
 
