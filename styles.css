@@ -191,7 +191,7 @@ body {
 .social-link:hover { opacity: 0.9; transform: translateY(-2px); }
 
 .cart-btn {
-  background: smoke-white;
+  background: transparent;
   border: none;
   cursor: pointer;
   font-size: 1rem;
@@ -535,7 +535,9 @@ body {
   border-radius: 8px;
   border: 1px solid rgba(0,0,0,0.12);
   font-size: 0.95rem;
-  background: rgba(255,255,255,0.02);
+   background-color: rgba(255, 255, 255, 0.02); /* semi-transparent white */
+  backdrop-filter: blur(10px); /* blurs the background behind it */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
   color: var(--text);
 }
 
@@ -654,4 +656,5 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
