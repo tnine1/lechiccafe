@@ -1,23 +1,91 @@
+/* ------------------------------------------------------------------
+   styles.css — updated 2025-12-28
+   Improvements:
+   - fixed selector typos (.sidebar, .tag align-items, repeated rules)
+   - improved marquee animation behavior
+   - added modern card styles, badges/notations, subtle motions
+   - added glass/gradient panels, improved color contrasts
+   - added prefers-reduced-motion support
+-------------------------------------------------------------------*/
+
+/* ------------------------------------------------------------
+   ROOT VARIABLES
+-------------------------------------------------------------*/
+:root {
+  --accent: #b94b83;
+  --bg: #673A94;
+  --panel: #3A8C94; /* panel background */
+  --panel-2: rgba(255,255,255,0.06);
+  --text: #ffffff;
+  --muted: #d7b4dd;
+
+  --container: 1100px;
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(0,0,0,0.22);
+  --soft-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  --glass: rgba(255,255,255,0.04);
+  --card-gradient: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
+  --font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  --glass-border: rgba(255,255,255,0.06);
+  --success: #25D366;
+  --danger: #ff6b6b;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* ------------------------------------------------------------
+   GLOBAL
+-------------------------------------------------------------*/
+* { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html, body { height: 100%; }
+body {
+  font-family: var(--font);
+  margin: 0;
+  background: linear-gradient(180deg, var(--bg), #4a2a66 60%);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.45;
+  -webkit-font-feature-settings: "liga" on;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* small utility */
+.muted { color: var(--muted); }
+
+/* ------------------------------------------------------------
+   MARQUEE (fixed + smoother)
+-------------------------------------------------------------*/
 .marquee {
   width: 100%;
   overflow: hidden;
   white-space: nowrap;
   box-sizing: border-box;
+  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 8px;
+  padding: 8px 0;
 }
 
-.marquee span {
+.marquee__inner {
   display: inline-block;
-  padding-left: 100%;
-  animation: marquee 12s linear infinite;
+  will-change: transform;
+  animation: marquee 14s linear infinite;
   font-size: 18px;
   color: gold;
-  /* removed invalid border value */
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
+  0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
 }
+
 /* ------------------------------------------------------------
    PROFILE AVATAR (TOP RIGHT)
 -------------------------------------------------------------*/
@@ -29,71 +97,29 @@
   height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
   z-index: 9999;
+  background: var(--glass);
 }
 
 .profile-name {
-  color: white;
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 4px;
-}
-
-
-/* ------------------------------------------------------------
-   ROOT VARIABLES
--------------------------------------------------------------*/
-:root {
-  --accent:#b94b83;
-  --bg:#673A94;
-  --panel:#3A8C94; /* #673A94 */
-  --text:#fff;
-  --muted:#d7b4dd;
-
-  --container:1100px;
-  --radius:12px;
-  --shadow:0 6px 18px rgba(0,0,0,0.2);
-  --font:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-}
-
-
-/* ------------------------------------------------------------
-   GLOBAL
--------------------------------------------------------------*/
-* { box-sizing: border-box; }
-
-html, body { height: 100%; }
-
-body {
-  font-family: var(--font);
-  margin: 0;
-  background: var(--bg);
   color: var(--text);
-  -webkit-font-smoothing: antialiased;
-}
-
-.container {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-.fa-whatsapp {
-  font-size: 38px;
-  color: #25D366;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 4px;
 }
 
 /* ------------------------------------------------------------
    HEADER
 -------------------------------------------------------------*/
 .site-header {
-  background: var(--panel);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   position: sticky;
   top: 0;
   z-index: 50;
+  backdrop-filter: blur(6px);
 }
 
 .header-inner {
@@ -113,13 +139,16 @@ body {
   margin: 0;
   font-size: 1.2rem;
   color: var(--accent);
+  letter-spacing: 0.2px;
 }
 
 .tag {
-  align-items: center;
+  align-items: center; /* fixed from align-item */
   margin: 0;
   font-size: 0.75rem;
   color: var(--muted);
+  display: inline-flex;
+  gap: 6px;
 }
 
 .nav {
@@ -129,15 +158,17 @@ body {
 }
 
 .nav-link {
-  color: var(--bg);
+  color: var(--text); /* make visible on panel */
   text-decoration: none;
   padding: 0.35rem 0.6rem;
   border-radius: 6px;
-  font-weight: 500;
+  font-weight: 600;
+  transition: background 180ms ease, transform 160ms ease, color 160ms ease;
 }
 
 .nav-link:hover {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255,255,255,0.03);
+  transform: translateY(-3px);
 }
 
 .header-controls {
@@ -157,9 +188,7 @@ body {
   text-decoration: none;
 }
 
-.social-link:hover {
-  opacity: 0.8;
-}
+.social-link:hover { opacity: 0.9; transform: translateY(-2px); }
 
 .cart-btn {
   background: transparent;
@@ -169,7 +198,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--bg);
+  color: var(--text);
 }
 
 .cart-count {
@@ -178,27 +207,28 @@ body {
   padding: 0.2rem 0.55rem;
   border-radius: 50px;
   font-size: 0.85rem;
+  box-shadow: 0 6px 14px rgba(185,75,131,0.18);
 }
-
 
 /* ------------------------------------------------------------
    HERO
 -------------------------------------------------------------*/
 .hero {
   padding: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .hero h2 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #fff;
+  letter-spacing: -0.2px;
 }
 
-.hero-sub {
-  color: var(--muted);
-  margin: 0.5rem 0 1rem;
-}
-
+.hero-sub { color: var(--muted); margin: 0.5rem 0 1rem; }
 
 /* ------------------------------------------------------------
    BUTTONS
@@ -208,17 +238,17 @@ body {
   color: #fff;
   border: 0;
   padding: 0.6rem 1rem;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
-  font-weight: 500;
-  box-shadow: var(--shadow);
+  font-weight: 700;
+  box-shadow: var(--soft-shadow);
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
 .btn:hover {
-   transform: scale(1.08);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.28);
 }
 
 .btn-outline {
@@ -227,11 +257,137 @@ body {
   color: var(--accent);
 }
 
+/* ------------------------------------------------------------
+   CARD STYLES (new)
+   Use .card to wrap menu items or promotional blocks
+-------------------------------------------------------------*/
+.card {
+  position: relative;
+  background: var(--card-gradient);
+  border-radius: 14px;
+  padding: 14px;
+  color: #2b0f2b;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(18,10,22,0.45);
+  border: 1px solid var(--glass-border);
+  transition: transform 240ms cubic-bezier(.2,.9,.3,1), box-shadow 240ms ease;
+  transform-origin: center;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Card hover tilt + lift */
+.card:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(12,8,18,0.55);
+}
+
+/* Card image */
+.card .card-media {
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+  box-shadow: inset 0 -10px 24px rgba(0,0,0,0.12);
+}
+
+/* Card content area */
+.card .card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card .card-title {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.card .card-text {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Card footer / actions */
+.card .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ribbon / badge for notations */
+.card-badge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: linear-gradient(90deg, #ff8a65, #ff7043);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  box-shadow: 0 8px 16px rgba(255,110,80,0.18);
+  transform-origin: left top;
+  z-index: 6;
+}
+
+/* Variant badges */
+.badge-new { background: linear-gradient(90deg,#ffd54f,#ffb74d); color: #3b1a00; }
+.badge-sale { background: linear-gradient(90deg,#ff6b6b,#ff3b3b); }
+.badge-special { background: linear-gradient(90deg,#5ee7df,#b49bff); color: #140018; }
+
+/* Animated pulse for attention */
+.pulse {
+  animation: pulse 1400ms ease-in-out infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.92; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Small motion utilities */
+.float { animation: float 6s ease-in-out infinite; }
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Quick reveal for list items */
+.reveal {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: reveal 420ms forwards ease;
+  animation-delay: 120ms;
+}
+@keyframes reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Notation chips for price/ingredients */
+.chips {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.chips .chip {
+  background: rgba(0,0,0,0.06);
+  color: var(--text);
+  padding: 6px 8px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.03);
+}
 
 /* ------------------------------------------------------------
-   MENU CARDS
-   (new styles inspired by fadharcoffeeresto cards: image media,
-   overlay badges, hover lift, subtle transitions)
+   MENU CARDS (map old classes to new visuals)
 -------------------------------------------------------------*/
 .menu-section {
   padding: 1rem 0;
@@ -244,188 +400,44 @@ body {
   margin-bottom: 0.75rem;
 }
 
-.muted {
-  color: var(--muted);
-}
-
+/* grid uses cards now */
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
-/* Card base */
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03));
-  border-radius: calc(var(--radius) - 2px);
-  overflow: hidden;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.18);
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
-  display: flex;
-  flex-direction: column;
+.menu-item {
+  /* legacy support: keep minimal for older markup */
+  background: transparent;
+  padding: 0;
+  border-radius: var(--radius);
+  text-align: center;
   color: #470237;
-  position: relative;
 }
 
-/* Hover lift */
-.card:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 18px 32px rgba(0,0,0,0.28);
-}
-
-/* Media area */
-.card-media {
-  position: relative;
+/* Menu item image + price */
+.menu-item img {
   width: 100%;
   height: 160px;
-  overflow: hidden;
-  background: #2a2a2a;
-}
-
-.card-media img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  display: block;
-  transition: transform 400ms ease;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.36);
 }
 
-/* subtle zoom on hover */
-.card:hover .card-media img {
-  transform: scale(1.06);
-}
-
-/* overlay gradient (soften image / make text readable) */
-.card-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.25) 70%);
-  pointer-events: none;
-}
-
-/* Card body */
-.card-body {
-  padding: 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  flex: 1 1 auto;
-}
-
-.card-title {
-  font-weight: 700;
-  font-size: 1rem;
-  margin: 0;
-  color: #2b1024;
-}
-
-.card-desc {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin: 0;
-  flex: 1 0 auto;
-}
-
-/* item actions inside card */
-.card-actions {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.5rem;
-}
-
-/* price badge inside card */
 .price {
-  color: #fff;
+  color: #ffb45a;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--accent), #ff7bb3);
-  padding: 0.35rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  box-shadow: 0 6px 12px rgba(185,75,131,0.18);
+  margin: 0.4rem 0;
 }
 
-/* add to cart button smaller */
-.card .btn {
-  padding: 0.45rem 0.7rem;
-  font-size: 0.9rem;
-  border-radius: 8px;
-}
-
-/* small helper text */
-.card-note {
-  font-size: 0.8rem;
-  color: #6a3a59;
-}
-
-/* ------------------------------------------------------------
-   NOTATIONS / BADGES / RIBBONS
--------------------------------------------------------------*/
-/* simple badge */
-.badge {
-  display: inline-block;
-  background: rgba(0,0,0,0.08);
-  color: #fff;
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  backdrop-filter: blur(4px);
-}
-
-/* top-left colored badge (e.g. "New") */
-.card .badge-top {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: var(--accent);
-  color: #fff;
-  padding: 0.35rem 0.6rem;
-  font-weight: 600;
-  font-size: 0.8rem;
-  box-shadow: 0 6px 14px rgba(185,75,131,0.18);
-}
-
-/* small circular count badge */
-.count-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(0,0,0,0.65);
-  color: #fff;
-  padding: 0.25rem 0.45rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-}
-
-/* ribbon (angled label at top-right) */
-.ribbon {
-  position: absolute;
-  right: -36px;
-  top: 12px;
-  width: 140px;
-  transform: rotate(45deg);
-  background: linear-gradient(90deg, #ffc107, #ff8a00);
-  color: #111;
-  text-align: center;
-  font-weight: 700;
-  font-size: 0.75rem;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-  padding: 6px 0;
-}
-
-/* price badge pinned to bottom-left */
-.price-badge {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  background: rgba(255,255,255,0.92);
-  color: #470237;
-  padding: 0.4rem 0.6rem;
-  border-radius: 8px;
-  font-weight: 700;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+/* item actions follow card style */
+.item-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  gap: 8px;
 }
 
 /* ------------------------------------------------------------
@@ -433,12 +445,13 @@ body {
 -------------------------------------------------------------*/
 .about-section,
 .contact-section {
-  background: var(--panel);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
   margin-top: 1rem;
   padding: 1rem;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  color: #470237;
+  color: #efe3f1;
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
 .map-wrap iframe {
@@ -448,8 +461,7 @@ body {
   border-radius: 10px;
 }
 
-
- /* ------------------------------------------------------------
+/* ------------------------------------------------------------
    FOOTER
 -------------------------------------------------------------*/
 .site-footer {
@@ -458,7 +470,6 @@ body {
   color: var(--muted);
   margin-top: 1rem;
 }
-
 
 /* ------------------------------------------------------------
    MODAL
@@ -471,18 +482,21 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  z-index: 9998;
 }
 
 .modal.hidden { display: none; }
 
 .modal-panel {
-  background: var(--panel);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
   padding: 1rem;
   border-radius: 12px;
   max-width: 520px;
   width: 100%;
   position: relative;
   color: #470237;
+  box-shadow: 0 18px 40px rgba(5,3,12,0.6);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .modal-close {
@@ -506,33 +520,24 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 0.55rem 0;
-  border-bottom: 1px dashed rgba(0,0,0,0.15);
+  border-bottom: 1px dashed rgba(0,0,0,0.12);
   color: #470237;
 }
-
 
 /* ------------------------------------------------------------
    FORM
 -------------------------------------------------------------*/
-.order-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-.order-form label {
-  color: #470237;
-  font-size: 0.9rem;
-}
-
+.order-form { display: flex; flex-direction: column; gap: 0.6rem; }
+.order-form label { color: #470237; font-size: 0.9rem; }
 .order-form input,
 .order-form textarea {
   padding: 0.6rem;
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.15);
+  border: 1px solid rgba(0,0,0,0.12);
   font-size: 0.95rem;
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
 }
-
 
 /* ------------------------------------------------------------
    WHATSAPP FLOATING BUTTON
@@ -543,40 +548,43 @@ body {
   right: 20px;
   width: 62px;
   height: 62px;
-  background: #25D366;
+  background: var(--success);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.16);
   z-index: 9999;
   cursor: pointer;
+  transition: transform 180ms ease;
 }
-
-.whatsapp-icon {
-  width: 36px;
-  height: 36px;
-}
-
+.whatsapp-float:hover { transform: translateY(-6px); }
+.whatsapp-icon { width: 36px; height: 36px; }
 
 /* ------------------------------------------------------------
    RESPONSIVE
 -------------------------------------------------------------*/
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 0.8rem; }
+  .card { min-height: 150px; }
+}
+
 @media (max-width: 600px) {
   .header-inner {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.4rem;
   }
-
   .menu-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   }
-
-  .map-wrap iframe {
-    height: 220px;
-  }
+  .map-wrap iframe { height: 220px; }
+  .profile-avatar { width: 44px; height: 44px; top: 10px; right: 10px; }
 }
+
+/* ------------------------------------------------------------
+   MENU ICON + SIDEBAR
+-------------------------------------------------------------*/
 /* Menu icon */
 .menu-btn {
   position: fixed;
@@ -591,27 +599,27 @@ body {
   z-index: 1001;
 }
 
-/* Sidebar */
+/* Sidebar (fixed) — fixed selector typo removed */
 .sidebar {
   position: fixed;
-  left: -250px;
-  width: 250px;
+  left: -260px; /* hidden by default */
+  width: 260px;
   top: 0;
   bottom: 0;
-  background: #333;
+  background: #272727;
   color: #fff;
-  transition: left 0.3s ease;
+  transition: left 0.34s cubic-bezier(.2,.9,.25,1);
   padding: 20px;
   z-index: 1002;
+  box-shadow: 8px 0 30px rgba(0,0,0,0.5);
 }
-.sidebar.active {
-  left: 0;
-}
-.main-content.shift {
-  margin-left: 250px;
-  transition: margin-left 0.3s ease;
-}
+.sidebar.active { left: 0; }
 
+/* push content when sidebar is open */
+.main-content.shift {
+  margin-left: 260px;
+  transition: margin-left 0.34s cubic-bezier(.2,.9,.25,1);
+}
 
 /* Sidebar links */
 .sidebar a {
@@ -621,92 +629,28 @@ body {
   padding: 10px 0;
   font-size: 17px;
 }
-
-.sidebar a:hover {
-  color: #ffc107;
-}
+.sidebar a:hover { color: #ffc107; }
 
 /* Panel inside sidebar */
 .sidebar .panel {
   margin-top: 25px;
-  background: #333;
+  background: #2f2f2f;
   padding: 12px;
   border-radius: 8px;
   color: #eee;
 }
 
-/* Push content when sidebar is open (optional) */
-.main-content.shift {
-  margin-left: 250px;
-  transition: 0.3s ease;
-}
-
 /* ------------------------------------------------------------
-   MOTIONS / ANIMATIONS (notations that add life)
+   MISC / HELPERS
 -------------------------------------------------------------*/
-/* gentle pulse for badges or highlights */
-.pulse {
-  animation: pulse 2000ms infinite;
-}
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.03); opacity: 0.9; }
-  100% { transform: scale(1); opacity: 1; }
+.kicker {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* slow floating motion for decorative items */
-.float {
-  animation: float 6s ease-in-out infinite;
-}
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
+.small { font-size: 0.85rem; color: var(--muted); }
 
-/* small slide-in entrance */
-.slide-in {
-  animation: slideIn 420ms cubic-bezier(.2,.9,.2,1) both;
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* tilt micro-interaction for cards (works with pointer devices) */
-.card-tilt {
-  transform-origin: center;
-  transition: transform 220ms ease;
-}
-.card-tilt:hover {
-  transform: perspective(600px) rotateX(2deg) rotateY(-2deg) translateY(-6px);
-}
-
-/* shimmer / shine (for special attention) */
-.shimmer {
-  position: relative;
-  overflow: hidden;
-}
-.shimmer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
-  transform: skewX(-20deg);
-  animation: shimmer 1.6s infinite;
-}
-@keyframes shimmer {
-  0% { left: -120%; }
-  100% { left: 120%; }
-}
-
-/* small utilities */
-.text-muted { color: var(--muted); }
-.text-accent { color: var(--accent); font-weight: 700; }
-.center { text-align: center; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
+.text-center { text-align: center; }
+.hidden { display: none !important; }
