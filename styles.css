@@ -538,6 +538,13 @@ body {
   background: rgba(255,255,255,0.02);
   color: var(--text);
 }
+/* Light-green cart form label text */
+#cartModal label,
+.modal .cart-form label,
+.cart-form label {
+  color: #90ee90 !important; /* light green */
+}
+
 
 /* ------------------------------------------------------------
    WHATSAPP FLOATING BUTTON
@@ -654,3 +661,4 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
