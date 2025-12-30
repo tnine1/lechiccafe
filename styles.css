@@ -504,7 +504,7 @@ body {
   right: 10px;
   top: 6px;
   border: 0;
-  background: transparent;
+  background: rgba(212, 175, 55, 0.25) /* luxury gold (very classy) */;
   font-size: 1.6rem;
   cursor: pointer;
 }
@@ -661,5 +661,6 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
 
