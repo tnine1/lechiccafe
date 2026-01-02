@@ -13,7 +13,7 @@
 -------------------------------------------------------------*/
 :root {
   --accent: #b94b83;
-  --bg: cyan;
+  --bg: #22D3EE;
   --panel: #3A8C94; /* panel background */
   --panel-2: rgba(255,255,255,0.06);
   --text: #ffffff;
@@ -661,6 +661,7 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
 
 
