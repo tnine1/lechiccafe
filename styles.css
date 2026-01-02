@@ -44,7 +44,7 @@ html, body { height: 100%; }
 body {
   font-family: var(--font);
   margin: 0;
-  background: linear-gradient(180deg, var(--bg), #4a2a66 60%);
+  background: linear-gradient(180deg, var(--bg), #111827 60%);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   line-height: 1.45;
@@ -661,6 +661,7 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
 
 
