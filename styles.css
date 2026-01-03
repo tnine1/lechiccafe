@@ -37,7 +37,12 @@
 }
 
 h4 {
-  color: blue;
+  color: #c9a24d;
+  font-weight: 600;
+
+  padding: 10px 14px;
+  border-bottom: 2px solid rgba(201, 162, 77, 0.6);
+  background: transparent;
 }
 
 
@@ -666,6 +671,7 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
 
 
