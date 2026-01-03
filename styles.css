@@ -36,6 +36,11 @@
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }
 
+h4 {
+  color: blue;
+}
+
+
 /* ------------------------------------------------------------
    GLOBAL
 -------------------------------------------------------------*/
@@ -661,6 +666,7 @@ body {
 
 .text-center { text-align: center; }
 .hidden { display: none !important; }
+
 
 
 
