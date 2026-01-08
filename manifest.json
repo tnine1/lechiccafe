@@ -1,0 +1,22 @@
+{
+  "name": "Le Chic Café",
+  "short_name": "Le Chic",
+  "description": "Le Chic Café – Coffee, Food & Fresh Juice",
+  "start_url": "/lechiccafe/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.jpeg",
+      "sizes": "192x192",
+      "type": "jpeg",
+    },
+    {
+      "src": "logo.jpeg",
+      "sizes": "512x512",
+      "type": "jpeg"
+    }
+  ]
+}
