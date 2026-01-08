@@ -412,6 +412,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+const chatToggle = document.getElementById("chatToggle");
+const chatbot = document.getElementById("chatbot");
+const closeChat = document.getElementById("closeChat");
+
+chatToggle.addEventListener("click", () => {
+  chatbot.classList.remove("hidden");
+  chatToggle.style.display = "none";
+});
+
+closeChat.addEventListener("click", () => {
+  chatbot.classList.add("hidden");
+  chatToggle.style.display = "block";
+});
 // ================== CAFE DATA ==================
 const cafe = {
   name: "Le Chic Café",
@@ -557,6 +570,7 @@ function addBotMessage(text) {
   chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
   chatBody.scrollTop = chatBody.scrollHeight;
 }
+
 
 
 
