@@ -3,7 +3,7 @@
 
 const CONFIG = {
   emailAddress: "lechiccafe.info@gmail.com", // your email (used elsewhere)
-  whatsappNumber: "+250781043532",
+  whatsappNumber: "+250790812587",
   cafeName: "Le Chic Cafe",
   address: "Kicukiro, Kigali, Rwanda",
 };
@@ -570,6 +570,7 @@ function addBotMessage(text) {
   chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
   chatBody.scrollTop = chatBody.scrollHeight;
 }
+
 
 
 
