@@ -396,3 +396,30 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+  const searchInput = document.getElementById("menuSearch");
+  const items = document.querySelectorAll(".menu-item");
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+  searchInput.addEventListener("keyup", () => {
+    const searchValue = searchInput.value.toLowerCase();
+    let visibleCount = 0;
+
+    items.forEach(item => {
+      const text = item.innerText.toLowerCase();
+
+      if (text.includes(searchValue)) {
+        item.style.display = "block";
+        visibleCount++;
+      } else {
+        item.style.display = "none";
+      }
+    });
+
+    // Hide load more when searching
+    if (searchValue.length > 0) {
+      loadMoreBtn.style.display = "none";
+    } else {
+      loadMoreBtn.style.display = "block";
+    }
+  });
+
