@@ -555,33 +555,25 @@ const leChicInfo = {
   ]
 };
 
-// ================== CHAT ELEMENTS ==================
-// ================== CHAT ELEMENTS ==================
-const chatToggle = document.getElementById("chatToggle");
-const chatBox = document.getElementById("chatBox");
-const chatBody = document.getElementById("chatBody");
-const chatInput = document.getElementById("chatInput");
+//document.addEventListener("DOMContentLoaded", () => {
 
-// Toggle chat open / close
-chatToggle.addEventListener("click", () => {
-  chatBox.style.display =
-    chatBox.style.display === "none" || chatBox.style.display === ""
-      ? "block"
-      : "none";
-});
+  // ================== CHAT ELEMENTS ==================
+  const chatToggle = document.getElementById("chatToggle");
+  const chatbot = document.getElementById("chatbot");
+  const closeChat = document.getElementById("closeChat");
+  const chatBody = document.getElementById("chatBody");
+  const chatInput = document.getElementById("chatInput");
 
+  // ================== TOGGLE CHAT ==================
+  chatToggle.addEventListener("click", () => {
+    chatbot.classList.remove("hidden");
+  });
 
+  closeChat.addEventListener("click", () => {
+    chatbot.classList.add("hidden");
+  });
 
-
-function addMessage(sender, text) {
-  const msg = document.createElement("div");
-  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
-  chatBody.appendChild(msg);
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-// ================== GREETING ==================
-window.addEventListener("load", () => {
+  // ================== GREETING ==================
   addBotMessage(
     "Muraho 👋 Welcome to <b>Le Chic Café</b> ☕<br>" +
     "Ndi <b>Lea</b> 🤍, nshobora kugufasha:<br>" +
@@ -590,91 +582,64 @@ window.addEventListener("load", () => {
     "⭐ Recommendations<br><br>" +
     "Just ask me 😊"
   );
+
+  // ================== SEND MESSAGE ==================
+  chatInput.addEventListener("keypress", e => {
+    if (e.key === "Enter" && chatInput.value.trim() !== "") {
+      const userMsg = chatInput.value;
+      addUserMessage(userMsg);
+
+      const reply = leaHybridAI(userMsg);
+      addBotMessage(reply);
+
+      chatInput.value = "";
+    }
+  });
+
+  // ================== MESSAGE UI ==================
+  function addUserMessage(text) {
+    chatBody.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  function addBotMessage(text) {
+    chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  // ================== LEA HYBRID AI ==================
+  function leaHybridAI(userMessage) {
+    const msg = userMessage.toLowerCase();
+
+    for (let item of leChicMenu) {
+      if (msg.includes(item.name.toLowerCase())) {
+        return `${item.name} costs ${item.price} RWF`;
+      }
+    }
+
+    if (msg.includes("open") || msg.includes("hours"))
+      return leChicInfo.hours;
+
+    if (msg.includes("where") || msg.includes("location"))
+      return leChicInfo.location;
+
+    if (msg.includes("contact") || msg.includes("phone"))
+      return leChicInfo.phone.join(" / ");
+
+    if (msg.includes("recommend"))
+      return "I recommend Cappuccino ☕, Tropical Smoothie 🥭, or Chicken Wrap 🌯";
+
+    return "🤍 I can help with menu, prices, location & recommendations 😊";
+  }
+
 });
 
-// ================== BOT LOGIC ==================
-function getBotReply(msg) {
-  msg = msg.toLowerCase();
-
-  if (msg.includes("location") || msg.includes("where"))
-    return `📍 ${cafe.location}`;
-
-  if (msg.includes("open") || msg.includes("hours"))
-    return `⏰ ${cafe.hours}`;
-
-  if (msg.includes("recommend") || msg.includes("suggest"))
-    return "⭐ Recommendation: Cappuccino (2,500 RWF) or Chicken Pizza (8,000 RWF).";
-
-  if (msg.includes("cheap") || msg.includes("budget"))
-    return "💡 Budget choice: Single Espresso (1,500 RWF) or Plain Beef Burger (4,000 RWF).";
-
-  if (msg.includes("menu"))
-    return "📋 We serve Coffee, Tea, Juice, Burgers, Chicken, Fish & Pizza. Ask any item name!";
-
-  for (let item of cafe.menu) {
-    if (msg.includes(item.name.toLowerCase())) {
-      return `💰 ${item.name} costs ${item.price} RWF`;
-    }
-  }
-
-  return "🤍 I can help with menu prices, location, hours & recommendations.";
-}
-
-// ================== SEND MESSAGE ==================
-chatInput.addEventListener("keypress", e => {
-  if (e.key === "Enter" && chatInput.value.trim() !== "") {
-    const userMsg = chatInput.value;
-    addUserMessage(userMsg);
-
-    const reply = getBotReply(userMsg);
-    addBotMessage(reply);
-
-    chatInput.value = "";
-  }
-});
-
-// ================== MESSAGE UI ==================
-function addUserMessage(text) {
-  chatBody.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-function addBotMessage(text) {
-  chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
-
-function leaHybridAI(userMessage){
-  const msg = userMessage.toLowerCase();
-
-  for (let item of leChicMenu) {
-    if (msg.includes(item.name.toLowerCase())) {
-      return `${item.name} costs ${item.price} RWF`;
-    }
-  }
-
-  if (msg.includes("open") || msg.includes("hours")) return leChicInfo.hours;
-  if (msg.includes("where") || msg.includes("location")) return leChicInfo.location;
-  if (msg.includes("contact") || msg.includes("phone")) return leChicInfo.phone.join(" / ");
-
-  if (msg.includes("recommend")) {
-    return "I recommend Cappuccino ☕, Tropical Smoothie 🥭, or Chicken Wrap 🌯";
-  }
-
-  return "I can help you with our full menu, prices, and café information 😊";
-}
-
-
-
-
-
+// ================== SERVICE WORKER ==================
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js")
     .then(() => console.log("Service Worker Registered"));
 }
 
-
-return leaHybridAI;
 
 
 
