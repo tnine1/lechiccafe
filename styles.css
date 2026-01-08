@@ -691,6 +691,25 @@ body {
 #loadMoreBtn:hover {
   background: #673A94;
 }
+.menu-search {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.menu-search input {
+  width: 90%;
+  max-width: 400px;
+  padding: 12px 18px;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+.menu-search input:focus {
+  border-color: #4a2a66;
+}
+
 
 
 
