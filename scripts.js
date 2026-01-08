@@ -365,3 +365,34 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
+
+  const items = document.querySelectorAll(".menu-item");
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+  let visibleItems = 9; // izigaragara mbere
+
+  // Hisha izirenze 9
+  items.forEach((item, index) => {
+    if (index >= visibleItems) {
+      item.style.display = "none";
+    }
+  });
+
+  loadMoreBtn.addEventListener("click", () => {
+    let newVisible = visibleItems + 3; // ongeramo 3 (wahindura)
+
+    items.forEach((item, index) => {
+      if (index < newVisible) {
+        item.style.display = "block";
+      }
+    });
+
+    visibleItems = newVisible;
+
+    // Niba zose zagaragaye, hisha button
+    if (visibleItems >= items.length) {
+      loadMoreBtn.style.display = "none";
+    }
+  });
+
+
