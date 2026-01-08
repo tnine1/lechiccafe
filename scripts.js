@@ -365,61 +365,52 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-
-  const items = document.querySelectorAll(".menu-item");
+  const items = Array.from(document.querySelectorAll(".menu-item"));
   const loadMoreBtn = document.getElementById("loadMoreBtn");
-
-  let visibleItems = 9; // izigaragara mbere
-
-  // Hisha izirenze 9
-  items.forEach((item, index) => {
-    if (index >= visibleItems) {
-      item.style.display = "none";
-    }
-  });
-
-  loadMoreBtn.addEventListener("click", () => {
-    let newVisible = visibleItems + 3; // ongeramo 3 (wahindura)
-
-    items.forEach((item, index) => {
-      if (index < newVisible) {
-        item.style.display = "block";
-      }
-    });
-
-    visibleItems = newVisible;
-
-    // Niba zose zagaragaye, hisha button
-    if (visibleItems >= items.length) {
-      loadMoreBtn.style.display = "none";
-    }
-  });
-
-
   const searchInput = document.getElementById("menuSearch");
-  const items = document.querySelectorAll(".menu-item");
-  const loadMoreBtn = document.getElementById("loadMoreBtn");
 
-  searchInput.addEventListener("keyup", () => {
-    const searchValue = searchInput.value.toLowerCase();
-    let visibleCount = 0;
+  const ITEMS_PER_LOAD = 3;
+  const INITIAL_ITEMS = 9;
 
-    items.forEach(item => {
-      const text = item.innerText.toLowerCase();
+  let currentVisible = INITIAL_ITEMS;
+  let isSearching = false;
 
-      if (text.includes(searchValue)) {
-        item.style.display = "block";
-        visibleCount++;
-      } else {
-        item.style.display = "none";
-      }
+  function showItems() {
+    items.forEach((item, index) => {
+      item.style.display = index < currentVisible ? "block" : "none";
     });
 
-    // Hide load more when searching
-    if (searchValue.length > 0) {
+    loadMoreBtn.style.display =
+      currentVisible >= items.length ? "none" : "inline-block";
+  }
+
+  // INITIAL LOAD
+  showItems();
+
+  // LOAD MORE
+  loadMoreBtn.addEventListener("click", () => {
+    currentVisible += ITEMS_PER_LOAD;
+    showItems();
+  });
+
+  // SEARCH
+  searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase().trim();
+    isSearching = value.length > 0;
+
+    if (isSearching) {
       loadMoreBtn.style.display = "none";
+
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(value) ? "block" : "none";
+      });
     } else {
-      loadMoreBtn.style.display = "block";
+      currentVisible = INITIAL_ITEMS;
+      showItems();
     }
   });
+
+
+
 
