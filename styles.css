@@ -672,6 +672,26 @@ body {
 .text-center { text-align: center; }
 .hidden { display: none !important; }
 
+.load-more-container {
+  text-align: center;
+  margin: 30px 0;
+}
+
+#loadMoreBtn {
+  padding: 12px 30px;
+  background: #4a2a66;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+#loadMoreBtn:hover {
+  background: #673A94;
+}
+
 
 
 
