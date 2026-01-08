@@ -426,80 +426,132 @@ closeChat.addEventListener("click", () => {
   chatToggle.style.display = "block";
 });
 // ================== CAFE DATA ==================
-const cafe = {
+const leChicInfo = {
   name: "Le Chic Café",
-  location: "Kigali, Kicukiro – Second building after Simba Traffic Light",
-  hours: "Open 24/7 (Mon – Sun)",
+  location: "Kicukiro, second building after Simba Traffic Light",
+  hours: "Open 24/7, Monday to Sunday",
+  phone: ["+250 781 043 532", "+250 783 662 228"],
+  email: "lechiccafe.info@gmail.com",
+  website: "https://tnine1.github.io/lechiccafe/"
+};
 
-menu: [
-    // COFFEE
-    { name: "Single Espresso", price: 1500, category: "coffee" },
-    { name: "Double Espresso", price: 2000, category: "coffee" },
-    { name: "Americano", price: 2000, category: "coffee" },
-    { name: "Black Coffee", price: 2000, category: "coffee" },
-    { name: "Café Latte", price: 2500, category: "coffee" },
-    { name: "Cappuccino", price: 2500, category: "coffee" },
-    { name: "Cappuccino Big", price: 3000, category: "coffee" },
-    { name: "Macchiato", price: 2000, category: "coffee" },
-    { name: "Café Mocha", price: 3000, category: "coffee" },
-    { name: "African Coffee", price: 3000, category: "coffee" },
-    { name: "Hot Chocolate", price: 2500, category: "coffee" },
+/* ================= HOT DRINKS – COFFEE ================= */
+{ name:"Single Espresso", price:1500, category:"Coffee" },
+{ name:"Double Espresso", price:2000, category:"Coffee" },
+{ name:"Americano", price:2000, category:"Coffee" },
+{ name:"Black Coffee", price:2000, category:"Coffee" },
+{ name:"Black Coffee Strong", price:2000, category:"Coffee" },
+{ name:"Café Latte", price:2500, category:"Coffee" },
+{ name:"Cappuccino", price:2500, category:"Coffee" },
+{ name:"Cappuccino Big", price:3000, category:"Coffee" },
+{ name:"Strong Cappuccino", price:3000, category:"Coffee" },
+{ name:"Macchiato", price:2000, category:"Coffee" },
+{ name:"Café Mocha", price:3000, category:"Coffee" },
+{ name:"Affogato", price:3000, category:"Coffee" },
+{ name:"Flat White", price:2500, category:"Coffee" },
+{ name:"Customized Coffee", price:3500, category:"Coffee" },
+{ name:"African Coffee", price:3000, category:"Coffee" },
+{ name:"Hot Chocolate", price:2500, category:"Coffee" },
+{ name:"Vanilla Latte", price:3000, category:"Coffee" },
+{ name:"Caramel Macchiato", price:3000, category:"Coffee" },
+{ name:"Cappuccino Frappee", price:3000, category:"Coffee" },
+{ name:"Vanilla Frappee", price:4000, category:"Coffee" },
 
-    // ICED COFFEE
-    { name: "Iced Latte", price: 3000, category: "iced coffee" },
-    { name: "Iced Cappuccino", price: 3000, category: "iced coffee" },
-    { name: "Iced Mocha", price: 3500, category: "iced coffee" },
-    { name: "Iced Americano", price: 2500, category: "iced coffee" },
+/* ================= ICED COFFEE ================= */
+{ name:"Iced Cream Coffee", price:5000, category:"Iced Coffee" },
+{ name:"Iced Vanilla Latte", price:4000, category:"Iced Coffee" },
+{ name:"Iced Latte", price:3000, category:"Iced Coffee" },
+{ name:"Iced Cappuccino", price:3000, category:"Iced Coffee" },
+{ name:"Iced Mocha", price:3500, category:"Iced Coffee" },
+{ name:"Iced Americano", price:2500, category:"Iced Coffee" },
+{ name:"Iced Frappuccino", price:3500, category:"Iced Coffee" },
+{ name:"Iced Mocha Frappe", price:4000, category:"Iced Coffee" },
+{ name:"Iced Black Coffee", price:2500, category:"Iced Coffee" },
+{ name:"Iced Vanilla Frappee", price:4000, category:"Iced Coffee" },
 
-    // TEA
-    { name: "Black Tea", price: 2000, category: "tea" },
-    { name: "Green Tea", price: 2000, category: "tea" },
-    { name: "African Tea", price: 2500, category: "tea" },
-    { name: "Ginger Tea", price: 2500, category: "tea" },
-    { name: "Dawa Tea", price: 3500, category: "tea" },
+/* ================= TEA ================= */
+{ name:"Black Tea", price:2000, category:"Tea" },
+{ name:"Green Tea", price:2000, category:"Tea" },
+{ name:"African Tea", price:2500, category:"Tea" },
+{ name:"Ginger Tea", price:2500, category:"Tea" },
+{ name:"Lemon Tea", price:2000, category:"Tea" },
+{ name:"Hot Milk", price:2000, category:"Tea" },
+{ name:"Hot Water + Lemon", price:1500, category:"Tea" },
+{ name:"Hot Water", price:1000, category:"Tea" },
+{ name:"Fresh Milk", price:2000, category:"Tea" },
+{ name:"Spice Tea", price:3000, category:"Tea" },
+{ name:"Mint Tea", price:3000, category:"Tea" },
+{ name:"Russian Tea", price:2500, category:"Tea" },
+{ name:"Dawa Tea", price:3500, category:"Tea" },
 
-    // JUICE
-    { name: "Passion Juice", price: 3500, category: "juice" },
-    { name: "Mango Juice", price: 5000, category: "juice" },
-    { name: "Orange Juice", price: 4000, category: "juice" },
-    { name: "Pineapple Juice", price: 3500, category: "juice" },
-    { name: "Mojito Juice", price: 6000, category: "juice" },
+/* ================= JUICES ================= */
+{ name:"Passion Juice", price:3500, category:"Juice" },
+{ name:"Mango Juice", price:5000, category:"Juice" },
+{ name:"Pineapple Juice", price:3500, category:"Juice" },
+{ name:"Tree Tomato Juice", price:3500, category:"Juice" },
+{ name:"Orange Juice", price:4000, category:"Juice" },
+{ name:"Mocktail Juice", price:5000, category:"Juice" },
+{ name:"Detox Juice", price:5500, category:"Juice" },
+{ name:"Create Own Juice", price:5500, category:"Juice" },
+{ name:"Cocktail Juice", price:4500, category:"Juice" },
+{ name:"Mojito Juice", price:6000, category:"Juice" },
 
-    // SMOOTHIES & SHAKES
-    { name: "Mango Smooth", price: 5000, category: "smoothie" },
-    { name: "Banana Smooth", price: 5000, category: "smoothie" },
-    { name: "Vanilla Shake", price: 4500, category: "shake" },
-    { name: "Chocolate Shake", price: 4500, category: "shake" },
+/* ================= SMOOTHIES ================= */
+{ name:"Le Chic Café Special Smoothie", price:6000, category:"Smoothie" },
+{ name:"Mango Berry Smoothie", price:5000, category:"Smoothie" },
+{ name:"Banana Smoothie", price:5000, category:"Smoothie" },
+{ name:"Tango Mango Smoothie", price:5000, category:"Smoothie" },
+{ name:"Strawberry Smoothie", price:5000, category:"Smoothie" },
+{ name:"Tropical Smoothie", price:5000, category:"Smoothie" },
+{ name:"Special Mango Smoothie", price:5500, category:"Smoothie" },
 
-    // BREAKFAST
-    { name: "Scrambled Eggs with Toast", price: 5000, category: "breakfast" },
-    { name: "Spanish Omelette", price: 5000, category: "breakfast" },
-    { name: "Capati Rolex", price: 4000, category: "breakfast" },
+/* ================= MILK SHAKES ================= */
+{ name:"Vanilla Shake", price:4500, category:"Milkshake" },
+{ name:"Chocolate Shake", price:4500, category:"Milkshake" },
+{ name:"Strawberry Shake", price:4500, category:"Milkshake" },
+{ name:"Le Chic Café Shake", price:5000, category:"Milkshake" },
+{ name:"Oreo Shake", price:6000, category:"Milkshake" },
 
-    // CHICKEN
-    { name: "Chicken Leg", price: 8000, category: "chicken" },
-    { name: "Chicken Wings", price: 7000, category: "chicken" },
-    { name: "Chicken Curry", price: 8000, category: "chicken" },
+/* ================= HEALTHY CHOICE ================= */
+{ name:"Macedoine", price:4000, category:"Healthy" },
+{ name:"Fruit Platter", price:5500, category:"Healthy" },
+{ name:"Macedoine with Ice Cream", price:5000, category:"Healthy" },
+{ name:"Ice Cream One Scoop", price:1000, category:"Healthy" },
+{ name:"Ice Cream Fruit", price:8000, category:"Healthy" },
 
-    // BEEF
-    { name: "Beef Stew", price: 7000, category: "beef" },
-    { name: "Beef Brochette", price: 6500, category: "beef" },
-    { name: "Beef Steak", price: 8000, category: "beef" },
+/* ================= SOFT DRINKS ================= */
+{ name:"Big Water", price:1500, category:"Soft Drink" },
+{ name:"Mineral Water", price:1000, category:"Soft Drink" },
+{ name:"Plastic Water", price:1500, category:"Soft Drink" },
+{ name:"Small Fanta", price:1000, category:"Soft Drink" },
+{ name:"Tonic Fanta", price:1500, category:"Soft Drink" },
+{ name:"Vitalo Sparkling Water", price:1500, category:"Soft Drink" },
 
-    // FISH
-    { name: "Fish Fillet", price: 8000, category: "fish" },
-    { name: "Fish Fingers", price: 7500, category: "fish" },
+/* ================= BREAKFAST ================= */
+{ name:"3 Fried Eggs with Toast Bread", price:5000, category:"Breakfast" },
+{ name:"Sausage with Chips and Salad", price:5500, category:"Breakfast" },
+{ name:"Le Chic Café Pancakes with Plain Omelette", price:6500, category:"Breakfast" },
+{ name:"Scrambled Eggs with Toast Bread", price:5000, category:"Breakfast" },
+{ name:"Cheese and Mushroom with Potato Wedges", price:4500, category:"Breakfast" },
+{ name:"Spinach Omelette with Potato Wedges or Toast", price:7000, category:"Breakfast" },
+{ name:"Spanish Omelette with Toasted Bread", price:5000, category:"Breakfast" },
+{ name:"Special Omelette", price:5000, category:"Breakfast" },
 
-    // BURGERS
-    { name: "Plain Beef Burger", price: 4000, category: "burger" },
-    { name: "Chicken Burger", price: 6500, category: "burger" },
-    { name: "King Beef Burger", price: 8000, category: "burger" },
+/* ================= ROLEX & WRAPS ================= */
+{ name:"Chapati Rolex", price:4000, category:"Wraps" },
+{ name:"Vegetable Chapati Rolex", price:5000, category:"Wraps" },
+{ name:"Steak Omelette", price:7000, category:"Wraps" },
+{ name:"Chicken Wrap", price:5500, category:"Wraps" },
+{ name:"Fish Wrap", price:6500, category:"Wraps" },
+{ name:"Beef Wrap", price:5000, category:"Wraps" },
+{ name:"Vegetable Wrap", price:4000, category:"Wraps" },
+{ name:"Chicken Mozzarella Wrap", price:6500, category:"Wraps" },
 
-    // PIZZA
-    { name: "Margarita Pizza", price: 6000, category: "pizza" },
-    { name: "Vegetarian Pizza", price: 6500, category: "pizza" },
-    { name: "Chicken Pizza", price: 8000, category: "pizza" },
-    { name: "Kigali Style Pizza", price: 8500, category: "pizza" }
+/* ================= KIDS MENU ================= */
+{ name:"Chicken Nuggets with Chips", price:6500, category:"Kids" },
+{ name:"Kids Beef Spaghetti", price:6000, category:"Kids" },
+{ name:"Hot Dogs and Chips", price:6000, category:"Kids" }
+];pizza" }
   ]
 };
 
@@ -571,8 +623,27 @@ function addBotMessage(text) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+function leaHybridAI(userMessage){
+  const msg = userMessage.toLowerCase();
 
+  for (let item of leChicMenu) {
+    if (msg.includes(item.name.toLowerCase())) {
+      return `${item.name} costs ${item.price} RWF`;
+    }
+  }
 
+  if (msg.includes("open") || msg.includes("hours")) return leChicInfo.hours;
+  if (msg.includes("where") || msg.includes("location")) return leChicInfo.location;
+  if (msg.includes("contact") || msg.includes("phone")) return leChicInfo.phone.join(" / ");
+
+  if (msg.includes("recommend")) {
+    return "I recommend Cappuccino ☕, Tropical Smoothie 🥭, or Chicken Wrap 🌯";
+  }
+
+  return "I can help you with our full menu, prices, and café information 😊";
+}
+
+return leaHybridAI(userText);
 
 
 
