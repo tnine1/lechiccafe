@@ -556,8 +556,29 @@ const leChicInfo = {
 };
 
 // ================== CHAT ELEMENTS ==================
+// ================== CHAT ELEMENTS ==================
+const chatToggle = document.getElementById("chatToggle");
+const chatBox = document.getElementById("chatBox");
 const chatBody = document.getElementById("chatBody");
 const chatInput = document.getElementById("chatInput");
+
+// Toggle chat open / close
+chatToggle.addEventListener("click", () => {
+  chatBox.style.display =
+    chatBox.style.display === "none" || chatBox.style.display === ""
+      ? "block"
+      : "none";
+});
+
+
+
+
+function addMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  chatBody.appendChild(msg);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
 
 // ================== GREETING ==================
 window.addEventListener("load", () => {
@@ -653,6 +674,7 @@ if ("serviceWorker" in navigator) {
 }
 
 
+return leaHybridAI;
 
 
 
