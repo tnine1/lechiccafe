@@ -710,6 +710,71 @@ body {
   border-color: #4a2a66;
 }
 
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+#chatHeader {
+  background: #4a2a66;
+  color: #fff;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#chatBody {
+  height: 300px;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f7f7f7;
+  font-size: 14px;
+}
+
+#chatInput {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-top: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.msg-user {
+  text-align: right;
+  margin: 6px 0;
+}
+
+.msg-user span {
+  background: #673A94;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.msg-bot {
+  text-align: left;
+  margin: 6px 0;
+}
+
+.msg-bot span {
+  background: #eaeaea;
+  color: #333;
+  padding: 6px 10px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
 
 
 
