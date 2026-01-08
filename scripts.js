@@ -558,22 +558,38 @@ const leChicInfo = {
 //document.addEventListener("DOMContentLoaded", () => {
 
   // ================== CHAT ELEMENTS ==================
-  const chatToggle = document.getElementById("chatToggle");
-  const chatbot = document.getElementById("chatbot");
-  const closeChat = document.getElementById("closeChat");
-  const chatBody = document.getElementById("chatBody");
-  const chatInput = document.getElementById("chatInput");
+  // ================== CHAT ELEMENTS ==================
+const chatToggle = document.getElementById("chatToggle");
+const chatbot = document.getElementById("chatbot");
+const chatBody = document.getElementById("chatBody");
+const chatInput = document.getElementById("chatInput");
+const closeChat = document.getElementById("closeChat");
 
-  // ================== TOGGLE CHAT ==================
+// ================== TOGGLE CHAT ==================
+if (chatToggle && chatbot) {
   chatToggle.addEventListener("click", () => {
-    chatbot.classList.remove("hidden");
+    chatbot.classList.toggle("hidden");
   });
+}
 
+if (closeChat && chatbot) {
   closeChat.addEventListener("click", () => {
     chatbot.classList.add("hidden");
   });
+}
 
-  // ================== GREETING ==================
+// ================== GREETING ==================
+function addBotMessage(text) {
+  chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function addUserMessage(text) {
+  chatBody.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+window.addEventListener("load", () => {
   addBotMessage(
     "Muraho 👋 Welcome to <b>Le Chic Café</b> ☕<br>" +
     "Ndi <b>Lea</b> 🤍, nshobora kugufasha:<br>" +
@@ -582,62 +598,59 @@ const leChicInfo = {
     "⭐ Recommendations<br><br>" +
     "Just ask me 😊"
   );
+});
 
-  // ================== SEND MESSAGE ==================
-  chatInput.addEventListener("keypress", e => {
-    if (e.key === "Enter" && chatInput.value.trim() !== "") {
-      const userMsg = chatInput.value;
-      addUserMessage(userMsg);
+// ================== BOT LOGIC ==================
+function getBotReply(msg) {
+  msg = msg.toLowerCase();
 
-      const reply = leaHybridAI(userMsg);
-      addBotMessage(reply);
+  if (msg.includes("location") || msg.includes("where")) {
+    return `📍 ${cafe.location}`;
+  }
 
-      chatInput.value = "";
+  if (msg.includes("open") || msg.includes("hours")) {
+    return `⏰ ${cafe.hours}`;
+  }
+
+  if (msg.includes("recommend") || msg.includes("suggest")) {
+    return "⭐ Recommendation: Cappuccino (2,500 RWF) or Chicken Pizza (8,000 RWF).";
+  }
+
+  if (msg.includes("cheap") || msg.includes("budget")) {
+    return "💡 Budget choice: Single Espresso (1,500 RWF) or Plain Beef Burger (4,000 RWF).";
+  }
+
+  if (msg.includes("menu")) {
+    return "📋 We serve Coffee, Tea, Juice, Burgers, Chicken, Fish & Pizza. Ask any item name!";
+  }
+
+  for (let item of cafe.menu) {
+    if (msg.includes(item.name.toLowerCase())) {
+      return `💰 ${item.name} costs ${item.price} RWF`;
     }
-  });
-
-  // ================== MESSAGE UI ==================
-  function addUserMessage(text) {
-    chatBody.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
-    chatBody.scrollTop = chatBody.scrollHeight;
   }
 
-  function addBotMessage(text) {
-    chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
-    chatBody.scrollTop = chatBody.scrollHeight;
+  return "🤍 I can help with menu prices, location, hours & recommendations.";
+}
+
+// ================== CHAT SEND ==================
+chatInput.addEventListener("keypress", e => {
+  if (e.key === "Enter" && chatInput.value.trim() !== "") {
+    const userMsg = chatInput.value;
+    addUserMessage(userMsg);
+
+    const reply = getBotReply(userMsg);
+    addBotMessage(reply);
+
+    chatInput.value = "";
   }
-
-  // ================== LEA HYBRID AI ==================
-  function leaHybridAI(userMessage) {
-    const msg = userMessage.toLowerCase();
-
-    for (let item of leChicMenu) {
-      if (msg.includes(item.name.toLowerCase())) {
-        return `${item.name} costs ${item.price} RWF`;
-      }
-    }
-
-    if (msg.includes("open") || msg.includes("hours"))
-      return leChicInfo.hours;
-
-    if (msg.includes("where") || msg.includes("location"))
-      return leChicInfo.location;
-
-    if (msg.includes("contact") || msg.includes("phone"))
-      return leChicInfo.phone.join(" / ");
-
-    if (msg.includes("recommend"))
-      return "I recommend Cappuccino ☕, Tropical Smoothie 🥭, or Chicken Wrap 🌯";
-
-    return "🤍 I can help with menu, prices, location & recommendations 😊";
-  }
-
 });
 
 // ================== SERVICE WORKER ==================
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("Service Worker Registered"));
+    .then(() => console.log("Service Worker Registered"))
+    .catch(() => {});
 }
 
 
