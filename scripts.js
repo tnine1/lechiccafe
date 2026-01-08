@@ -643,7 +643,8 @@ function leaHybridAI(userMessage){
   return "I can help you with our full menu, prices, and café information 😊";
 }
 
-return leaHybridAI(userText);
+
+
 
 
 
