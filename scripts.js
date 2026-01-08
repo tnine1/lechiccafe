@@ -412,5 +412,153 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+// ================== CAFE DATA ==================
+const cafe = {
+  name: "Le Chic Café",
+  location: "Kigali, Kicukiro – Second building after Simba Traffic Light",
+  hours: "Open 24/7 (Mon – Sun)",
+
+menu: [
+    // COFFEE
+    { name: "Single Espresso", price: 1500, category: "coffee" },
+    { name: "Double Espresso", price: 2000, category: "coffee" },
+    { name: "Americano", price: 2000, category: "coffee" },
+    { name: "Black Coffee", price: 2000, category: "coffee" },
+    { name: "Café Latte", price: 2500, category: "coffee" },
+    { name: "Cappuccino", price: 2500, category: "coffee" },
+    { name: "Cappuccino Big", price: 3000, category: "coffee" },
+    { name: "Macchiato", price: 2000, category: "coffee" },
+    { name: "Café Mocha", price: 3000, category: "coffee" },
+    { name: "African Coffee", price: 3000, category: "coffee" },
+    { name: "Hot Chocolate", price: 2500, category: "coffee" },
+
+    // ICED COFFEE
+    { name: "Iced Latte", price: 3000, category: "iced coffee" },
+    { name: "Iced Cappuccino", price: 3000, category: "iced coffee" },
+    { name: "Iced Mocha", price: 3500, category: "iced coffee" },
+    { name: "Iced Americano", price: 2500, category: "iced coffee" },
+
+    // TEA
+    { name: "Black Tea", price: 2000, category: "tea" },
+    { name: "Green Tea", price: 2000, category: "tea" },
+    { name: "African Tea", price: 2500, category: "tea" },
+    { name: "Ginger Tea", price: 2500, category: "tea" },
+    { name: "Dawa Tea", price: 3500, category: "tea" },
+
+    // JUICE
+    { name: "Passion Juice", price: 3500, category: "juice" },
+    { name: "Mango Juice", price: 5000, category: "juice" },
+    { name: "Orange Juice", price: 4000, category: "juice" },
+    { name: "Pineapple Juice", price: 3500, category: "juice" },
+    { name: "Mojito Juice", price: 6000, category: "juice" },
+
+    // SMOOTHIES & SHAKES
+    { name: "Mango Smooth", price: 5000, category: "smoothie" },
+    { name: "Banana Smooth", price: 5000, category: "smoothie" },
+    { name: "Vanilla Shake", price: 4500, category: "shake" },
+    { name: "Chocolate Shake", price: 4500, category: "shake" },
+
+    // BREAKFAST
+    { name: "Scrambled Eggs with Toast", price: 5000, category: "breakfast" },
+    { name: "Spanish Omelette", price: 5000, category: "breakfast" },
+    { name: "Capati Rolex", price: 4000, category: "breakfast" },
+
+    // CHICKEN
+    { name: "Chicken Leg", price: 8000, category: "chicken" },
+    { name: "Chicken Wings", price: 7000, category: "chicken" },
+    { name: "Chicken Curry", price: 8000, category: "chicken" },
+
+    // BEEF
+    { name: "Beef Stew", price: 7000, category: "beef" },
+    { name: "Beef Brochette", price: 6500, category: "beef" },
+    { name: "Beef Steak", price: 8000, category: "beef" },
+
+    // FISH
+    { name: "Fish Fillet", price: 8000, category: "fish" },
+    { name: "Fish Fingers", price: 7500, category: "fish" },
+
+    // BURGERS
+    { name: "Plain Beef Burger", price: 4000, category: "burger" },
+    { name: "Chicken Burger", price: 6500, category: "burger" },
+    { name: "King Beef Burger", price: 8000, category: "burger" },
+
+    // PIZZA
+    { name: "Margarita Pizza", price: 6000, category: "pizza" },
+    { name: "Vegetarian Pizza", price: 6500, category: "pizza" },
+    { name: "Chicken Pizza", price: 8000, category: "pizza" },
+    { name: "Kigali Style Pizza", price: 8500, category: "pizza" }
+  ]
+};
+
+// ================== CHAT ELEMENTS ==================
+const chatBody = document.getElementById("chatBody");
+const chatInput = document.getElementById("chatInput");
+
+// ================== GREETING ==================
+window.addEventListener("load", () => {
+  addBotMessage(
+    "Muraho 👋 Welcome to <b>Le Chic Café</b> ☕<br>" +
+    "Ndi <b>Lea</b> 🤍, nshobora kugufasha:<br>" +
+    "📋 Menu & Prices<br>" +
+    "📍 Location<br>" +
+    "⭐ Recommendations<br><br>" +
+    "Just ask me 😊"
+  );
+});
+
+// ================== BOT LOGIC ==================
+function getBotReply(msg) {
+  msg = msg.toLowerCase();
+
+  if (msg.includes("location") || msg.includes("where"))
+    return `📍 ${cafe.location}`;
+
+  if (msg.includes("open") || msg.includes("hours"))
+    return `⏰ ${cafe.hours}`;
+
+  if (msg.includes("recommend") || msg.includes("suggest"))
+    return "⭐ Recommendation: Cappuccino (2,500 RWF) or Chicken Pizza (8,000 RWF).";
+
+  if (msg.includes("cheap") || msg.includes("budget"))
+    return "💡 Budget choice: Single Espresso (1,500 RWF) or Plain Beef Burger (4,000 RWF).";
+
+  if (msg.includes("menu"))
+    return "📋 We serve Coffee, Tea, Juice, Burgers, Chicken, Fish & Pizza. Ask any item name!";
+
+  for (let item of cafe.menu) {
+    if (msg.includes(item.name.toLowerCase())) {
+      return `💰 ${item.name} costs ${item.price} RWF`;
+    }
+  }
+
+  return "🤍 I can help with menu prices, location, hours & recommendations.";
+}
+
+// ================== SEND MESSAGE ==================
+chatInput.addEventListener("keypress", e => {
+  if (e.key === "Enter" && chatInput.value.trim() !== "") {
+    const userMsg = chatInput.value;
+    addUserMessage(userMsg);
+
+    const reply = getBotReply(userMsg);
+    addBotMessage(reply);
+
+    chatInput.value = "";
+  }
+});
+
+// ================== MESSAGE UI ==================
+function addUserMessage(text) {
+  chatBody.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function addBotMessage(text) {
+  chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+
+
 
 
