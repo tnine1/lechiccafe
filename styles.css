@@ -711,28 +711,29 @@ body {
 }
 
 /* ================== LEA CHATBOT ================== */
-#chatToggle {
+#chatbot {
   position: fixed;
-  bottom: 25px;
+  bottom: 95px;
   right: 25px;
-  background: linear-gradient(135deg, #6b3fa0, #a678e2);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 26px;
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  width: 340px;
+  max-height: 520px;
+  background: rgba(25, 10, 45, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   z-index: 999;
 }
+
 
 #chatToggle:hover {
   transform: scale(1.08);
 }
 
 /* ================== CHAT WINDOW ================== */
-/* ===== Floating Chat Button ===== */
+
 #chatToggle {
   position: fixed;
   bottom: 24px;
@@ -901,6 +902,7 @@ body {
   0%, 50%, 100% { opacity: 1; }
   25%, 75% { opacity: 0; }
 }
+
 
 
 
