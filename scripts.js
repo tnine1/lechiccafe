@@ -412,246 +412,198 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-const chatToggle = document.getElementById("chatToggle");
-const chatbot = document.getElementById("chatbot");
-const closeChat = document.getElementById("closeChat");
-
-chatToggle.addEventListener("click", () => {
-  chatbot.classList.remove("hidden");
-  chatToggle.style.display = "none";
-});
-
-closeChat.addEventListener("click", () => {
-  chatbot.classList.add("hidden");
-  chatToggle.style.display = "block";
-});
-// ================== CAFE DATA ==================
-const leChicInfo = {
-  name: "Le Chic Café",
-  location: "Kicukiro, second building after Simba Traffic Light",
-  hours: "Open 24/7, Monday to Sunday",
-  phone: ["+250 781 043 532", "+250 783 662 228"],
-  email: "lechiccafe.info@gmail.com",
-  website: "https://tnine1.github.io/lechiccafe/"
-};
-
-/* ================= HOT DRINKS – COFFEE ================= */
-{ name:"Single Espresso", price:1500, category:"Coffee" },
-{ name:"Double Espresso", price:2000, category:"Coffee" },
-{ name:"Americano", price:2000, category:"Coffee" },
-{ name:"Black Coffee", price:2000, category:"Coffee" },
-{ name:"Black Coffee Strong", price:2000, category:"Coffee" },
-{ name:"Café Latte", price:2500, category:"Coffee" },
-{ name:"Cappuccino", price:2500, category:"Coffee" },
-{ name:"Cappuccino Big", price:3000, category:"Coffee" },
-{ name:"Strong Cappuccino", price:3000, category:"Coffee" },
-{ name:"Macchiato", price:2000, category:"Coffee" },
-{ name:"Café Mocha", price:3000, category:"Coffee" },
-{ name:"Affogato", price:3000, category:"Coffee" },
-{ name:"Flat White", price:2500, category:"Coffee" },
-{ name:"Customized Coffee", price:3500, category:"Coffee" },
-{ name:"African Coffee", price:3000, category:"Coffee" },
-{ name:"Hot Chocolate", price:2500, category:"Coffee" },
-{ name:"Vanilla Latte", price:3000, category:"Coffee" },
-{ name:"Caramel Macchiato", price:3000, category:"Coffee" },
-{ name:"Cappuccino Frappee", price:3000, category:"Coffee" },
-{ name:"Vanilla Frappee", price:4000, category:"Coffee" },
-
-/* ================= ICED COFFEE ================= */
-{ name:"Iced Cream Coffee", price:5000, category:"Iced Coffee" },
-{ name:"Iced Vanilla Latte", price:4000, category:"Iced Coffee" },
-{ name:"Iced Latte", price:3000, category:"Iced Coffee" },
-{ name:"Iced Cappuccino", price:3000, category:"Iced Coffee" },
-{ name:"Iced Mocha", price:3500, category:"Iced Coffee" },
-{ name:"Iced Americano", price:2500, category:"Iced Coffee" },
-{ name:"Iced Frappuccino", price:3500, category:"Iced Coffee" },
-{ name:"Iced Mocha Frappe", price:4000, category:"Iced Coffee" },
-{ name:"Iced Black Coffee", price:2500, category:"Iced Coffee" },
-{ name:"Iced Vanilla Frappee", price:4000, category:"Iced Coffee" },
-
-/* ================= TEA ================= */
-{ name:"Black Tea", price:2000, category:"Tea" },
-{ name:"Green Tea", price:2000, category:"Tea" },
-{ name:"African Tea", price:2500, category:"Tea" },
-{ name:"Ginger Tea", price:2500, category:"Tea" },
-{ name:"Lemon Tea", price:2000, category:"Tea" },
-{ name:"Hot Milk", price:2000, category:"Tea" },
-{ name:"Hot Water + Lemon", price:1500, category:"Tea" },
-{ name:"Hot Water", price:1000, category:"Tea" },
-{ name:"Fresh Milk", price:2000, category:"Tea" },
-{ name:"Spice Tea", price:3000, category:"Tea" },
-{ name:"Mint Tea", price:3000, category:"Tea" },
-{ name:"Russian Tea", price:2500, category:"Tea" },
-{ name:"Dawa Tea", price:3500, category:"Tea" },
-
-/* ================= JUICES ================= */
-{ name:"Passion Juice", price:3500, category:"Juice" },
-{ name:"Mango Juice", price:5000, category:"Juice" },
-{ name:"Pineapple Juice", price:3500, category:"Juice" },
-{ name:"Tree Tomato Juice", price:3500, category:"Juice" },
-{ name:"Orange Juice", price:4000, category:"Juice" },
-{ name:"Mocktail Juice", price:5000, category:"Juice" },
-{ name:"Detox Juice", price:5500, category:"Juice" },
-{ name:"Create Own Juice", price:5500, category:"Juice" },
-{ name:"Cocktail Juice", price:4500, category:"Juice" },
-{ name:"Mojito Juice", price:6000, category:"Juice" },
-
-/* ================= SMOOTHIES ================= */
-{ name:"Le Chic Café Special Smoothie", price:6000, category:"Smoothie" },
-{ name:"Mango Berry Smoothie", price:5000, category:"Smoothie" },
-{ name:"Banana Smoothie", price:5000, category:"Smoothie" },
-{ name:"Tango Mango Smoothie", price:5000, category:"Smoothie" },
-{ name:"Strawberry Smoothie", price:5000, category:"Smoothie" },
-{ name:"Tropical Smoothie", price:5000, category:"Smoothie" },
-{ name:"Special Mango Smoothie", price:5500, category:"Smoothie" },
-
-/* ================= MILK SHAKES ================= */
-{ name:"Vanilla Shake", price:4500, category:"Milkshake" },
-{ name:"Chocolate Shake", price:4500, category:"Milkshake" },
-{ name:"Strawberry Shake", price:4500, category:"Milkshake" },
-{ name:"Le Chic Café Shake", price:5000, category:"Milkshake" },
-{ name:"Oreo Shake", price:6000, category:"Milkshake" },
-
-/* ================= HEALTHY CHOICE ================= */
-{ name:"Macedoine", price:4000, category:"Healthy" },
-{ name:"Fruit Platter", price:5500, category:"Healthy" },
-{ name:"Macedoine with Ice Cream", price:5000, category:"Healthy" },
-{ name:"Ice Cream One Scoop", price:1000, category:"Healthy" },
-{ name:"Ice Cream Fruit", price:8000, category:"Healthy" },
-
-/* ================= SOFT DRINKS ================= */
-{ name:"Big Water", price:1500, category:"Soft Drink" },
-{ name:"Mineral Water", price:1000, category:"Soft Drink" },
-{ name:"Plastic Water", price:1500, category:"Soft Drink" },
-{ name:"Small Fanta", price:1000, category:"Soft Drink" },
-{ name:"Tonic Fanta", price:1500, category:"Soft Drink" },
-{ name:"Vitalo Sparkling Water", price:1500, category:"Soft Drink" },
-
-/* ================= BREAKFAST ================= */
-{ name:"3 Fried Eggs with Toast Bread", price:5000, category:"Breakfast" },
-{ name:"Sausage with Chips and Salad", price:5500, category:"Breakfast" },
-{ name:"Le Chic Café Pancakes with Plain Omelette", price:6500, category:"Breakfast" },
-{ name:"Scrambled Eggs with Toast Bread", price:5000, category:"Breakfast" },
-{ name:"Cheese and Mushroom with Potato Wedges", price:4500, category:"Breakfast" },
-{ name:"Spinach Omelette with Potato Wedges or Toast", price:7000, category:"Breakfast" },
-{ name:"Spanish Omelette with Toasted Bread", price:5000, category:"Breakfast" },
-{ name:"Special Omelette", price:5000, category:"Breakfast" },
-
-/* ================= ROLEX & WRAPS ================= */
-{ name:"Chapati Rolex", price:4000, category:"Wraps" },
-{ name:"Vegetable Chapati Rolex", price:5000, category:"Wraps" },
-{ name:"Steak Omelette", price:7000, category:"Wraps" },
-{ name:"Chicken Wrap", price:5500, category:"Wraps" },
-{ name:"Fish Wrap", price:6500, category:"Wraps" },
-{ name:"Beef Wrap", price:5000, category:"Wraps" },
-{ name:"Vegetable Wrap", price:4000, category:"Wraps" },
-{ name:"Chicken Mozzarella Wrap", price:6500, category:"Wraps" },
-
-/* ================= KIDS MENU ================= */
-{ name:"Chicken Nuggets with Chips", price:6500, category:"Kids" },
-{ name:"Kids Beef Spaghetti", price:6000, category:"Kids" },
-{ name:"Hot Dogs and Chips", price:6000, category:"Kids" }
-];pizza" }
-  ]
-};
-
-//document.addEventListener("DOMContentLoaded", () => {
-
-  // ================== CHAT ELEMENTS ==================
-  // ================== CHAT ELEMENTS ==================
+// ================== CHAT TOGGLE ==================
 const chatToggle = document.getElementById("chatToggle");
 const chatbot = document.getElementById("chatbot");
 const chatBody = document.getElementById("chatBody");
 const chatInput = document.getElementById("chatInput");
 const closeChat = document.getElementById("closeChat");
 
-// ================== TOGGLE CHAT ==================
 if (chatToggle && chatbot) {
   chatToggle.addEventListener("click", () => {
-    chatbot.classList.toggle("hidden");
+    chatbot.classList.remove("hidden");
+    chatToggle.style.display = "none";
   });
 }
 
 if (closeChat && chatbot) {
   closeChat.addEventListener("click", () => {
     chatbot.classList.add("hidden");
+    chatToggle.style.display = "block";
   });
 }
 
-// ================== GREETING ==================
+// ================== CAFE INFO ==================
+const cafe = {
+  name: "Le Chic Café",
+  location: "Kicukiro, second building after Simba Traffic Light",
+  hours: "Open 24/7, Monday to Sunday",
+  phone: ["+250 781 043 532", "+250 783 662 228"],
+  email: "lechiccafe.info@gmail.com",
+  website: "https://tnine1.github.io/lechiccafe/",
+
+  // ================== MENU ==================
+  menu: [
+
+    /* ================= HOT DRINKS – COFFEE ================= */
+    { name:"Single Espresso", price:1500, category:"Coffee" },
+    { name:"Double Espresso", price:2000, category:"Coffee" },
+    { name:"Americano", price:2000, category:"Coffee" },
+    { name:"Black Coffee", price:2000, category:"Coffee" },
+    { name:"Black Coffee Strong", price:2000, category:"Coffee" },
+    { name:"Café Latte", price:2500, category:"Coffee" },
+    { name:"Cappuccino", price:2500, category:"Coffee" },
+    { name:"Cappuccino Big", price:3000, category:"Coffee" },
+    { name:"Strong Cappuccino", price:3000, category:"Coffee" },
+    { name:"Macchiato", price:2000, category:"Coffee" },
+    { name:"Café Mocha", price:3000, category:"Coffee" },
+    { name:"Affogato", price:3000, category:"Coffee" },
+    { name:"Flat White", price:2500, category:"Coffee" },
+    { name:"Customized Coffee", price:3500, category:"Coffee" },
+    { name:"African Coffee", price:3000, category:"Coffee" },
+    { name:"Hot Chocolate", price:2500, category:"Coffee" },
+    { name:"Vanilla Latte", price:3000, category:"Coffee" },
+    { name:"Caramel Macchiato", price:3000, category:"Coffee" },
+    { name:"Cappuccino Frappee", price:3000, category:"Coffee" },
+    { name:"Vanilla Frappee", price:4000, category:"Coffee" },
+
+    /* ================= ICED COFFEE ================= */
+    { name:"Iced Cream Coffee", price:5000, category:"Iced Coffee" },
+    { name:"Iced Vanilla Latte", price:4000, category:"Iced Coffee" },
+    { name:"Iced Latte", price:3000, category:"Iced Coffee" },
+    { name:"Iced Cappuccino", price:3000, category:"Iced Coffee" },
+    { name:"Iced Mocha", price:3500, category:"Iced Coffee" },
+    { name:"Iced Americano", price:2500, category:"Iced Coffee" },
+    { name:"Iced Frappuccino", price:3500, category:"Iced Coffee" },
+    { name:"Iced Mocha Frappe", price:4000, category:"Iced Coffee" },
+    { name:"Iced Black Coffee", price:2500, category:"Iced Coffee" },
+    { name:"Iced Vanilla Frappee", price:4000, category:"Iced Coffee" },
+
+    /* ================= TEA ================= */
+    { name:"Black Tea", price:2000, category:"Tea" },
+    { name:"Green Tea", price:2000, category:"Tea" },
+    { name:"African Tea", price:2500, category:"Tea" },
+    { name:"Ginger Tea", price:2500, category:"Tea" },
+    { name:"Lemon Tea", price:2000, category:"Tea" },
+    { name:"Hot Milk", price:2000, category:"Tea" },
+    { name:"Hot Water + Lemon", price:1500, category:"Tea" },
+    { name:"Hot Water", price:1000, category:"Tea" },
+    { name:"Fresh Milk", price:2000, category:"Tea" },
+    { name:"Spice Tea", price:3000, category:"Tea" },
+    { name:"Mint Tea", price:3000, category:"Tea" },
+    { name:"Russian Tea", price:2500, category:"Tea" },
+    { name:"Dawa Tea", price:3500, category:"Tea" },
+
+    /* ================= JUICES ================= */
+    { name:"Passion Juice", price:3500, category:"Juice" },
+    { name:"Mango Juice", price:5000, category:"Juice" },
+    { name:"Pineapple Juice", price:3500, category:"Juice" },
+    { name:"Tree Tomato Juice", price:3500, category:"Juice" },
+    { name:"Orange Juice", price:4000, category:"Juice" },
+    { name:"Mocktail Juice", price:5000, category:"Juice" },
+    { name:"Detox Juice", price:5500, category:"Juice" },
+    { name:"Create Own Juice", price:5500, category:"Juice" },
+    { name:"Cocktail Juice", price:4500, category:"Juice" },
+    { name:"Mojito Juice", price:6000, category:"Juice" },
+
+    /* ================= SMOOTHIES ================= */
+    { name:"Le Chic Café Special Smoothie", price:6000, category:"Smoothie" },
+    { name:"Mango Berry Smoothie", price:5000, category:"Smoothie" },
+    { name:"Banana Smoothie", price:5000, category:"Smoothie" },
+    { name:"Tango Mango Smoothie", price:5000, category:"Smoothie" },
+    { name:"Strawberry Smoothie", price:5000, category:"Smoothie" },
+    { name:"Tropical Smoothie", price:5000, category:"Smoothie" },
+    { name:"Special Mango Smoothie", price:5500, category:"Smoothie" },
+
+    /* ================= MILK SHAKES ================= */
+    { name:"Vanilla Shake", price:4500, category:"Milkshake" },
+    { name:"Chocolate Shake", price:4500, category:"Milkshake" },
+    { name:"Strawberry Shake", price:4500, category:"Milkshake" },
+    { name:"Le Chic Café Shake", price:5000, category:"Milkshake" },
+    { name:"Oreo Shake", price:6000, category:"Milkshake" },
+
+    /* ================= HEALTHY ================= */
+    { name:"Macedoine", price:4000, category:"Healthy" },
+    { name:"Fruit Platter", price:5500, category:"Healthy" },
+    { name:"Macedoine with Ice Cream", price:5000, category:"Healthy" },
+    { name:"Ice Cream One Scoop", price:1000, category:"Healthy" },
+    { name:"Ice Cream Fruit", price:8000, category:"Healthy" },
+
+    /* ================= SOFT DRINKS ================= */
+    { name:"Big Water", price:1500, category:"Soft Drink" },
+    { name:"Mineral Water", price:1000, category:"Soft Drink" },
+    { name:"Plastic Water", price:1500, category:"Soft Drink" },
+    { name:"Small Fanta", price:1000, category:"Soft Drink" },
+    { name:"Tonic Fanta", price:1500, category:"Soft Drink" },
+    { name:"Vitalo Sparkling Water", price:1500, category:"Soft Drink" },
+
+    /* ================= BREAKFAST ================= */
+    { name:"3 Fried Eggs with Toast Bread", price:5000, category:"Breakfast" },
+    { name:"Sausage with Chips and Salad", price:5500, category:"Breakfast" },
+    { name:"Le Chic Café Pancakes with Plain Omelette", price:6500, category:"Breakfast" },
+    { name:"Scrambled Eggs with Toast Bread", price:5000, category:"Breakfast" },
+    { name:"Cheese and Mushroom with Potato Wedges", price:4500, category:"Breakfast" },
+    { name:"Spinach Omelette with Potato Wedges or Toast", price:7000, category:"Breakfast" },
+    { name:"Spanish Omelette with Toasted Bread", price:5000, category:"Breakfast" },
+    { name:"Special Omelette", price:5000, category:"Breakfast" },
+
+    /* ================= WRAPS ================= */
+    { name:"Chapati Rolex", price:4000, category:"Wraps" },
+    { name:"Vegetable Chapati Rolex", price:5000, category:"Wraps" },
+    { name:"Steak Omelette", price:7000, category:"Wraps" },
+    { name:"Chicken Wrap", price:5500, category:"Wraps" },
+    { name:"Fish Wrap", price:6500, category:"Wraps" },
+    { name:"Beef Wrap", price:5000, category:"Wraps" },
+    { name:"Vegetable Wrap", price:4000, category:"Wraps" },
+    { name:"Chicken Mozzarella Wrap", price:6500, category:"Wraps" },
+
+    /* ================= KIDS ================= */
+    { name:"Chicken Nuggets with Chips", price:6500, category:"Kids" },
+    { name:"Kids Beef Spaghetti", price:6000, category:"Kids" },
+    { name:"Hot Dogs and Chips", price:6000, category:"Kids" }
+  ]
+};
+
+// ================== CHAT LOGIC ==================
 function addBotMessage(text) {
-  chatBody.innerHTML += `<div class="msg-bot"><span><b>Lea 🤍:</b> ${text}</span></div>`;
+  chatBody.innerHTML += `<div class="msg-bot"><b>Lea 🤍:</b> ${text}</div>`;
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
 function addUserMessage(text) {
-  chatBody.innerHTML += `<div class="msg-user"><span>${text}</span></div>`;
+  chatBody.innerHTML += `<div class="msg-user">${text}</div>`;
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
 window.addEventListener("load", () => {
-  addBotMessage(
-    "Muraho 👋 Welcome to <b>Le Chic Café</b> ☕<br>" +
-    "Ndi <b>Lea</b> 🤍, nshobora kugufasha:<br>" +
-    "📋 Menu & Prices<br>" +
-    "📍 Location<br>" +
-    "⭐ Recommendations<br><br>" +
-    "Just ask me 😊"
-  );
+  addBotMessage("Muraho 👋 Welcome to <b>Le Chic Café</b> ☕<br>Ask me about menu, prices or location 😊");
 });
 
-// ================== BOT LOGIC ==================
 function getBotReply(msg) {
   msg = msg.toLowerCase();
 
-  if (msg.includes("location") || msg.includes("where")) {
-    return `📍 ${cafe.location}`;
-  }
-
-  if (msg.includes("open") || msg.includes("hours")) {
-    return `⏰ ${cafe.hours}`;
-  }
-
-  if (msg.includes("recommend") || msg.includes("suggest")) {
-    return "⭐ Recommendation: Cappuccino (2,500 RWF) or Chicken Pizza (8,000 RWF).";
-  }
-
-  if (msg.includes("cheap") || msg.includes("budget")) {
-    return "💡 Budget choice: Single Espresso (1,500 RWF) or Plain Beef Burger (4,000 RWF).";
-  }
-
-  if (msg.includes("menu")) {
-    return "📋 We serve Coffee, Tea, Juice, Burgers, Chicken, Fish & Pizza. Ask any item name!";
-  }
+  if (msg.includes("location")) return cafe.location;
+  if (msg.includes("open") || msg.includes("hours")) return cafe.hours;
 
   for (let item of cafe.menu) {
     if (msg.includes(item.name.toLowerCase())) {
-      return `💰 ${item.name} costs ${item.price} RWF`;
+      return `${item.name} costs ${item.price} RWF`;
     }
   }
 
-  return "🤍 I can help with menu prices, location, hours & recommendations.";
+  return "🤍 Mbwira icyo ushaka kuri menu cyangwa location.";
 }
 
-// ================== CHAT SEND ==================
 chatInput.addEventListener("keypress", e => {
-  if (e.key === "Enter" && chatInput.value.trim() !== "") {
-    const userMsg = chatInput.value;
-    addUserMessage(userMsg);
-
-    const reply = getBotReply(userMsg);
-    addBotMessage(reply);
-
+  if (e.key === "Enter" && chatInput.value.trim()) {
+    const msg = chatInput.value;
+    addUserMessage(msg);
+    addBotMessage(getBotReply(msg));
     chatInput.value = "";
   }
 });
 
-// ================== SERVICE WORKER ==================
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js")
-    .then(() => console.log("Service Worker Registered"))
-    .catch(() => {});
-}
+
 
 
 
