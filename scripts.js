@@ -566,9 +566,26 @@ const cafe = {
 
 // ================== CHAT LOGIC ==================
 function addBotMessage(text) {
-  chatBody.innerHTML += `<div class="msg-bot"><b>Lea 🤍:</b> ${text}</div>`;
-  chatBody.scrollTop = chatBody.scrollHeight;
+  const msgDiv = document.createElement("div");
+  msgDiv.className = "msg-bot";
+  msgDiv.innerHTML = `<b>Lea 🤍:</b> <span class="typing"></span>`;
+  chatBody.appendChild(msgDiv);
+
+  const span = msgDiv.querySelector(".typing");
+  let i = 0;
+
+  const typingInterval = setInterval(() => {
+    span.innerHTML += text.charAt(i);
+    i++;
+    chatBody.scrollTop = chatBody.scrollHeight;
+
+    if (i >= text.length) {
+      clearInterval(typingInterval);
+      span.classList.remove("typing");
+    }
+  }, 30); // speed (30ms = ChatGPT style)
 }
+
 
 function addUserMessage(text) {
   chatBody.innerHTML += `<div class="msg-user">${text}</div>`;
@@ -602,6 +619,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
