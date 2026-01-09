@@ -732,20 +732,31 @@ body {
 }
 
 /* ================== CHAT WINDOW ================== */
-#chatbot {
+/* ===== Floating Chat Button ===== */
+#chatToggle {
   position: fixed;
-  bottom: 95px;
-  right: 25px;
-  width: 340px;
-  max-height: 520px;
-  background: rgba(25, 10, 45, 0.95);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  z-index: 999;
+  bottom: 24px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #673A94, #9B6DE5);
+  color: #ffffff;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(103,58,148,0.45);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+#chatToggle:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(103,58,148,0.6);
+}
+
+#chatToggle:active {
+  transform: scale(0.95);
 }
 
 .hidden {
@@ -890,6 +901,7 @@ body {
   0%, 50%, 100% { opacity: 1; }
   25%, 75% { opacity: 0; }
 }
+
 
 
 
