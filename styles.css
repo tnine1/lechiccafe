@@ -856,7 +856,7 @@ body {
 .chat-input {
   position: sticky;
   bottom: 0;
-
+size:30px;
   display: flex;
   padding: 10px;
 
@@ -869,6 +869,7 @@ body {
   padding: 10px 12px;
   border: none;
   border-radius: 20px;
+ 
   outline: none;
 
   font-size: 14px;
@@ -930,6 +931,7 @@ body {
     bottom: 90px;
   }
 }
+
 
 
 
