@@ -926,11 +926,12 @@ size:30px;
 /* ---------- MOBILE ---------- */
 @media (max-width: 480px) {
   #chatbot {
-    width: 92%;
+    width: 50%;
     right: 4%;
     bottom: 90px;
   }
 }
+
 
 
 
