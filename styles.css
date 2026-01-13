@@ -726,14 +726,14 @@ body {
   align-items: center;
   gap: 8px;
 
-  padding: 12px 18px;
+  padding: 6px 9px;
   border-radius: 28px;
 
   background: linear-gradient(135deg, #673A94, #8E5AD7);
   color: #ffffff;
 
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 350px;
   letter-spacing: 0.3px;
 
   cursor: pointer;
@@ -856,7 +856,7 @@ body {
 .chat-input {
   position: sticky;
   bottom: 0;
-size:30px;
+
   display: flex;
   padding: 10px;
 
@@ -866,13 +866,13 @@ size:30px;
 
 #chatInput {
   flex: 1;
-  padding: 10px 12px;
+  padding: 5px 6px;
   border: none;
   border-radius: 20px;
  
   outline: none;
 
-  font-size: 14px;
+  font-size: 11px;
 }
 
 #chatInput::placeholder {
@@ -885,7 +885,7 @@ size:30px;
   border: none;
   color: #ffffff;
 
-  padding: 0 16px;
+  padding: 0 8px;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -931,6 +931,7 @@ size:30px;
     bottom: 90px;
   }
 }
+
 
 
 
