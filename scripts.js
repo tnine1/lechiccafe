@@ -612,7 +612,9 @@ for (let item of cafe.menu) {
     return `${item.name} costs ${item.price} RWF`;
   }
 }
-
+if (results.length > 0) {
+  return `Here are matching items:\n` + results.join("\n");
+}
 
   return "🤍 Mbwira icyo ushaka kuri menu cyangwa location.";
 }
@@ -625,6 +627,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
