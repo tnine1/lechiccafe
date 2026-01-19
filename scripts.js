@@ -596,28 +596,61 @@ window.addEventListener("load", () => {
   addBotMessage("Hello 👋 Welcome to Le Chic Café ☕\n Ask me about menu, prices or location 😊");
 });
 
-function getBotReply(msg) {
-  msg = msg.toLowerCase();
+function getChatbotReply(msg) {
+  msg = msg.toLowerCase().trim();
 
-  if (msg.includes("location")) return cafe.location;
-  if (msg.includes("open") || msg.includes("hours")) return cafe.hours;
-
-for (let item of cafe.menu) {
-  let itemWords = item.name.toLowerCase().split(" ");
-  let userWords = msg.toLowerCase().split(" ");
-
-  let match = userWords.some(word => itemWords.includes(word));
-
-  if (match) {
-    return `${item.name} costs ${item.price} RWF`;
+  // Greetings
+  if (msg.includes("hi") || msg.includes("hello")) {
+    return "Hello! Welcome to Le Chic Café ☕. How can I help you today?";
   }
-}
-if (results.length > 0) {
-  return `Here are matching items:\n` + results.join("\n");
+
+  // Help
+  if (msg.includes("help") || msg.includes("menu")) {
+    return "You can ask me about any menu item, prices, or recommendations 😊";
+  }
+
+  // Search for matching menu items
+  let results = [];
+
+  for (let item of cafe.menu) {
+    if (item.name.toLowerCase().includes(msg)) {
+      results.push(`${item.name} - ${item.price} RWF`);
+    }
+  }
+
+  // If matches found
+  if (results.length > 0) {
+    return "Here are matching items:\n" + results.join("\n");
+  }
+
+  // Price question like: "how much is espresso?"
+  if (msg.includes("how much") || msg.includes("price")) {
+    for (let item of cafe.menu) {
+      if (item.name.toLowerCase().includes(msg.replace("how much", "").replace("price", "").trim())) {
+        return `${item.name} costs ${item.price} RWF`;
+      }
+    }
+  }
+
+  // Recommendation
+  if (msg.includes("recommend")) {
+    return "I recommend trying our Cappuccino, Chicken Sandwich, or Fresh Juice! 😋";
+  }
+
+  // Location
+  if (msg.includes("location") || msg.includes("where")) {
+    return "We are located in Kigali, Rwanda – Le Chic Café ☕";
+  }
+
+  // Opening hours
+  if (msg.includes("open") || msg.includes("hours")) {
+    return "We are open every day from 8:00 AM to 10:00 PM 😊";
+  }
+
+  // Default reply
+  return "Sorry, I didn't understand that. Try asking about a menu item like 'espresso' or 'burger'.";
 }
 
-  return "🤍 Mbwira icyo ushaka kuri menu cyangwa location.";
-}
 
 chatInput.addEventListener("keypress", e => {
   if (e.key === "Enter" && chatInput.value.trim()) {
@@ -627,6 +660,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
