@@ -602,11 +602,17 @@ function getBotReply(msg) {
   if (msg.includes("location")) return cafe.location;
   if (msg.includes("open") || msg.includes("hours")) return cafe.hours;
 
-  for (let item of cafe.menu) {
-    if (msg.includes(item.name.toLowerCase())) {
-      return `${item.name} costs ${item.price} RWF`;
-    }
+for (let item of cafe.menu) {
+  let itemWords = item.name.toLowerCase().split(" ");
+  let userWords = msg.toLowerCase().split(" ");
+
+  let match = userWords.some(word => itemWords.includes(word));
+
+  if (match) {
+    return `${item.name} costs ${item.price} RWF`;
   }
+}
+
 
   return "🤍 Mbwira icyo ushaka kuri menu cyangwa location.";
 }
@@ -619,6 +625,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
