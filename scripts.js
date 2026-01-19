@@ -593,7 +593,7 @@ function addUserMessage(text) {
 }
 
 window.addEventListener("load", () => {
-  addBotMessage("Muraho 👋 Welcome to <b>Le Chic Café</b> ☕<br>Ask me about menu, prices or location 😊");
+  addBotMessage("Hello 👋 Welcome to Le Chic Café ☕\n Ask me about menu, prices or location 😊");
 });
 
 function getBotReply(msg) {
@@ -619,6 +619,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
