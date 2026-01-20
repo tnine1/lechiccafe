@@ -565,6 +565,7 @@ const cafe = {
 };
 
 // ================== CHAT LOGIC ==================
+
 function addBotMessage(text) {
   const msgDiv = document.createElement("div");
   msgDiv.className = "msg-bot";
@@ -583,9 +584,8 @@ function addBotMessage(text) {
       clearInterval(typingInterval);
       span.classList.remove("typing");
     }
-  }, 30); // speed (30ms = ChatGPT style)
+  }, 30);
 }
-
 
 function addUserMessage(text) {
   chatBody.innerHTML += `<div class="msg-user">${text}</div>`;
@@ -593,66 +593,69 @@ function addUserMessage(text) {
 }
 
 window.addEventListener("load", () => {
-  addBotMessage("Hello 👋 Welcome to Le Chic Café ☕\n Ask me about menu, prices or location 😊");
+  addBotMessage(
+    "Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu, prices or location 😊"
+  );
 });
 
 function getChatbotReply(msg) {
   msg = msg.toLowerCase().trim();
 
-  // Greetings
-  if (msg.includes("hi") || msg.includes("hello")) {
+  // ========= CLEAN WORDS =========
+  const words = msg.split(" ");
+
+  // ========= GREETINGS (fixed) =========
+  if (["hi", "hello", "hey"].includes(words[0])) {
     return "Hello! Welcome to Le Chic Café ☕. How can I help you today?";
   }
 
-  // Help
+  // ========= HELP / MENU =========
   if (msg.includes("help") || msg.includes("menu")) {
     return "You can ask me about any menu item, prices, or recommendations 😊";
   }
 
-  // Search for matching menu items
+  // ========= PRICE QUESTIONS =========
+  if (msg.includes("price") || msg.includes("how much")) {
+    for (let item of cafe.menu) {
+      if (msg.includes(item.name.toLowerCase())) {
+        return `${item.name} costs ${item.price} RWF ☕`;
+      }
+    }
+    return "Please mention the item name to check the price 😊";
+  }
+
+  // ========= SEARCH MENU ITEMS =========
   let results = [];
 
   for (let item of cafe.menu) {
-    if (item.name.toLowerCase().includes(msg)) {
+    if (msg.includes(item.name.toLowerCase())) {
       results.push(`${item.name} - ${item.price} RWF`);
     }
   }
 
-  // If matches found
   if (results.length > 0) {
-    return "Here are matching items:\n" + results.join("\n");
+    return "Here are matching items:<br>" + results.join("<br>");
   }
 
-  // Price question like: "how much is espresso?"
-  if (msg.includes("how much") || msg.includes("price")) {
-    for (let item of cafe.menu) {
-      if (item.name.toLowerCase().includes(msg.replace("how much", "").replace("price", "").trim())) {
-        return `${item.name} costs ${item.price} RWF`;
-      }
-    }
-  }
-
-  // Recommendation
+  // ========= RECOMMENDATION =========
   if (msg.includes("recommend")) {
-    return "I recommend trying our Cappuccino, Chicken Sandwich, or Fresh Juice! 😋";
+    return "I recommend Cappuccino, Chicken Sandwich, or Fresh Juice 😋";
   }
 
-  // Location
+  // ========= LOCATION =========
   if (msg.includes("location") || msg.includes("where")) {
     return "We are located in Kigali, Rwanda – Le Chic Café ☕";
   }
 
-  // Opening hours
+  // ========= OPENING HOURS =========
   if (msg.includes("open") || msg.includes("hours")) {
-    return "We are open every day from 00:00 AM to 00:00 AM 😊 24/7 a week";
+    return "We are open 24/7 ⏰ — every day 😊";
   }
-if (msg.includes(" ")){
-  return "sorry write you message and click enter to ask your question";
+
+  // ========= DEFAULT =========
+  return "Sorry, I didn't understand that 🤍<br>Try asking: <i>espresso price</i> or <i>menu</i>";
 }
-  else {
-  // Default reply
-  return "Sorry, I didn't understand that. Try asking about a menu item like 'espresso' or 'burger'.";}
-}
+
 
 
 chatInput.addEventListener("keypress", e => {
@@ -663,6 +666,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
