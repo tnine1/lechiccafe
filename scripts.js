@@ -644,11 +644,14 @@ function getChatbotReply(msg) {
 
   // Opening hours
   if (msg.includes("open") || msg.includes("hours")) {
-    return "We are open every day from 8:00 AM to 10:00 PM 😊";
+    return "We are open every day from 00:00 AM to 00:00 AM 😊 24/7 a week";
   }
-
+if (msg.includes(" ")){
+  return "sorry write you message and click enter to ask your question";
+}
+  else {
   // Default reply
-  return "Sorry, I didn't understand that. Try asking about a menu item like 'espresso' or 'burger'.";
+  return "Sorry, I didn't understand that. Try asking about a menu item like 'espresso' or 'burger'.";}
 }
 
 
@@ -660,6 +663,7 @@ chatInput.addEventListener("keypress", e => {
     chatInput.value = "";
   }
 });
+
 
 
 
