@@ -564,11 +564,23 @@ const cafe = {
   ]
 };
 
-// ================== CHAT LOGIC ==================
+/// ================== CHAT LOGIC (edited) ==================
 
-function addBotMessage(text) {
+/*
+  Improvements:
+  - Fixed function name mismatch (getBotReply).
+  - Better normalization/tokenization of user input.
+  - More robust item matching (token-based, partial matches).
+  - Clearer branching for greetings, help/menu, price queries, search, recommendations, location/hours/contact.
+  - Safer user message rendering (escaped).
+  - Helpful suggestions on fallback.
+*/
+
+function addBotMessage(text, typingSpeed = 24) {
+  if (!chatBody) return;
   const msgDiv = document.createElement("div");
   msgDiv.className = "msg-bot";
+  // bot message may include simple HTML (line breaks)
   msgDiv.innerHTML = `<b>Lea 🤍:</b> <span class="typing"></span>`;
   chatBody.appendChild(msgDiv);
 
@@ -582,90 +594,175 @@ function addBotMessage(text) {
 
     if (i >= text.length) {
       clearInterval(typingInterval);
-      span.classList.remove("typing");
+      // replace the typing span with the full HTML (preserve any embedded <br>)
+      span.outerHTML = text;
     }
-  }, 30);
+  }, typingSpeed);
 }
 
 function addUserMessage(text) {
-  chatBody.innerHTML += `<div class="msg-user">${text}</div>`;
+  if (!chatBody) return;
+  const safe = escapeForHtml(text);
+  chatBody.innerHTML += `<div class="msg-user">${safe}</div>`;
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+function escapeForHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// Initial greeting on page load
 window.addEventListener("load", () => {
   addBotMessage(
-    "Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu, prices or location 😊"
+    "Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu items, prices, recommendations, location, or opening hours 😊"
   );
 });
 
-function getChatbotReply(msg) {
-  msg = msg.toLowerCase().trim();
-
-  // ========= CLEAN WORDS =========
-  const words = msg.split(" ");
-
-  // ========= GREETINGS (fixed) =========
-  if (["hi", "hello", "hey"].includes(words[0])) {
-    return "Hello! Welcome to Le Chic Café ☕. How can I help you today?";
-  }
-
-  // ========= HELP / MENU =========
-  if (msg.includes("help") || msg.includes("menu")) {
-    return "You can ask me about any menu item, prices, or recommendations 😊";
-  }
-
-  // ========= PRICE QUESTIONS =========
-  if (msg.includes("price") || msg.includes("how much")) {
-    for (let item of cafe.menu) {
-      if (msg.includes(item.name.toLowerCase())) {
-        return `${item.name} costs ${item.price} RWF ☕`;
-      }
-    }
-    return "Please mention the item name to check the price 😊";
-  }
-
-  // ========= SEARCH MENU ITEMS =========
-  let results = [];
-
-  for (let item of cafe.menu) {
-    if (msg.includes(item.name.toLowerCase())) {
-      results.push(`${item.name} - ${item.price} RWF`);
-    }
-  }
-
-  if (results.length > 0) {
-    return "Here are matching items:<br>" + results.join("<br>");
-  }
-
-  // ========= RECOMMENDATION =========
-  if (msg.includes("recommend")) {
-    return "I recommend Cappuccino, Chicken Sandwich, or Fresh Juice 😋";
-  }
-
-  // ========= LOCATION =========
-  if (msg.includes("location") || msg.includes("where")) {
-    return "We are located in Kigali, Rwanda – Le Chic Café ☕";
-  }
-
-  // ========= OPENING HOURS =========
-  if (msg.includes("open") || msg.includes("hours")) {
-    return "We are open 24/7 ⏰ — every day 😊";
-  }
-
-  // ========= DEFAULT =========
-  return "Sorry, I didn't understand that 🤍<br>Try asking: <i>espresso price</i> or <i>menu</i>";
+// ----- Improved reply logic -----
+function normalizeInput(s) {
+  return String(s || "")
+    .toLowerCase()
+    .replace(/[^\w\s']/g, " ") // remove punctuation but keep apostrophes inside words
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
+function tokensFrom(s) {
+  return s.length === 0 ? [] : s.split(" ").filter(Boolean);
+}
 
+// returns array of menu items that match the message (token-based)
+function findMenuMatches(msgNormalized) {
+  const msgTokens = tokensFrom(msgNormalized);
+  if (msgTokens.length === 0) return [];
 
-chatInput.addEventListener("keypress", e => {
-  if (e.key === "Enter" && chatInput.value.trim()) {
-    const msg = chatInput.value;
-    addUserMessage(msg);
-    addBotMessage(getBotReply(msg));
-    chatInput.value = "";
+  const matches = [];
+  for (const item of cafe.menu) {
+    const name = item.name.toLowerCase();
+    const nameTokens = tokensFrom(name);
+
+    // require that at least one name token appears in msgTokens,
+    // and prefer items where all name tokens appear (strong match)
+    const tokenHits = nameTokens.filter(nt => msgTokens.some(mt => mt.includes(nt) || nt.includes(mt)));
+    if (tokenHits.length === 0) continue;
+
+    // score stronger matches (all tokens matched) higher
+    const score = tokenHits.length === nameTokens.length ? 2 : 1;
+    matches.push({ item, score, hits: tokenHits.length });
   }
-});
+
+  // sort by score then by hits (desc) so best matches come first
+  matches.sort((a, b) => b.score - a.score || b.hits - a.hits);
+  return matches.map(m => m.item);
+}
+
+function pickRecommendations(preferredCategory, limit = 3) {
+  let pool = cafe.menu.slice();
+  if (preferredCategory) {
+    pool = pool.filter(it => (it.category || "").toLowerCase() === preferredCategory.toLowerCase());
+    if (pool.length === 0) pool = cafe.menu.slice();
+  }
+  // simple deterministic: take first `limit` (menu is already curated)
+  return pool.slice(0, Math.min(limit, pool.length));
+}
+
+function getBotReply(rawMsg) {
+  const msg = String(rawMsg || "");
+  const normalized = normalizeInput(msg);
+  const words = tokensFrom(normalized);
+
+  if (words.length === 0) {
+    return "Please type a question — try: <i>espresso price</i>, <i>recommend coffee</i>, or <i>where are you located</i>.";
+  }
+
+  // GREETINGS
+  const greetingWords = ["hi", "hello", "hey", "hiya", "hola", "good", "morning", "evening"];
+  if (words.some(w => greetingWords.includes(w))) {
+    return "Hello! 👋 I'm Lea from Le Chic Café. Ask me about the menu, prices, recommendations, our location, or opening hours.";
+  }
+
+  // HELP / MENU / LIST
+  if (normalized.includes("help") || normalized.includes("menu") || normalized.includes("list")) {
+    // list categories (unique)
+    const categories = Array.from(new Set(cafe.menu.map(it => it.category || "Uncategorized"))).slice(0, 12);
+    return `You can ask about specific items or categories. Categories: ${categories.join(", ")}.<br>Examples: <i>iced latte price</i>, <i>recommend juice</i>, <i>menu smoothies</i>.`;
+  }
+
+  // CONTACT (phone/email/whatsapp)
+  if (normalized.includes("phone") || normalized.includes("contact") || normalized.includes("whatsapp") || normalized.includes("call") || normalized.includes("email")) {
+    const phones = (cafe.phone || []).join(", ");
+    const email = cafe.email || CONFIG.emailAddress || "";
+    const website = cafe.website ? `<br>Website: ${cafe.website}` : "";
+    return `You can contact us at: ${phones}${email ? `<br>Email: ${email}` : ""}${website}`;
+  }
+
+  // LOCATION / WHERE
+  if (normalized.includes("location") || normalized.includes("where") || normalized.includes("located") || normalized.includes("address")) {
+    return `We are located at: ${cafe.location || CONFIG.address}.`;
+  }
+
+  // OPENING HOURS
+  if (normalized.includes("open") || normalized.includes("hours") || normalized.includes("time") || normalized.includes("when")) {
+    return `${cafe.hours || "Our opening hours are available on the website."}`;
+  }
+
+  // RECOMMENDATIONS (optionally by category)
+  if (normalized.includes("recommend") || normalized.includes("suggest")) {
+    // try detect a category in the message
+    const availableCategories = Array.from(new Set(cafe.menu.map(it => (it.category || "").toLowerCase())));
+    const mentionedCategory = availableCategories.find(cat => cat && normalized.includes(cat));
+    const recs = pickRecommendations(mentionedCategory, 3);
+    const list = recs.map(r => `${r.name} — ${r.price} RWF`);
+    const categoryText = mentionedCategory ? ` for ${mentionedCategory}` : "";
+    return `I recommend${categoryText}:<br>` + list.join("<br>");
+  }
+
+  // PRICE QUESTIONS (explicit)
+  if (/\b(price|how much|cost|how many rfw|how many)\b/.test(normalized)) {
+    const matches = findMenuMatches(normalized);
+    if (matches.length === 1) {
+      const it = matches[0];
+      return `${it.name} costs ${it.price} RWF ☕`;
+    } else if (matches.length > 1) {
+      const list = matches.slice(0, 6).map(m => `${m.name} — ${m.price} RWF`);
+      return `I found several items matching that name:<br>${list.join("<br>")}<br>Ask for a specific one for the exact price.`;
+    } else {
+      return "Please mention the item name to check the price, for example: <i>espresso price</i>.";
+    }
+  }
+
+  // GENERAL SEARCH: if user mentions an item name or simple query, return matches
+  const matches = findMenuMatches(normalized);
+  if (matches.length === 1) {
+    const it = matches[0];
+    return `${it.name} — ${it.price} RWF — Category: ${it.category || "General"}`;
+  } else if (matches.length > 1) {
+    const list = matches.slice(0, 8).map(m => `${m.name} — ${m.price} RWF`);
+    return "Here are matching items:<br>" + list.join("<br>");
+  }
+
+  // FALLBACK / DEFAULT
+  return "Sorry, I didn't understand that 🤍<br>Try asking: <i>espresso price</i>, <i>recommend coffee</i>, or <i>where are you located</i>.";
+}
+
+// wire input (use Enter to send)
+if (chatInput) {
+  chatInput.addEventListener("keydown", e => {
+    if (e.key === "Enter" && chatInput.value.trim()) {
+      const msg = chatInput.value.trim();
+      addUserMessage(msg);
+      // use the improved bot reply function
+      addBotMessage(getBotReply(msg));
+      chatInput.value = "";
+      e.preventDefault();
+    }
+  });
+}
+
 
 
 
