@@ -921,3 +921,26 @@ body {
     right: 18px;
   }
 }
+/* =====================================
+   FORCE CHAT BUTTON BOTTOM-RIGHT
+   ===================================== */
+
+#chatToggle {
+  position: fixed !important;
+
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+
+  margin: 0;
+
+  z-index: 1000;
+}
+
+/* Mobile fine-tuning */
+@media (max-width: 480px) {
+  #chatToggle {
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+  }
+}
+
