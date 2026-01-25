@@ -713,7 +713,7 @@ body {
 
 /* ==================================================
    LEA CHATBOT – FINAL PROFESSIONAL CSS
-   Stable • Fixed • ChatGPT-style
+   Stable • Fixed • ChatGPT-style/* prevents iOS zoom */
 #chatToggle {
   position: fixed;
   bottom: 22px;
@@ -858,7 +858,7 @@ body {
   border-radius: 999px;
 
   outline: none;
-  font-size: 16px; /* prevents iOS zoom */
+  font-size: 16px; 
 }
 
 #chatInput::placeholder {
@@ -943,4 +943,5 @@ body {
     bottom: max(14px, env(safe-area-inset-bottom));
   }
 }
+
 
