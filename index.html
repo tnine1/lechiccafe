@@ -85,26 +85,37 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       </div>
     
     </section>
-    <!-- CHAT BUTTON -->
-<div id="chatToggle">💬Lea</div>
-      <!-- CHATBOT -->
-    
-<div id="chatbot" class="hidden">
-   <div id="chatBody">
+  <!-- CHAT BUTTON -->
+<div id="chatToggle">💬 Lea</div>
 
+<!-- CHATBOT -->
+<div id="chatbot" class="hidden">
+
+  <!-- HEADER (fixed, never touched by JS) -->
   <div id="chatHeader">
-   I am Lea Le Chic Café virtual assistant
+    I am Lea – Le Chic Café virtual assistant
     <span id="closeChat">✕</span>
   </div>
 
- 
+  <!-- BODY (messages go here ONLY) -->
+  <div id="chatBody"></div>
+
+  <!-- INPUT (never overwritten) -->
   <input
     type="text"
-    id="chatInput" 
-size="30px"
-    placeholder="feel free to Ask about menu, prices, location... I'm here to help you for 24/7"
+    id="chatInput"
+    placeholder="Feel free to ask about menu, prices, location… I'm here 24/7 😊"
   />
-</div></div>
+
+</div>
+
+<div class="menu-search">
+  <input 
+    type="text" 
+    id="menuSearch" 
+    placeholder="Search menu (coffee, juice...)"
+  >
+</div>
 <div class="menu-search">
   <input 
     type="text" 
@@ -948,6 +959,7 @@ size="30px"
   <script src="scripts.js" defer></script>
 </body>
 </html>
+
 
 
 
