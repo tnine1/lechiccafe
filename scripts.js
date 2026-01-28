@@ -564,18 +564,11 @@ const cafe = {
   ]
 };
 
-/// ================== CHAT LOGIC (edited) ==================
+// ======================
+// LE CHIC CAFÉ CHATBOT
+// ======================
 
-/*
-  Improvements:
-  - Fixed function name mismatch (getBotReply).
-  - Better normalization/tokenization of user input.
-  - More robust item matching (token-based, partial matches).
-  - Clearer branching for greetings, help/menu, price queries, search, recommendations, location/hours/contact.
-  - Safer user message rendering (escaped).
-  - Helpful suggestions on fallback.
-*/
-
+// ---- Add Bot Message (typing effect) ----
 function addBotMessage(text, typingSpeed = 24) {
   if (!chatBody) return;
   const msgDiv = document.createElement("div");
@@ -588,18 +581,23 @@ function addBotMessage(text, typingSpeed = 24) {
   let i = 0;
 
   const typingInterval = setInterval(() => {
+    if (!span) {
+      clearInterval(typingInterval);
+      return;
+    }
     span.innerHTML += text.charAt(i);
     i++;
     chatBody.scrollTop = chatBody.scrollHeight;
 
     if (i >= text.length) {
       clearInterval(typingInterval);
-      // replace the typing span with the full HTML (preserve any embedded <br>)
-      span.outerHTML = text;
+      // SAFE: replace innerHTML, not outerHTML
+      span.innerHTML = text;
     }
   }, typingSpeed);
 }
 
+// ---- Add User Message ----
 function addUserMessage(text) {
   if (!chatBody) return;
   const safe = escapeForHtml(text);
@@ -607,6 +605,7 @@ function addUserMessage(text) {
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+// ---- Escape HTML ----
 function escapeForHtml(s) {
   return String(s)
     .replace(/&/g, "&amp;")
@@ -615,14 +614,18 @@ function escapeForHtml(s) {
     .replace(/"/g, "&quot;");
 }
 
-// Initial greeting on page load
+// ---- Initial Greeting ----
 window.addEventListener("load", () => {
   addBotMessage(
     "Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu items, prices, recommendations, location, or opening hours 😊"
   );
 });
 
-// ----- Improved reply logic -----
+// ======================
+// IMPROVED REPLY LOGIC
+// ======================
+
+// Normalize input
 function normalizeInput(s) {
   return String(s || "")
     .toLowerCase()
@@ -631,11 +634,12 @@ function normalizeInput(s) {
     .trim();
 }
 
+// Tokenize
 function tokensFrom(s) {
   return s.length === 0 ? [] : s.split(" ").filter(Boolean);
 }
 
-// returns array of menu items that match the message (token-based)
+// Token-based menu matching
 function findMenuMatches(msgNormalized) {
   const msgTokens = tokensFrom(msgNormalized);
   if (msgTokens.length === 0) return [];
@@ -645,32 +649,65 @@ function findMenuMatches(msgNormalized) {
     const name = item.name.toLowerCase();
     const nameTokens = tokensFrom(name);
 
-    // require that at least one name token appears in msgTokens,
-    // and prefer items where all name tokens appear (strong match)
     const tokenHits = nameTokens.filter(nt => msgTokens.some(mt => mt.includes(nt) || nt.includes(mt)));
     if (tokenHits.length === 0) continue;
 
-    // score stronger matches (all tokens matched) higher
     const score = tokenHits.length === nameTokens.length ? 2 : 1;
     matches.push({ item, score, hits: tokenHits.length });
   }
 
-  // sort by score then by hits (desc) so best matches come first
   matches.sort((a, b) => b.score - a.score || b.hits - a.hits);
   return matches.map(m => m.item);
 }
 
+// Recommendations
 function pickRecommendations(preferredCategory, limit = 3) {
   let pool = cafe.menu.slice();
   if (preferredCategory) {
     pool = pool.filter(it => (it.category || "").toLowerCase() === preferredCategory.toLowerCase());
     if (pool.length === 0) pool = cafe.menu.slice();
   }
-  // simple deterministic: take first `limit` (menu is already curated)
   return pool.slice(0, Math.min(limit, pool.length));
 }
 
-function getBotReply(rawMsg) {
+// ======================
+// INTERNET FALLBACK (FREE)
+// ======================
+
+// Wikipedia fallback
+async function wikiFallback(query) {
+  try {
+    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    if (data.extract) return data.extract;
+  } catch (e) {
+    console.warn("Wiki fallback failed", e);
+  }
+  return null;
+}
+
+// DuckDuckGo fallback
+async function duckDuckGoFallback(query) {
+  try {
+    const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1`;
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.AbstractText) return data.AbstractText;
+  } catch (e) {
+    console.warn("DDG fallback failed", e);
+  }
+  return null;
+}
+
+// ======================
+// MAIN BOT REPLY LOGIC
+// ======================
+
+async function getBotReply(rawMsg) {
   const msg = String(rawMsg || "");
   const normalized = normalizeInput(msg);
   const words = tokensFrom(normalized);
@@ -687,7 +724,6 @@ function getBotReply(rawMsg) {
 
   // HELP / MENU / LIST
   if (normalized.includes("help") || normalized.includes("menu") || normalized.includes("list")) {
-    // list categories (unique)
     const categories = Array.from(new Set(cafe.menu.map(it => it.category || "Uncategorized"))).slice(0, 12);
     return `You can ask about specific items or categories. Categories: ${categories.join(", ")}.<br>Examples: <i>iced latte price</i>, <i>recommend juice</i>, <i>menu smoothies</i>.`;
   }
@@ -710,9 +746,8 @@ function getBotReply(rawMsg) {
     return `${cafe.hours || "Our opening hours are available on the website."}`;
   }
 
-  // RECOMMENDATIONS (optionally by category)
+  // RECOMMENDATIONS
   if (normalized.includes("recommend") || normalized.includes("suggest")) {
-    // try detect a category in the message
     const availableCategories = Array.from(new Set(cafe.menu.map(it => (it.category || "").toLowerCase())));
     const mentionedCategory = availableCategories.find(cat => cat && normalized.includes(cat));
     const recs = pickRecommendations(mentionedCategory, 3);
@@ -721,7 +756,7 @@ function getBotReply(rawMsg) {
     return `I recommend${categoryText}:<br>` + list.join("<br>");
   }
 
-  // PRICE QUESTIONS (explicit)
+  // PRICE QUESTIONS
   if (/\b(price|how much|cost|how many rfw|how many)\b/.test(normalized)) {
     const matches = findMenuMatches(normalized);
     if (matches.length === 1) {
@@ -735,7 +770,7 @@ function getBotReply(rawMsg) {
     }
   }
 
-  // GENERAL SEARCH: if user mentions an item name or simple query, return matches
+  // GENERAL SEARCH
   const matches = findMenuMatches(normalized);
   if (matches.length === 1) {
     const it = matches[0];
@@ -745,35 +780,36 @@ function getBotReply(rawMsg) {
     return "Here are matching items:<br>" + list.join("<br>");
   }
 
-  // FALLBACK / DEFAULT
-  return "Sorry, I didn't understand that 🤍<br>Try asking: <i>espresso price</i>, <i>recommend coffee</i>, or <i>where are you located</i>.";
+  // =================================
+  // INTERNET FALLBACK
+  // =================================
+  let internetAnswer = await wikiFallback(rawMsg);
+
+  if (!internetAnswer) {
+    internetAnswer = await duckDuckGoFallback(rawMsg);
+  }
+
+  if (internetAnswer) {
+    return `Here’s what I found 🤍<br>${internetAnswer}`;
+  }
+
+  // FINAL fallback
+  return "Sorry, I couldn’t find a clear answer 🤍<br>Try asking about our menu, prices, location, or opening hours ☕";
 }
 
-// wire input (use Enter to send)
+// ======================
+// INPUT HANDLER
+// ======================
 if (chatInput) {
-  chatInput.addEventListener("keydown", e => {
+  chatInput.addEventListener("keydown", async e => {
     if (e.key === "Enter" && chatInput.value.trim()) {
       const msg = chatInput.value.trim();
       addUserMessage(msg);
-      // use the improved bot reply function
-      addBotMessage(getBotReply(msg));
       chatInput.value = "";
       e.preventDefault();
+
+      const reply = await getBotReply(msg);
+      addBotMessage(reply);
     }
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
