@@ -678,6 +678,32 @@ function pickRecommendations(preferredCategory, limit = 3) {
 }
 
 // ======================
+// ----------------------------
+const greetingsDB = [
+  { greet: "hi", replies: ["Hello!", "Hi there!", "Hey!"] },
+  { greet: "hello", replies: ["Hi!", "Hello!", "Hey there!"] },
+  { greet: "hey", replies: ["Hey! How are you?", "Hi!"] },
+  { greet: "good morning", replies: ["Good morning! ☀️", "Morning! How are you?"] },
+  { greet: "good afternoon", replies: ["Good afternoon! 😊"] },
+  { greet: "good evening", replies: ["Good evening! 🌙"] },
+  { greet: "how are you", replies: ["I’m good, thank you! How about you?", "Doing well! And you?"] },
+];
+
+// ----------------------------
+// 2️⃣ Check greetings
+// ----------------------------
+function checkGreetings(input) {
+  const normalized = input.toLowerCase().trim();
+  for (const entry of greetingsDB) {
+    if (normalized.includes(entry.greet)) {
+      const reply = entry.replies[Math.floor(Math.random() * entry.replies.length)];
+      return reply;
+    }
+  }
+  return null;
+}
+
+// -----------------------
 // INTERNET FALLBACK (FREE)
 // ======================
 
@@ -687,7 +713,6 @@ async function wikiFallback(query) {
     const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
     const res = await fetch(url);
     if (!res.ok) return null;
-
     const data = await res.json();
     if (data.extract) return data.extract;
   } catch (e) {
@@ -696,16 +721,39 @@ async function wikiFallback(query) {
   return null;
 }
 
-// DuckDuckGo fallback
 async function duckDuckGoFallback(query) {
   try {
     const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1`;
     const res = await fetch(url);
     const data = await res.json();
-
     if (data.AbstractText) return data.AbstractText;
   } catch (e) {
-    console.warn("DDG fallback failed", e);
+    console.warn("DuckDuckGo fallback failed", e);
+  }
+  return null;
+}
+
+async function numbersFallback(query) {
+  // optional: trivia, math facts, dates
+  try {
+    const res = await fetch(`http://numbersapi.com/${encodeURIComponent(query)}`);
+    if (res.ok) return await res.text();
+  } catch (e) {
+    console.warn("Numbers API failed", e);
+  }
+  return null;
+}
+
+async function countriesFallback(query) {
+  try {
+    const res = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(query)}`);
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0) {
+      const country = data[0];
+      return `Country: ${country.name.common}\nRegion: ${country.region}\nPopulation: ${country.population.toLocaleString()}`;
+    }
+  } catch (e) {
+    console.warn("Countries API failed", e);
   }
   return null;
 }
@@ -790,17 +838,15 @@ async function getBotReply(rawMsg) {
   // =================================
   // INTERNET FALLBACK
   // =================================
-  let internetAnswer = await wikiFallback(rawMsg);
+  let fallbackAnswer =
+    (await wikiFallback(rawMsg)) ||
+    (await duckDuckGoFallback(rawMsg)) ||
+    (await numbersFallback(rawMsg)) ||
+    (await countriesFallback(rawMsg));
 
-  if (!internetAnswer) {
-    internetAnswer = await duckDuckGoFallback(rawMsg);
-  }
+  if (fallbackAnswer) return `Here’s what I found 🤍<br>${fallbackAnswer}`;
 
-  if (internetAnswer) {
-    return `Here’s what I found 🤍<br>${internetAnswer}`;
-  }
-
-  // FINAL fallback
+  // -------- Final fallback --------
   return "Sorry, I couldn’t find a clear answer 🤍<br>Try asking about our menu, prices, location, or opening hours ☕";
 }
 
@@ -820,4 +866,5 @@ if (chatInput) {
     }
   });
 }
+
 
