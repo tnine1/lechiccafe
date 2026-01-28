@@ -711,13 +711,12 @@ body {
 }
 
 
-/* ==================================================
-   LEA CHATBOT – FINAL PROFESSIONAL CSS
-   Stable • Fixed • ChatGPT-style/* prevents iOS zoom */
+/* Stable • Fixed • ChatGPT-style — prevents iOS zoom */
+
 #chatToggle {
   position: fixed;
-  bottom: 22px;
-  right: 22px;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
 
   display: flex;
   align-items: center;
@@ -753,6 +752,9 @@ body {
 #chatToggle:active {
   transform: scale(0.96);
 }
+
+/* ================= CHAT WINDOW ================= */
+
 #chatbot {
   position: fixed;
   bottom: 90px;
@@ -771,12 +773,15 @@ body {
   flex-direction: column;
   overflow: hidden;
 
-  z-index: 999;
+  z-index: 1001;
 }
 
 .hidden {
   display: none;
 }
+
+/* ================= HEADER ================= */
+
 .chat-header {
   background: linear-gradient(135deg, #673A94, #9C6ADE);
   color: #ffffff;
@@ -806,6 +811,9 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
+
+/* ================= BODY ================= */
+
 #chatBody {
   flex: 1;
   padding: 14px;
@@ -816,6 +824,7 @@ body {
   font-size: 14px;
   line-height: 1.55;
 }
+
 .msg-bot,
 .msg-user {
   margin-bottom: 12px;
@@ -839,10 +848,10 @@ body {
   align-self: flex-end;
   margin-left: auto;
 }
-.chat-input {
-  position: sticky;
-  bottom: 0;
 
+/* ================= INPUT ================= */
+
+.chat-input {
   display: flex;
   gap: 8px;
   padding: 10px;
@@ -858,7 +867,7 @@ body {
   border-radius: 999px;
 
   outline: none;
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 #chatInput::placeholder {
@@ -880,6 +889,9 @@ body {
 .chat-input button:hover {
   background: #8456c9;
 }
+
+/* ================= SCROLLBAR ================= */
+
 #chatBody::-webkit-scrollbar {
   width: 6px;
 }
@@ -888,6 +900,8 @@ body {
   background: rgba(255,255,255,0.2);
   border-radius: 4px;
 }
+
+/* ================= EFFECTS ================= */
 
 .typing::after {
   content: "▍";
@@ -905,43 +919,20 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 480px) {
   #chatbot {
     width: 100%;
     height: 100dvh;
-
     right: 0;
     bottom: 0;
-
     border-radius: 0;
   }
 
-  #chatToggle {
-    bottom: 18px;
-    right: 18px;
-  }
-}
-/* =====================================
-   FORCE CHAT BUTTON BOTTOM-RIGHT
-   ===================================== */
-
-#chatToggle {
-  position: fixed !important;
-
-  right: max(16px, env(safe-area-inset-right));
-  bottom: max(16px, env(safe-area-inset-bottom));
-
-  margin: 0;
-
-  z-index: 1000;
-}
-
-/* Mobile fine-tuning */
-@media (max-width: 480px) {
   #chatToggle {
     right: max(14px, env(safe-area-inset-right));
     bottom: max(14px, env(safe-area-inset-bottom));
   }
 }
-
-
