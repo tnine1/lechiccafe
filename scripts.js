@@ -640,23 +640,30 @@ function tokensFrom(s) {
 }
 
 // Token-based menu matching
-function findMenuMatches(msgNormalized) {
+function findMenuMatches(msgNormalized, threshold = 0.45) {
   const msgTokens = tokensFrom(msgNormalized);
   if (msgTokens.length === 0) return [];
 
   const matches = [];
   for (const item of cafe.menu) {
-    const name = item.name.toLowerCase();
-    const nameTokens = tokensFrom(name);
+    const nameTokens = tokensFrom(item.name.toLowerCase());
 
-    const tokenHits = nameTokens.filter(nt => msgTokens.some(mt => mt.includes(nt) || nt.includes(mt)));
-    if (tokenHits.length === 0) continue;
+    // Count how many tokens match exactly
+    const hits = nameTokens.filter(nt => msgTokens.includes(nt)).length;
 
-    const score = tokenHits.length === nameTokens.length ? 2 : 1;
-    matches.push({ item, score, hits: tokenHits.length });
+    // Calculate match score as fraction of name tokens matched
+    const score = hits / nameTokens.length;
+
+    // Only include items that meet the threshold
+    if (score >= threshold) {
+      matches.push({ item, score, hits });
+    }
   }
 
+  // Sort by score (highest first), then by number of hits
   matches.sort((a, b) => b.score - a.score || b.hits - a.hits);
+
+  // Return only the menu items
   return matches.map(m => m.item);
 }
 
@@ -813,3 +820,4 @@ if (chatInput) {
     }
   });
 }
+
