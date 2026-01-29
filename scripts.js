@@ -418,6 +418,10 @@ const chatbot = document.getElementById("chatbot");
 const chatBody = document.getElementById("chatBody");
 const chatInput = document.getElementById("chatInput");
 const closeChat = document.getElementById("closeChat");
+const sendBtn = document.getElementById('sendBtn');
+
+// Function is already defined elsewhere, e.g., sendMessage()
+sendBtn.addEventListener('click', sendMessage);
 
 if (chatToggle && chatbot) {
   chatToggle.addEventListener("click", () => {
@@ -898,3 +902,4 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("Service Worker registered"))
     .catch(err => console.log("SW error:", err));
 }
+
