@@ -854,18 +854,34 @@ async function getBotReply(rawMsg) {
 // ======================
 // INPUT HANDLER
 // ======================
-if (chatInput) {
-  chatInput.addEventListener("keydown", async e => {
-    if (e.key === "Enter" && chatInput.value.trim()) {
-      const msg = chatInput.value.trim();
-      addUserMessage(msg);
-      chatInput.value = "";
-      e.preventDefault();
+async function sendMessage() {
+  if (!chatInput || !chatInput.value.trim()) return;
 
-      const reply = await getBotReply(msg);
-      addBotMessage(reply);
+  const msg = chatInput.value.trim();
+  addUserMessage(msg);
+  chatInput.value = "";
+
+  // hide keyboard on mobile
+  chatInput.blur();
+
+  const reply = await getBotReply(msg);
+  addBotMessage(reply);
+}
+
+// ENTER key
+if (chatInput) {
+  chatInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
     }
   });
+}
+
+// SEND BUTTON click
+const sendBtn = document.getElementById("sendBtn");
+if (sendBtn) {
+  sendBtn.addEventListener("click", sendMessage);
 }
 
 const CACHE_NAME = "lechic-cache-v1";
@@ -900,7 +916,3 @@ if ("serviceWorker" in navigator) {
     .catch(err => console.log("SW error:", err));
 }
 
-const sendBtn = document.getElementById('sendBtn');
-
-// Function is already defined elsewhere, e.g., sendMessage()
-sendBtn.addEventListener('click', sendMessage);
