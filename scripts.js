@@ -3,7 +3,7 @@
 
 const CONFIG = {
   emailAddress: "lechiccafe.info@gmail.com", // your email (used elsewhere)
-  whatsappNumber: "+250790812587",
+  whatsappNumber: "+250781043532",
   cafeName: "Le Chic Cafe",
   address: "Kicukiro, Kigali, Rwanda",
 };
@@ -915,4 +915,5 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("Service Worker registered"))
     .catch(err => console.log("SW error:", err));
 }
+
 
