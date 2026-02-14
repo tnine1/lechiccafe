@@ -775,7 +775,7 @@ async function getBotReply(rawMsg) {
   // GREETINGS
   const greetingWords = ["hi", "hello", "hey", "hiya", "hola", "good", "morning", "evening"];
   if (words.some(w => greetingWords.includes(w))) {
-    return "Hello! 👋 I'm Lea from Le Chic Café. Ask me about the menu, prices, recommendations, our location, or opening hours.";
+    return "Hello! 👋 I'm Ciero from Le Chic Café. Ask me about the menu, prices, recommendations, our location, or opening hours.";
   }
 
   // HELP / MENU / LIST
@@ -915,5 +915,6 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("Service Worker registered"))
     .catch(err => console.log("SW error:", err));
 }
+
 
 
