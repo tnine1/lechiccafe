@@ -575,7 +575,7 @@ function addBotMessage(text, typingSpeed = 24) {
   const msgDiv = document.createElement("div");
   msgDiv.className = "msg-bot";
   // bot message may include simple HTML (line breaks)
-  msgDiv.innerHTML = `<b>Lea 🤍:</b> <span class="typing"></span>`;
+  msgDiv.innerHTML = `<b>Ciero 🤍:</b> <span class="typing"></span>`;
   chatBody.appendChild(msgDiv);
 
   const span = msgDiv.querySelector(".typing");
@@ -915,6 +915,7 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("Service Worker registered"))
     .catch(err => console.log("SW error:", err));
 }
+
 
 
 
