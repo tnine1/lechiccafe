@@ -27,21 +27,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <meta property="og:type" content="website" />
 
 <meta name="twitter:card" content="summary_large_image">
-  <script>
-const toggleBtn = document.getElementById("chat-toggle");
-const chatBox = document.getElementById("chat-box");
-const closeBtn = document.getElementById("chat-close");
-
-toggleBtn.onclick = () => {
-  chatBox.style.display = "flex";
-  toggleBtn.style.display = "none";
-};
-
-closeBtn.onclick = () => {
-  chatBox.style.display = "none";
-  toggleBtn.style.display = "flex";
-};
-</script>
+ 
 </head>
 <body>
   <header class="site-header">
@@ -951,7 +937,21 @@ closeBtn.onclick = () => {
 
   <!-- Leaflet (unused for iframe map but included if you want JS map later) -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+ <script>
+const toggleBtn = document.getElementById("chat-toggle");
+const chatBox = document.getElementById("chat-box");
+const closeBtn = document.getElementById("chat-close");
 
+toggleBtn.onclick = () => {
+  chatBox.style.display = "flex";
+  toggleBtn.style.display = "none";
+};
+
+closeBtn.onclick = () => {
+  chatBox.style.display = "none";
+  toggleBtn.style.display = "flex";
+};
+</script>
   <script src="scripts.js" defer></script>
 </body>
 </html>
