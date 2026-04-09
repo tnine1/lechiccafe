@@ -68,6 +68,36 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
   </header>
 
   <main>
+    <div class="marquee">
+⚠️ Notice: There are small changes on the menu. Turacyari kuvugurura ibiciro. Please use the FULL MENU button kugirango ubone menu nshya kandi yuzuye. Thank you for your patience 🙏
+</div>
+
+<style>
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.marquee::after {
+  content: attr(data-text);
+}
+
+.marquee {
+  display: inline-block;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+</style>
     <section class="hero">
       <div class="container">
         <h2>Welcome to Le Chic Cafe</h2>
