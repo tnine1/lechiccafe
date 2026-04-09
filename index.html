@@ -31,8 +31,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 <body>
   <div class="marquee">
-⚠️ Notice: There are small changes on the menu. Turacyari kuvugurura ibiciro. Please use the FULL MENU button kugirango ubone menu nshya kandi yuzuye. Thank you for your patience 🙏
+  ⚠️ Notice: Some updates have been made to the menu. Turacyari kuvugurura ibiciro. Kindly use the FULL MENU button kugirango ubone updated menu yuzuye. Thank you for your patience 🙏
 </div>
+
+<style>
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 10px;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scrollText 12s linear infinite;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+</style>
 
 
   <header class="site-header">
