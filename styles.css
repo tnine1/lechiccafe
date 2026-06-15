@@ -52,7 +52,6 @@ nav a:hover {
 /* Sections */
 section {
   padding: 3rem 1.5rem;
-  text-align: center;
 }
 section h2 {
   color: #8b0000;
@@ -62,29 +61,36 @@ section h2 {
   display: inline-block;
   padding-bottom: 0.3rem;
 }
+section h3 {
+  margin: 2rem 0 1rem;
+  color: #b22222;
+  font-size: 1.4rem;
+}
 
-/* Menu Items */
+/* Grid Menu */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
 .menu-item {
   background: #fff;
-  margin: 1.5rem auto;
-  padding: 1.5rem;
-  border-radius: 10px;
-  max-width: 500px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  font-size: 1rem;
 }
 .menu-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
-.menu-item h3 {
-  margin: 0;
-  color: #b22222;
-  font-size: 1.4rem;
-}
-.menu-item p {
-  margin-top: 0.5rem;
-  font-size: 1rem;
+.menu-item strong {
+  color: #8b0000;
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
 }
 
 /* Contact Section */
@@ -138,8 +144,5 @@ footer {
   }
   section {
     padding: 2rem 1rem;
-  }
-  .menu-item {
-    max-width: 90%;
   }
 }
