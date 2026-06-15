@@ -1,210 +1,68 @@
-/* =========================
-   RESET
-========================= */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* General Reset */
 body {
-  font-family: system-ui, -apple-system, Arial, sans-serif;
-  background: #f4f4f4;
-  color: #222;
-  line-height: 1.5;
-  padding: 12px;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff8f0;
+  color: #333;
 }
 
-/* =========================
-   LAYOUT
-========================= */
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-.card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
-}
-
-/* =========================
-   TYPOGRAPHY
-========================= */
-h1 {
+/* Header */
+header {
+  background-color: #8b0000;
+  color: white;
+  padding: 1rem;
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 10px;
 }
 
-#status {
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #b22222;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
+  transition: background 0.3s;
+}
+nav a:hover {
+  background-color: #ff6347;
+}
+
+/* Sections */
+section {
+  padding: 2rem;
   text-align: center;
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 16px;
 }
-
-/* =========================
-   MENU
-========================= */
-.menu-category {
-  margin-top: 18px;
-  font-weight: 600;
-  font-size: 15px;
-  text-transform: capitalize;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 4px;
-}
-
 .menu-item {
-  padding: 8px 0;
-  font-size: 14px;
-  border-bottom: 1px dashed #eee;
-}
-
-/* =========================
-   SPINNER
-========================= */
-.spinner {
-  margin: 20px auto;
-  width: 32px;
-  height: 32px;
-  border: 4px solid #eee;
-  border-top-color: #222;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* =========================
-   BUTTONS
-========================= */
-button {
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-#openPdf {
-  width: 100%;
-  margin-top: 18px;
-  padding: 12px;
-  background: #111;
-  color: #fff;
-}
-
-/* =========================
-   PDF VIEWER
-========================= */
-#pdfContainer {
-  display: none;
-  margin-top: 15px;
-  text-align: center;
-}
-
-#pdfViewer canvas {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
-}
-
-.navButtons {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.navButtons button {
-  padding: 8px 12px;
-  background: #111;
-  color: #fff;
-}
-
-#pageInfo {
-  font-size: 13px;
-  color: #444;
-}
-
-/* =========================
-   CHAT
-========================= */
-#chat-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 55px;
-  height: 55px;
-  background: #111;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  z-index: 999;
-}
-
-#chat-box {
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  width: 300px;
-  height: 420px;
   background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  display: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  z-index: 999;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-#chat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background: #111;
-  color: #fff;
+/* Footer */
+footer {
+  background-color: #8b0000;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
-#chat-header button {
-  background: transparent;
-  color: #fff;
-  font-size: 14px;
+/* Buttons */
+button {
+  background-color: #b22222;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
-
-/* =========================
-   MOBILE
-========================= */
-@media (max-width: 500px) {
-  .card {
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-
-  #chat-box {
-    width: 90%;
-    right: 5%;
-  }
+button:hover {
+  background-color: #ff6347;
 }
