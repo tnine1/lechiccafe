@@ -4,114 +4,162 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Le Chic Café</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff8f0;
-      color: #333;
-    }
-    header {
-      background-color: #8b0000;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: #b22222;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 1rem;
-      transition: background 0.3s;
-    }
-    nav a:hover {
-      background-color: #ff6347;
-    }
-    section {
-      padding: 2rem;
-      text-align: center;
-    }
-    .menu-item {
-      background: #fff;
-      margin: 1rem auto;
-      padding: 1rem;
-      border-radius: 8px;
-      max-width: 400px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    footer {
-      background-color: #8b0000;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-    button {
-      background-color: #b22222;
-      color: white;
-      border: none;
-      padding: 0.7rem 1.2rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background-color: #ff6347;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Header -->
   <header>
     <h1>Le Chic Café</h1>
     <p>Where elegance meets flavor</p>
   </header>
 
+  <!-- Navigation -->
   <nav>
     <a href="#about">About</a>
     <a href="#menu">Menu</a>
     <a href="#contact">Contact</a>
   </nav>
 
+  <!-- About Section -->
   <section id="about">
     <h2>About Us</h2>
-    <p>Welcome to Le Chic Café, your cozy corner for artisanal coffee, fresh pastries, and warm hospitality.</p>
+    <p>Open 24/7, Le Chic Café is your cozy corner for artisanal coffee, hearty meals, and refreshing juices. 
+       Located at Simba Kicukiro Traffic Lite, we’re thrilled to serve you anytime.</p>
   </section>
 
+  <!-- Menu Section -->
   <section id="menu">
     <h2>Our Menu</h2>
-    <div class="menu-item">
-      <h3>Espresso</h3>
-      <p>Rich and bold Italian-style espresso.</p>
+
+    <!-- Hot Drinks -->
+    <h3>Hot Drinks</h3>
+    <div class="grid">
+      <div class="menu-item">Single Espresso — 1,500 RWF</div>
+      <div class="menu-item">Double Espresso — 2,000 RWF</div>
+      <div class="menu-item">Café Latte — 2,500 RWF</div>
+      <div class="menu-item">Cappuccino — 2,500 RWF</div>
+      <div class="menu-item">Macchiato — 2,500 RWF</div>
+      <div class="menu-item">Hot Chocolate — 2,500 RWF</div>
     </div>
-    <div class="menu-item">
-      <h3>Croissant</h3>
-      <p>Flaky, buttery croissant baked fresh daily.</p>
+
+    <!-- Iced Coffee -->
+    <h3>Iced Coffee</h3>
+    <div class="grid">
+      <div class="menu-item">Iced Latte — 3,000 RWF</div>
+      <div class="menu-item">Iced Mocha — 3,500 RWF</div>
+      <div class="menu-item">Iced Cappuccino — 3,000 RWF</div>
+      <div class="menu-item">Iced Vanilla Frappee — 4,000 RWF</div>
     </div>
-    <div class="menu-item">
-      <h3>Latte</h3>
-      <p>Smooth espresso blended with steamed milk.</p>
+
+    <!-- Tea -->
+    <h3>Tea</h3>
+    <div class="grid">
+      <div class="menu-item">Black Tea — 2,000 RWF</div>
+      <div class="menu-item">Green Tea — 2,000 RWF</div>
+      <div class="menu-item">Ginger Tea — 3,000 RWF</div>
+      <div class="menu-item">Dawa Tea — 3,500 RWF</div>
+    </div>
+
+    <!-- Juices -->
+    <h3>Juices</h3>
+    <div class="grid">
+      <div class="menu-item">Passion Juice — 3,500 RWF</div>
+      <div class="menu-item">Mango Juice — 5,000 RWF</div>
+      <div class="menu-item">Orange Juice — 4,000 RWF</div>
+      <div class="menu-item">Mojito Juice — 6,000 RWF</div>
+    </div>
+
+    <!-- Smoothies & Shakes -->
+    <h3>Smoothies & Milk Shakes</h3>
+    <div class="grid">
+      <div class="menu-item">Le Chic Special Smoothie — 6,000 RWF</div>
+      <div class="menu-item">Mango Berry Smoothie — 6,000 RWF</div>
+      <div class="menu-item">Vanilla Shake — 5,000 RWF</div>
+      <div class="menu-item">Chocolate Shake — 5,000 RWF</div>
+      <div class="menu-item">Oreo Shake — 6,000 RWF</div>
+    </div>
+
+    <!-- Breakfast -->
+    <h3>Breakfast</h3>
+    <div class="grid">
+      <div class="menu-item">3 Fried Eggs with Toast — 5,000 RWF</div>
+      <div class="menu-item">Le Chic Café Pancakes — 7,500 RWF</div>
+      <div class="menu-item">Scrambled Eggs with Toast — 5,000 RWF</div>
+      <div class="menu-item">Spanish Omelette — 5,000 RWF</div>
+    </div>
+
+    <!-- Chicken & Fish -->
+    <h3>Chicken & Fish</h3>
+    <div class="grid">
+      <div class="menu-item">Grilled Chicken Leg — 8,000 RWF</div>
+      <div class="menu-item">Chicken Curry — 9,000 RWF</div>
+      <div class="menu-item">Chicken Wings — 8,000 RWF</div>
+      <div class="menu-item">Fish Fillet — 9,000 RWF</div>
+      <div class="menu-item">Fish Curry — 9,000 RWF</div>
+      <div class="menu-item">Fish Brochette — 8,000 RWF</div>
+    </div>
+
+    <!-- Beef Dishes -->
+    <h3>Beef Dishes</h3>
+    <div class="grid">
+      <div class="menu-item">Beef Stew — 8,000 RWF</div>
+      <div class="menu-item">Beef Sukal — 7,500 RWF</div>
+      <div class="menu-item">Beef Stroganoff — 7,000 RWF</div>
+      <div class="menu-item">Beef Steak — 9,000 RWF</div>
+    </div>
+
+    <!-- Burgers & Pizza -->
+    <h3>Burgers & Pizza</h3>
+    <div class="grid">
+      <div class="menu-item">Plain Beef Burger — 5,000 RWF</div>
+      <div class="menu-item">Chicken Burger — 7,000 RWF</div>
+      <div class="menu-item">Fish Burger — 8,000 RWF</div>
+      <div class="menu-item">Margarita Pizza — 10,000 RWF</div>
+      <div class="menu-item">Hawaiian Pizza — 8,000 RWF</div>
+      <div class="menu-item">Kigali Style Pizza — 10,000 RWF</div>
+    </div>
+
+    <!-- Pasta & Rice -->
+    <h3>Pasta & Rice</h3>
+    <div class="grid">
+      <div class="menu-item">Spaghetti Bolognese — 7,500 RWF</div>
+      <div class="menu-item">Chicken Spaghetti — 8,000 RWF</div>
+      <div class="menu-item">Vegetable Rice — 5,000 RWF</div>
+      <div class="menu-item">Chicken Vegetable Rice — 8,000 RWF</div>
+    </div>
+
+    <!-- Sandwiches -->
+    <h3>Sandwiches</h3>
+    <div class="grid">
+      <div class="menu-item">Hot Chicken Sandwich — 8,000 RWF</div>
+      <div class="menu-item">Tuna Sandwich — 8,500 RWF</div>
+      <div class="menu-item">Club Sandwich — 9,000 RWF</div>
+      <div class="menu-item">Eggs Cheese Sandwich — 6,500 RWF</div>
+    </div>
+
+    <!-- Salads -->
+    <h3>Salads</h3>
+    <div class="grid">
+      <div class="menu-item">Garden Salad — 6,000 RWF</div>
+      <div class="menu-item">Tuna Salad — 9,000 RWF</div>
+      <div class="menu-item">Chicken Salad — 8,000 RWF</div>
+      <div class="menu-item">Greek Salad — 7,000 RWF</div>
     </div>
   </section>
 
+  <!-- Contact Section -->
   <section id="contact">
     <h2>Contact Us</h2>
-    <p>📍 123 Chic Street, Kigali</p>
-    <p>📞 <a href="tel:+250788123456">+250 788 123 456</a></p>
+    <p>📍 Second Building after Simba Kicukiro Traffic Lite</p>
+    <p>📞 <a href="tel:+250781043532">+250 781 043 532</a> / <a href="tel:+250783662228">+250 783 662 228</a></p>
+    <p>📧 <a href="mailto:lechiccafe162@gmail.com">lechiccafe162@gmail.com</a></p>
+    <p>🌐 <a href="http://www.lechiccafee.com" target="_blank">www.lechiccafee.com</a></p>
     <button onclick="redirectToMap()">Find Us on Map</button>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2026 Le Chic Café. All rights reserved.</p>
   </footer>
 
-  <script>
-    function redirectToMap() {
-      window.location.href = "https://www.google.com/maps/search/Le+Chic+Cafe+Kigali";
-    }
-  </script>
-</body>
-</html>
+  <script src="script.js"></script>
