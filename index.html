@@ -1,105 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le Chic Café QR Menu</title>
-
-<!-- PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-
-<link rel="stylesheet" href="style.css">
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial;}
-body{background:#f4f4f4;padding:10px;}
-.container{max-width:700px;margin:auto;}
-.card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 6px 25px rgba(0,0,0,0.08);}
-h1{text-align:center;margin-bottom:10px;}
-#status{text-align:center;font-size:14px;margin-bottom:15px;color:#444;}
-
-.menu-category{font-weight:bold;margin-top:15px;border-bottom:1px solid #eee;}
-.menu-item{padding:6px 0;border-bottom:1px dashed #eee;}
-
-.spinner{
-margin:20px auto;
-border:4px solid #eee;
-border-top:4px solid #333;
-border-radius:50%;
-width:30px;height:30px;
-animation:spin 1s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* PDF */
-#openPdf{margin-top:15px;padding:12px;background:#111;color:#fff;border:none;border-radius:8px;width:100%;}
-#pdfContainer{display:none;margin-top:10px;text-align:center;}
-#pdfViewer canvas{width:100%;border-radius:10px;}
-.navButtons{margin-top:10px;display:flex;justify-content:center;gap:10px;}
-.navButtons button{padding:8px;border:none;background:#111;color:#fff;border-radius:6px;}
-
-/* Chat */
-#chat-toggle{
-position:fixed;bottom:20px;right:20px;
-background:#111;color:#fff;width:55px;height:55px;
-display:flex;align-items:center;justify-content:center;
-border-radius:50%;cursor:pointer;z-index:999;
-}
-
-#chat-box{
-position:fixed;bottom:90px;right:20px;
-width:300px;height:420px;background:#fff;
-border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);
-display:none;overflow:hidden;z-index:999;
-}
-
-#chat-header{
-display:flex;justify-content:space-between;
-padding:10px;background:#111;color:#fff;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Chic Café</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff8f0;
+      color: #333;
+    }
+    header {
+      background-color: #8b0000;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #b22222;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 1rem;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background-color: #ff6347;
+    }
+    section {
+      padding: 2rem;
+      text-align: center;
+    }
+    .menu-item {
+      background: #fff;
+      margin: 1rem auto;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 400px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: #8b0000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    button {
+      background-color: #b22222;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #ff6347;
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <h1>Le Chic Café</h1>
+    <p>Where elegance meets flavor</p>
+  </header>
 
-<div class="container">
-<div class="card">
+  <nav>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-<h1>☕ Le Chic Café</h1>
-<p id="status">Preparing your menu...</p>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Welcome to Le Chic Café, your cozy corner for artisanal coffee, fresh pastries, and warm hospitality.</p>
+  </section>
 
-<div id="menu"></div>
-<div class="spinner"></div>
+  <section id="menu">
+    <h2>Our Menu</h2>
+    <div class="menu-item">
+      <h3>Espresso</h3>
+      <p>Rich and bold Italian-style espresso.</p>
+    </div>
+    <div class="menu-item">
+      <h3>Croissant</h3>
+      <p>Flaky, buttery croissant baked fresh daily.</p>
+    </div>
+    <div class="menu-item">
+      <h3>Latte</h3>
+      <p>Smooth espresso blended with steamed milk.</p>
+    </div>
+  </section>
 
-<button id="openPdf">📖 View Full Menu</button>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>📍 123 Chic Street, Kigali</p>
+    <p>📞 <a href="tel:+250788123456">+250 788 123 456</a></p>
+    <button onclick="redirectToMap()">Find Us on Map</button>
+  </section>
 
-<div id="pdfContainer">
-  <div id="pdfViewer"></div>
-  <div class="navButtons">
-    <button id="prevPage">⬅</button>
-    <span id="pageInfo"></span>
-    <button id="nextPage">➡</button>
-  </div>
-</div>
+  <footer>
+    <p>&copy; 2026 Le Chic Café. All rights reserved.</p>
+  </footer>
 
-</div>
-</div>
-
-<!-- Chat -->
-<div id="chat-toggle">💬</div>
-<div id="chat-box">
-  <div id="chat-header">
-    <span>Chat</span>
-    <button id="chat-close">✖</button>
-  </div>
-  <iframe src="https://www.chatbase.co/chatbot-iframe/dbdzO-xP2dOJor0WlXtju"
-          style="width:100%;height:100%;border:none;"></iframe>
-</div>
-
-<audio id="notifySound">
-<source src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3">
-</audio>
-
-<script src="scripts.js" defer></script>
+  <script>
+    function redirectToMap() {
+      window.location.href = "https://www.google.com/maps/search/Le+Chic+Cafe+Kigali";
+    }
+  </script>
 </body>
 </html>
