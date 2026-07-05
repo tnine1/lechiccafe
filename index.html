@@ -1,165 +1,1014 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Le Chic Café</title>
-  <link rel="stylesheet" href="styles.css">
+<!-- saved from url=(0036)https://tnine1.github.io/lechiccafe/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Le Chic Cafe</title>
+
+  <link rel="manifest" href="https://tnine1.github.io/lechiccafe/manifest.json">
+<meta name="theme-color" content="#000000">
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="./Le Chic Cafe_files/styles.css">
+  <link rel="icon" href="https://tnine1.github.io/lechiccafe/images/favicon.svg">
+  <link href="./Le Chic Cafe_files/css2" rel="stylesheet">
+  <!-- Leaflet CSS (if you want a JS map later) -->
+  <link rel="stylesheet" href="./Le Chic Cafe_files/leaflet.css">
+  <meta name="description" content="Le Chic Cafe - Fresh espresso-based drinks, pizzas, burgers and fresh juices. Order with one click.">
+  <link rel="stylesheet" href="./Le Chic Cafe_files/all.min.css">
+  <link rel="stylesheet" href="./Le Chic Cafe_files/all.min.css">
+  <link rel="icon" href="./Le Chic Cafe_files/logo.jpeg" type="image/jpeg"> 
+
+<!-- Open Graph tags for WhatsApp & social sharing -->
+<meta property="og:title" content="Le Chic Café">
+<meta property="og:description" content="Welcome to Le Chic Café – Coffee, Food &amp; Great Moments">
+<meta property="og:image" content="https://tnine1.github.io/lechiccafe/logo.jpeg">
+<meta property="og:url" content="https://tnine1.github.io/lechiccafe/">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+  
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <h1>Le Chic Café</h1>
-    <p>Where elegance meets flavor</p>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="https://tnine1.github.io/lechiccafe/index.html" class="brand-link">
+          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Profile" class="profile-avatar"><br>
+
+          <h1>Le Chic Cafe</h1>
+        </a>
+        <p class="tag">GOOD VIBES ONLY</p>
+      </div>
+     
+
+    <p><a class="nav-link" href="https://tnine1.github.io/lechiccafe/#menu">Menu</a></p> 
+     <p><a class="nav-link" href="https://tnine1.github.io/lechiccafe/#about">About</a></p> 
+      <p><a class="nav-link" href="https://tnine1.github.io/lechiccafe/#contact">Contact</a></p> 
+      <p><a class="nav-link" href="https://qr1.be/QUW2FW" target="_blank" rel="noopener">FULL MENU</a></p> 
+    
+
+  
+
+      <div class="header-controls">
+        <div class="social-icons" aria-hidden="false">
+         <li> <a href="https://www.facebook.com/profile.php?id=61582722008522" target="_blank" rel="noopener" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/le_chic_cafe__/" target="_blank" rel="noopener" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="https://wa.me/250781043532" target="_blank" rel="noopener" class="social-link"><i class="fab fa-whatsapp"></i></a>
+       </li> </div>  </div>
+     
+        <div class="cart">
+          <button id="cartBtn" class="cart-btn" aria-label="Open cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cartCount" class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    
   </header>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="#about">About</a>
-    <a href="#menu">Menu</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Welcome to Le Chic Cafe</h2>
+        <p class="hero-sub">Fresh espresso drinks, pizzas, burgers and cold &amp; hot juices. Order quickly — we prepare fast.</p>
 
-  <!-- About Section -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>Open 24/7, Le Chic Café is your cozy corner for artisanal coffee, hearty meals, and refreshing juices. 
-       Located at Simba Kicukiro Traffic Lite, we’re thrilled to serve you anytime.</p>
-  </section>
 
-  <!-- Menu Section -->
-  <section id="menu">
-    <h2>Our Menu</h2>
+  
 
-    <!-- Hot Drinks -->
-    <h3>Hot Drinks</h3>
-    <div class="grid">
-      <div class="menu-item">Single Espresso — 1,500 RWF</div>
-      <div class="menu-item">Double Espresso — 2,000 RWF</div>
-      <div class="menu-item">Café Latte — 2,500 RWF</div>
-      <div class="menu-item">Cappuccino — 2,500 RWF</div>
-      <div class="menu-item">Macchiato — 2,500 RWF</div>
-      <div class="menu-item">Hot Chocolate — 2,500 RWF</div>
+
+
+        <div class="hero-actions">
+          <a class="btn" href="https://tnine1.github.io/lechiccafe/#menu">See Menu</a>
+          <a class="btn btn-outline" href="https://tnine1.github.io/lechiccafe/#contact">Contact</a>
+        </div>
+      </div>
+    
+    </section>
+  <!-- CHAT BUTTON -->
+<div id="chatToggle" style="display: none;">Ask Ciero</div>
+
+<!-- CHATBOT -->
+<div id="chatbot" class="">
+
+  <!-- HEADER (fixed, never touched by JS) -->
+  <div id="chatHeader">
+    I am Ciero – Le Chic Café virtual assistant
+    <span id="closeChat">✕</span>
+  </div>
+
+  <!-- BODY (messages go here ONLY) -->
+  <div id="chatBody"><div class="msg-bot"><b>Ciero 🤍:</b> <span class="typing">Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu items, prices, recommendations, location, or opening hours 😊</span></div><div class="msg-user">How much does coffee buys</div><div class="msg-bot"><b>Ciero 🤍:</b> <span class="typing">I found several items matching that name:&lt;br&gt;Black Coffee — 2000 RWF&lt;br&gt;Customized Coffee — </span></div></div>
+
+  <!-- INPUT (never overwritten) -->
+  <input type="text" id="chatInput" placeholder="Feel free to ask me about menu, prices, location… I&#39;m here 24/7 😊">
+<button id="sendBtn">➡️</button>
+</div>
+
+<div class="menu-search">
+  <input type="text" id="menuSearch" placeholder="Search menu (coffee, juice...)">
+</div>
+
+
+    <section id="menu" class="container menu-section">
+      <div class="section-header">
+        <h3>Menu</h3>
+        <p class="muted">Tap Buy Now to add the item and prepare your order. Then confirm in the cart.</p>
+      </div>
+
+      
+
+
+      <div class="menu-grid" id="menuGrid">
+
+        <!-- Espresso-based drinks: data-price values MUST be numeric (RWF) -->
+        <article class="menu-item" data-id="single-espresso" data-name="Single Espresso" data-price="1500" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1583165278997-0250ea5d72e2">
+  <h4>Single Espresso</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="double-espresso" data-name="Double Espresso" data-price="2000" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1583165278997-0250ea5d72e2">
+  <h4>Double Espresso</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="americano" data-name="Americano" data-price="2000" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1611162458324-aae1eb4129a4">
+  <h4>Americano</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="black-coffee" data-name="Black Coffee" data-price="2000" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1669872484166-e11b9638b50e">
+  <h4>Black Coffee</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="black-coffee-strong" data-name="Black Coffee Strong" data-price="2000" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1669872484166-e11b9638b50e">
+  <h4>Black Coffee Strong</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="cafe-latte" data-name="Café Latte" data-price="2500" style="display: block;">
+  <img src="./Le Chic Cafe_files/premium_photo-1663932463883-897e71481fc4">
+  <h4>Café Latte</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="cappuccino" data-name="Cappuccino" data-price="2500" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1708430651927-20e2e1f1e8f7">
+  <h4>Cappuccino</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="cappuccino-big" data-name="Cappuccino Big" data-price="3000" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1541167760496-1628856ab772">
+  <h4>Cappuccino Big</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="strong-cappuccino" data-name="Strong Cappuccino" data-price="3000" style="display: block;">
+  <img src="./Le Chic Cafe_files/photo-1541167760496-1628856ab772(1)">
+  <h4>Strong Cappuccino</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="macchiato" data-name="Macchiato" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-1397676276-612x612.webp">
+  <h4>Macchiato</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="cafe-mocha" data-name="Café Mocha" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1530629159325-9c378fc150b9">
+  <h4>Café Mocha</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="afrogato" data-name="Afrogato" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-2182327087-612x612.webp">
+  <h4>Afrogato</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="flyte-white" data-name="Flyte White" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1541167760496-1628856ab772(1)" alt="Flyte White">
+  <h4>Flate White</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="customized-coffee" data-name="Customized Coffee" data-price="3500" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.2pHS_wQp5Rugwa4n1ku9uwHaLH" alt="Customized Coffee">
+  <h4>Customized Coffee</h4>
+  <p class="price">RF 3500</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="african-coffee" data-name="African Coffee" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1699357215753-3f377be13c8f" alt="African Coffee">
+  <h4>African Coffee</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="hot-chocolate" data-name="Hot Chocolate" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1561394026-0f29a9f0829c">
+  <h4>Hot Chocolate</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="vanilla-latte" data-name="Vanilla Late" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1517701550927-30cf4ba1dba5">
+  <h4>Vanilla Late</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="caramel-macchiato" data-name="Caramel Machiato" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1517701550927-30cf4ba1dba5">
+  <h4>Caramel Machiato</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions">
+    <button class="btn buy-btn" type="button">Buy Now</button>
+  </div>
+</article>
+
+<article class="menu-item" data-id="iced-cream-coffee" data-name="Iced Cream Coffee" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-1293312056-612x612.webp">
+  <h4>Iced Cream Coffee</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-vanilla-latin" data-name="Iced Vanilla Latin" data-price="4000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1728978095941-ac7dea0cebdf">
+  <h4>Iced Vanilla Latin</h4>
+  <p class="price">RF 4000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-latte" data-name="Iced Latte" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1671759545218-831c32bfe92d">
+  <h4>Iced Latte</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-cappuccino" data-name="Iced Cappuccino" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1671759545218-831c32bfe92d">
+  <h4>Iced Cappuccino</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-mocha" data-name="Iced Mocha" data-price="3500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1517701550927-30cf4ba1dba5(1)">
+  <h4>Iced Mocha</h4>
+  <p class="price">RF 3500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-americano" data-name="Iced Americano" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1671759545218-831c32bfe92d">
+  <h4>Iced Americano</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-frappuccino" data-name="Iced Frappuccino" data-price="3500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1728978095941-ac7dea0cebdf">
+  <h4>Iced Frappuccino</h4>
+  <p class="price">RF 3500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-mocha-frappe" data-name="Iced Mocha Frappe" data-price="4000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.HfCbHllClt-5eGLff9ZetgAAAA" alt="Iced Mocha Frappe">
+  <h4>Iced Mocha Frappe</h4>
+  <p class="price">RF 4000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-black-coffee" data-name="Iced Black Coffee" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.nfo0z-JIc5TizQ75OcoSOwHaHa" alt="Iced Black Coffee">
+  <h4>Iced Black Coffee</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="iced-vanilla-frappee" data-name="Iced Vanilla Frappee" data-price="4000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.ldRB54glhs8wuGAi2hRlvAHaLG" alt="Iced Vanilla Frappee">
+  <h4>Iced Vanilla Frappee</h4>
+  <p class="price">RF 4000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="black-tea" data-name="Black Tea" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.XkbIAc6zEmBB-WeL-2jWugHaE7" alt="Black Tea">
+  <h4>Black Tea</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="green-tea" data-name="Green Tea" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.rIZO7ovlJkWG1LuufcpFggHaE8" alt="Green Tea">
+  <h4>Green Tea</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="african-tea" data-name="African Tea" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.fdx_SilCKnI9FrztCxpYoQHaE8" alt="African Tea">
+  <h4>African Tea</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="ginger-tea" data-name="Ginger Tea" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.bM5op2MHWs5LsIqgq4g1LAAAAA" alt="Ginger Tea">
+  <h4>Ginger Tea</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="lemon-tea" data-name="Lemon Tea" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.3FCXZji2f3uhrfwwYl4dvAHaHa" alt="Lemon Tea">
+  <h4>Lemon Tea</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="hot-milk" data-name="Hot Milk" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1550583724-b2692b85b150" alt="Hot Milk">
+  <h4>Hot Milk</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="hot-water-lemon" data-name="Hot Water + Lemon" data-price="1500" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-692227210-612x612.jpg" alt="Hot Water + Lemon">
+  <h4>Hot Water + Lemon</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="hot-water" data-name="Hot Water" data-price="1000" style="display: none;">
+  <img src="./Le Chic Cafe_files/hot-water-cup-kettle.jpg" alt="Hot Water">
+  <h4>Hot Water</h4>
+  <p class="price">RF 1000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="fresh-milk" data-name="Fresh Milk" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1550583724-b2692b85b150" alt="Fresh Milk">
+  <h4>Fresh Milk</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="spice-tea" data-name="Spice Tea" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Spice Tea">
+  <h4>Spice Tea</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="mint-tea" data-name="Mint Tea" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Mint Tea">
+  <h4>Mint Tea</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="russian-tea" data-name="Russian Tea" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Russian Tea">
+  <h4>Russian Tea</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="dawa-tea" data-name="Dawa Tea" data-price="3500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Dawa Tea">
+  <h4>Dawa Tea</h4>
+  <p class="price">RF 3500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="passion-juice" data-name="Passion Juice" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1591267990439-1c6f9b7c5644" alt="Passion Juice">
+  <h4>Passion Juice</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="mango-juice" data-name="Mango Juice" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1553279768-865429fa0078" alt="Mango Juice">
+  <h4>Mango Juice</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="mixed-juice" data-name="Mixed Juice" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Mixed Juice">
+  <h4>Mixed Juice</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="watermelon-juice" data-name="Watermelon Juice" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1581375321225-496add5a55a1" alt="Watermelon Juice">
+  <h4>Watermelon Juice</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="pineapple-juice" data-name="Pineapple Juice" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1550258987-190a2d41a8ba" alt="Pineapple Juice">
+  <h4>Pineapple Juice</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="orange-juice" data-name="Orange Juice" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Orange Juice">
+  <h4>Orange Juice</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="lemon-juice" data-name="Lemon Juice" data-price="1500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Lemon Juice">
+  <h4>Lemon Juice</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="apple-juice" data-name="Apple Juice" data-price="2500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1570913149827-d2ac84ab3f9a" alt="Apple Juice">
+  <h4>Apple Juice</h4>
+  <p class="price">RF 2500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="banana-juice" data-name="Banana Juice" data-price="2000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Banana Juice">
+  <h4>Banana Juice</h4>
+  <p class="price">RF 2000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="avocado-juice" data-name="Avocado Juice" data-price="3000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1523049673857-eb18f1d7b578" alt="Avocado Juice">
+  <h4>Avocado Juice</h4>
+  <p class="price">RF 3000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="starmoon-special-smoothie" data-name="Starmoon Special Smoothie" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1502741338009-cac2772e18bc" alt="Starmoon Special Smoothie">
+  <h4>le chic Special Smoothie</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="mango-berry-smoothie" data-name="Mango Berry Smoothie" data-price="6000" style="display: none;">
+  <img src="./Le Chic Cafe_files/image" alt="Mango Berry Smoothie">
+  <h4>Mango Berry Smoothie</h4>
+  <p class="price">RF 6000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="tropical-smoothie" data-name="Tropical Smoothie" data-price="6000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.9b-vN51lGxgILyGOIGZaYwHaHa" alt="Tropical Smoothie">
+  <h4>Tropical Smoothie</h4>
+  <p class="price">RF 6000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="avocado-smoothie" data-name="Avocado Smoothie" data-price="6000" style="display: none;">
+  <img src="./Le Chic Cafe_files/avocado-smoothie-7-1024x1536.jpg" alt="Avocado Smoothie">
+  <h4>Avocado Smoothie</h4>
+  <p class="price">RF 6000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="banana-smoothie" data-name="Banana Smoothie" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.cEt7_ufuI_nnbowL62_EfAHaLH" alt="Banana Smoothie">
+  <h4>Banana Smoothie</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="mixed-fruit-smoothie" data-name="Mixed Fruit Smoothie" data-price="6000" style="display: none;">
+  <img src="./Le Chic Cafe_files/Fruit-Smoothie.jpg" alt="Mixed Fruit Smoothie">
+  <h4>Mixed Fruit Smoothie</h4>
+  <p class="price">RF 6000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="vanilla-milkshake" data-name="Vanilla Milkshake" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.PPLoKnz14gdy4vZtCP_8rAHaFk" alt="Vanilla Milkshake">
+  <h4>Vanilla Milkshake</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chocolate-milkshake" data-name="Chocolate Milkshake" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/chocolate-milkshake_961280-618.jpg" alt="Chocolate Milkshake">
+  <h4>Chocolate Milkshake</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="strawberry-milkshake" data-name="Strawberry Milkshake" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/R.579224835d868b78153ec232397a8da0" alt="Strawberry Milkshake">
+  <h4>Strawberry Milkshake</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="mixed-shake" data-name="Mixed Shake" data-price="6000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.h-3S_wCGDN263tV6QFir0wHaE7" alt="Mixed Shake">
+  <h4>Mixed milkShake</h4>
+  <p class="price">RF 6000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="macedoine" data-name="Macedoine" data-price="4000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.QzmTvNes7w22WNjDLfx7xQHaFE" alt="Macedoine">
+  <h4>Macedoine</h4>
+  <p class="price">RF 4000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="fruit-plater" data-name="Fruit Plater" data-price="5500" style="display: none;">
+  <img src="./Le Chic Cafe_files/img_2841.jpg" alt="Fruit Plater">
+  <h4>Fruit Plater</h4>
+  <p class="price">RF 5500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="macedoine-icecream" data-name="Macedoine with Icecream" data-price="5000" style="display: none;">
+  <img src="https://tnine1.github.io/lechiccafe/" alt="Macedoine with Icecream">
+  <h4>Macedoine with Icecream</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="ice-cream-scoop" data-name="Ice Cream One Scoop" data-price="1000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1488900128323-21503983a07a" alt="Ice Cream One Scoop">
+  <h4>Ice Cream One Scoop</h4>
+  <p class="price">RF 1000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="ice-cream-fruit" data-name="Ice Cream Fruit" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/OIP.iWdA_lTYnIFA8vmvhxzo3wHaE7" alt="Ice Cream Fruit">
+  <h4>Ice Cream Fruit</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="big-water" data-name="Big Water" data-price="1500" style="display: none;">
+  <img src="./Le Chic Cafe_files/128_6787bf7893138.png" alt="Big Water">
+  <h4>Big Water</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+
+<article class="menu-item" data-id="plastic-water" data-name="Plastic Water" data-price="1500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1550505095-81378a674395" alt="Plastic Water">
+  <h4>Plastic Water</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="small-fanta" data-name="Small Fanta" data-price="1000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1622597467836-f3c7ddad5f12" alt="Small Fanta">
+  <h4>Small Fanta</h4>
+  <p class="price">RF 1000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="tonic-fanta" data-name="Tonic Fanta" data-price="1500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1622597467836-f3c7ddad5f12" alt="Tonic Fanta">
+  <h4>Tonic Fanta</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="vitalo-sparkling-water" data-name="Vitalo Sparkling Water" data-price="1500" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-1419371090-612x612.webp" alt="Vitalo Sparkling Water">
+  <h4>Vitalo Sparkling Water</h4>
+  <p class="price">RF 1500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="fried-eggs-toast" data-name="3 Fried Eggs with Toast Bread" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1586444248902-2f64eddc13df" alt="3 Fried Eggs with Toast Bread">
+  <h4>3 Fried Eggs with Toast Bread</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="sausage-chips-salad" data-name="Sausage with Chips &amp; Salad" data-price="5500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1562967916-eb82221dfb92" alt="Sausage with Chips &amp; Salad">
+  <h4>Sausage with Chips &amp; Salad</h4>
+  <p class="price">RF 5500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="pancakes-omelette" data-name="Pancakes + Plain Omelette" data-price="6500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1565299624946-b28f40a0ae38" alt="Pancakes + Plain Omelette">
+  <h4>Pancakes + Plain Omelette</h4>
+  <p class="price">RF 6500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="scrambled-eggs-toast" data-name="Scrambled Eggs + Toast Bread" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1586444248902-2f64eddc13df" alt="Scrambled Eggs + Toast Bread">
+  <h4>Scrambled Eggs + Toast Bread</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="cheese-mushroom-wedges" data-name="Cheese &amp; Mushroom + Potato Wedges" data-price="4500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1565299624946-b28f40a0ae38" alt="Cheese &amp; Mushroom + Potato Wedges">
+  <h4>Cheese &amp; Mushroom + Potato Wedges</h4>
+  <p class="price">RF 4500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="spinach-omelet-wedges" data-name="Spinach Omelet + Wedges/Toast" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-2235290327-612x612.webp" alt="Spinach Omelet + Wedges/Toast">
+  <h4>Spinach Omelet + Wedges/Toast</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="spanish-omelet-toast" data-name="Spanish Omelet + Toast" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-2235290327-612x612.webp" alt="Spanish Omelet + Toast">
+  <h4>Spanish Omelet + Toast</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="special-omelet" data-name="Special Omelet" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/istockphoto-2235290327-612x612.webp" alt="Special Omelet">
+  <h4>Special Omelet</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="capati-rolex" data-name="Capati Rolex" data-price="4000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Capati Rolex">
+  <h4>Capati Rolex</h4>
+  <p class="price">RF 4000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="vegetable-capati-rolex" data-name="Vegetable Capati Rolex" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Vegetable Capati Rolex">
+  <h4>Vegetable Capati Rolex</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="steak-omelet" data-name="Steak Omelet" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Steak Omelet">
+  <h4>Steak Omelet</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-wrap" data-name="Chicken Wrap" data-price="5500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Chicken Wrap">
+  <h4>Chicken Wrap</h4>
+  <p class="price">RF 5500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+
+<article class="menu-item" data-id="beef-wrap" data-name="Beef Wrap" data-price="5000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Beef Wrap">
+  <h4>Beef Wrap</h4>
+  <p class="price">RF 5000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="vegetable-wrap" data-name="Vegetable Wrap" data-price="4000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Vegetable Wrap">
+  <h4>Vegetable Wrap</h4>
+  <p class="price">RF 4000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+
+<article class="menu-item" data-id="chicken-leg" data-name="Chicken Leg" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1626677837222-8a7c2f892c31" alt="Chicken Leg">
+  <h4>Chicken Leg</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-stew" data-name="Chicken Stew" data-price="7500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Stew">
+  <h4>Chicken Stew</h4>
+  <p class="price">RF 7500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-sukal" data-name="Chicken Sukal" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Sukal">
+  <h4>Chicken Sukal</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+
+<article class="menu-item" data-id="chicken-curry" data-name="Chicken Curry" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Curry">
+  <h4>Chicken Curry</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-wings" data-name="Chicken Wings" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1562967916-eb82221dfb92" alt="Chicken Wings">
+  <h4>Chicken Wings</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-breast" data-name="Chicken Breast" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1626677837222-8a7c2f892c31" alt="Chicken Breast">
+  <h4>Chicken Breast</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-stroganoff" data-name="Chicken Stroganoff" data-price="7500" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Stroganoff">
+  <h4>Chicken Stroganoff</h4>
+  <p class="price">RF 7500</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+&gt;
+
+<article class="menu-item" data-id="chicken-steak" data-name="Chicken Steak" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1626677837222-8a7c2f892c31" alt="Chicken Steak">
+  <h4>Chicken Steak</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="ugali-chicken-stew" data-name="Ugali with Chicken Stew" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Ugali with Chicken Stew">
+  <h4>Ugali with Chicken Stew</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="kawunga-chicken-stew" data-name="Kawunga with Chicken Stew" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Kawunga with Chicken Stew">
+  <h4>Kawunga with Chicken Stew</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="chicken-boil" data-name="Chicken Boil w/ Banana &amp; Potatoes" data-price="7000" style="display: none;">
+  <img src="./Le Chic Cafe_files/saved_resource" alt="Chicken Boil with Banana &amp; Potatoes">
+  <h4>Chicken Boil w/ Banana &amp; Potatoes</h4>
+  <p class="price">RF 7000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="fish-stew" data-name="Fish Stew" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/saved_resource(1)" alt="Fish Stew">
+  <h4>Fish Stew</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+<article class="menu-item" data-id="fish-curry" data-name="Fish Curry" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/saved_resource(1)" alt="Fish Curry">
+  <h4>Fish Curry</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+
+
+<article class="menu-item" data-id="fish-fillet" data-name="Fish Fillet" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/saved_resource(1)" alt="Fish Fillet">
+  <h4>Fish Fillet</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+<article class="menu-item" data-id="beef-stew" data-name="Beef Stew" data-price="8000" style="display: none;">
+  <img src="./Le Chic Cafe_files/saved_resource(2)" alt="Beef Stew">
+  <h4>Beef Stew</h4>
+  <p class="price">RF 8000</p>
+  <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
+</article>
+
+
+  
+    </div></section>
+<div class="load-more-container">
+  <button id="loadMoreBtn" style="display: inline-block;">Load More</button>
+</div>
+
+    <section id="about" class="container about-section">
+      <h3>About Us</h3>
+      <p>Le Chic Cafe is a cozy neighborhood spot serving espresso-based beverages, stone-baked pizzas, handcrafted burgers and fresh, cold-pressed juices. We source seasonal beans and bake in-house daily.</p>
+    </section>
+
+    <section id="contact" class="container contact-section">
+      <h3>Contact &amp; Ordering</h3>
+      <p>
+        Phone/WhatsApp: <strong id="phoneText">+250 781 043 532</strong> <br>
+        Email: <strong id="emailText">lechiccafe.info@gmail.com</strong>
+      </p>
+
+      <h4>Find us</h4>
+
+      <!-- Embedded Google map (iframe) -->
+      <div class="map-wrap">
+        <iframe title="Le Chic Cafe location" src="./Le Chic Cafe_files/embed.html" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <p class="muted">
+        Quick ordering: add items with Buy Now, then confirm your details in the cart modal and send.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year">2026   </span> Le Chic Cafe<span id="register">®</span>— All rights reserved.</p>
     </div>
-
-    <!-- Iced Coffee -->
-    <h3>Iced Coffee</h3>
-    <div class="grid">
-      <div class="menu-item">Iced Latte — 3,000 RWF</div>
-      <div class="menu-item">Iced Mocha — 3,500 RWF</div>
-      <div class="menu-item">Iced Cappuccino — 3,000 RWF</div>
-      <div class="menu-item">Iced Vanilla Frappee — 4,000 RWF</div>
-    </div>
-
-    <!-- Tea -->
-    <h3>Tea</h3>
-    <div class="grid">
-      <div class="menu-item">Black Tea — 2,000 RWF</div>
-      <div class="menu-item">Green Tea — 2,000 RWF</div>
-      <div class="menu-item">Ginger Tea — 3,000 RWF</div>
-      <div class="menu-item">Dawa Tea — 3,500 RWF</div>
-    </div>
-
-    <!-- Juices -->
-    <h3>Juices</h3>
-    <div class="grid">
-      <div class="menu-item">Passion Juice — 3,500 RWF</div>
-      <div class="menu-item">Mango Juice — 5,000 RWF</div>
-      <div class="menu-item">Orange Juice — 4,000 RWF</div>
-      <div class="menu-item">Mojito Juice — 6,000 RWF</div>
-    </div>
-
-    <!-- Smoothies & Shakes -->
-    <h3>Smoothies & Milk Shakes</h3>
-    <div class="grid">
-      <div class="menu-item">Le Chic Special Smoothie — 6,000 RWF</div>
-      <div class="menu-item">Mango Berry Smoothie — 6,000 RWF</div>
-      <div class="menu-item">Vanilla Shake — 5,000 RWF</div>
-      <div class="menu-item">Chocolate Shake — 5,000 RWF</div>
-      <div class="menu-item">Oreo Shake — 6,000 RWF</div>
-    </div>
-
-    <!-- Breakfast -->
-    <h3>Breakfast</h3>
-    <div class="grid">
-      <div class="menu-item">3 Fried Eggs with Toast — 5,000 RWF</div>
-      <div class="menu-item">Le Chic Café Pancakes — 7,500 RWF</div>
-      <div class="menu-item">Scrambled Eggs with Toast — 5,000 RWF</div>
-      <div class="menu-item">Spanish Omelette — 5,000 RWF</div>
-    </div>
-
-    <!-- Chicken & Fish -->
-    <h3>Chicken & Fish</h3>
-    <div class="grid">
-      <div class="menu-item">Grilled Chicken Leg — 8,000 RWF</div>
-      <div class="menu-item">Chicken Curry — 9,000 RWF</div>
-      <div class="menu-item">Chicken Wings — 8,000 RWF</div>
-      <div class="menu-item">Fish Fillet — 9,000 RWF</div>
-      <div class="menu-item">Fish Curry — 9,000 RWF</div>
-      <div class="menu-item">Fish Brochette — 8,000 RWF</div>
-    </div>
-
-    <!-- Beef Dishes -->
-    <h3>Beef Dishes</h3>
-    <div class="grid">
-      <div class="menu-item">Beef Stew — 8,000 RWF</div>
-      <div class="menu-item">Beef Sukal — 7,500 RWF</div>
-      <div class="menu-item">Beef Stroganoff — 7,000 RWF</div>
-      <div class="menu-item">Beef Steak — 9,000 RWF</div>
-    </div>
-
-    <!-- Burgers & Pizza -->
-    <h3>Burgers & Pizza</h3>
-    <div class="grid">
-      <div class="menu-item">Plain Beef Burger — 5,000 RWF</div>
-      <div class="menu-item">Chicken Burger — 7,000 RWF</div>
-      <div class="menu-item">Fish Burger — 8,000 RWF</div>
-      <div class="menu-item">Margarita Pizza — 10,000 RWF</div>
-      <div class="menu-item">Hawaiian Pizza — 8,000 RWF</div>
-      <div class="menu-item">Kigali Style Pizza — 10,000 RWF</div>
-    </div>
-
-    <!-- Pasta & Rice -->
-    <h3>Pasta & Rice</h3>
-    <div class="grid">
-      <div class="menu-item">Spaghetti Bolognese — 7,500 RWF</div>
-      <div class="menu-item">Chicken Spaghetti — 8,000 RWF</div>
-      <div class="menu-item">Vegetable Rice — 5,000 RWF</div>
-      <div class="menu-item">Chicken Vegetable Rice — 8,000 RWF</div>
-    </div>
-
-    <!-- Sandwiches -->
-    <h3>Sandwiches</h3>
-    <div class="grid">
-      <div class="menu-item">Hot Chicken Sandwich — 8,000 RWF</div>
-      <div class="menu-item">Tuna Sandwich — 8,500 RWF</div>
-      <div class="menu-item">Club Sandwich — 9,000 RWF</div>
-      <div class="menu-item">Eggs Cheese Sandwich — 6,500 RWF</div>
-    </div>
-
-    <!-- Salads -->
-    <h3>Salads</h3>
-    <div class="grid">
-      <div class="menu-item">Garden Salad — 6,000 RWF</div>
-      <div class="menu-item">Tuna Salad — 9,000 RWF</div>
-      <div class="menu-item">Chicken Salad — 8,000 RWF</div>
-      <div class="menu-item">Greek Salad — 7,000 RWF</div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>📍 Second Building after Simba Kicukiro Traffic Lite</p>
-    <p>📞 <a href="tel:+250781043532">+250 781 043 532</a> / <a href="tel:+250783662228">+250 783 662 228</a></p>
-    <p>📧 <a href="mailto:lechiccafe162@gmail.com">lechiccafe162@gmail.com</a></p>
-    <p>🌐 <a href="http://www.lechiccafee.com" target="_blank">www.lechiccafee.com</a></p>
-    <button onclick="redirectToMap()">Find Us on Map</button>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 Le Chic Café. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Cart / Order Modal -->
+  <div id="cartModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <div class="modal-panel">
+      <button class="modal-close" id="closeCart" aria-label="Close">×</button>
+      <h4 id="cartTitle">Your Order</h4>
+
+      <div id="cartItems" class="cart-items"><p class="muted">Your cart is empty.</p></div>
+
+      <div class="cart-summary">
+        <p>Total: RF <span id="cartTotal">0</span></p>
+      </div>
+
+      <form id="orderForm" class="order-form" autocomplete="on">
+        <label>
+          Your name
+          <input id="customerName" name="name" type="text" required="" placeholder="e.g. John Doe">
+        </label>
+
+        <label>
+          Phone (WhatsApp)
+          <input id="customerPhone" name="phone" type="tel" required="" placeholder="+2507XXXXXXXX">
+        </label>
+
+        <label>
+          Notes (optional)
+          <textarea id="customerNotes" name="notes" rows="2" placeholder="Pickup time, allergies..."></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="button" id="placeOrderBtn" class="btn">Send Order</button>
+          <button type="button" id="clearCartBtn" class="btn btn-outline">Clear Cart</button>
+        </div>
+
+        <p class="muted small">We will send your order to our baristas kitchen. You may be contacted on WhatsApp to confirm pickup time.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Leaflet (unused for iframe map but included if you want JS map later) -->
+  <script src="./Le Chic Cafe_files/leaflet.js.download"></script>
+
+  <script src="./Le Chic Cafe_files/scripts.js.download" defer=""></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
