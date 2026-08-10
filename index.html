@@ -75,24 +75,19 @@
     </section>
 
     <!-- CHAT BUTTON -->
-    <div id="chatToggle" style="display: none;">Ask Ciero</div>
+<div id="chatToggle" style="display: none;">💬 Ask Ciero</div>
 
-    <!-- CHATBOT -->
-    <div id="chatbot" class="hidden">
-      <div id="chatHeader">
-        I am Ciero – Le Chic Café virtual assistant
-        <span id="closeChat">✕</span>
-      </div>
+<!-- CHATBOT -->
+<div id="chatbot" class="hidden">
+  <div id="chatHeader">
+    <span>I am Ciero – Le Chic Café virtual assistant</span>
+    <span id="closeChat">✕</span>
+  </div>
 
-      <div id="chatBody">
-        <div class="msg-bot"><b>Ciero 🤍:</b> <span class="typing">Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu items, prices, recommendations, location, or opening hours 😊</span></div>
-      </div>
-
-      <div class="chat-input-area" style="display: flex;">
-        <input type="text" id="chatInput" placeholder="Feel free to ask me about menu, prices, location… I'm here 24/7 😊">
-        <button id="sendBtn" type="button">➡️</button>
-      </div>
-    </div>
+  <div class="chat-iframe-wrap" style="flex: 1; width: 100%; height: 100%;">
+    <iframe src="https://www.chatbase.co/chatbot-iframe/dbdzO-xP2dOJor0WlXtju" width="100%" height="100%" frameborder="0" style="border: none; min-height: 350px;"></iframe>
+  </div>
+</div>
 
     <div class="menu-search container">
       <input type="text" id="menuSearch" placeholder="Search menu (coffee, juice...)">
