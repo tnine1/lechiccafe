@@ -12,15 +12,15 @@
   <link rel="stylesheet" href="styles.css">
   
   <link rel="icon" href="https://tnine1.github.io/lechiccafe/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./Le Chic Cafe_files/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <meta name="description" content="Le Chic Cafe - Fresh espresso-based drinks, pizzas, burgers and fresh juices. Order with one click.">
-  <link rel="stylesheet" href="./Le Chic Cafe_files/all.min.css">
-  <link rel="icon" href="./Le Chic Cafe_files/logo.jpeg" type="image/jpeg"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=120&q=80" type="image/jpeg"> 
 
   <!-- Open Graph tags for WhatsApp & social sharing -->
   <meta property="og:title" content="Le Chic Café">
   <meta property="og:description" content="Welcome to Le Chic Café – Coffee, Food & Great Moments">
-  <meta property="og:image" content="https://tnine1.github.io/lechiccafe/logo.jpeg">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80">
   <meta property="og:url" content="https://tnine1.github.io/lechiccafe/">
   <meta property="og:type" content="website">
 
@@ -31,16 +31,16 @@
     <div class="container header-inner">
       <div class="brand">
         <a href="https://tnine1.github.io/lechiccafe/index.html" class="brand-link">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Profile" class="profile-avatar"><br>
+          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=120&q=80" alt="Le Chic Café Profile" class="profile-avatar"><br>
           <h1>Le Chic Cafe</h1>
         </a>
         <p class="tag">GOOD VIBES ONLY</p>
       </div>
 
       <nav class="site-nav">
-        <a class="nav-link" href="https://tnine1.github.io/lechiccafe/#menu">Menu</a>
-        <a class="nav-link" href="https://tnine1.github.io/lechiccafe/#about">About</a>
-        <a class="nav-link" href="https://tnine1.github.io/lechiccafe/#contact">Contact</a>
+        <a class="nav-link" href="#menu">Menu</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
         <a class="nav-link" href="https://qr1.be/QUW2FW" target="_blank" rel="noopener">FULL MENU</a>
       </nav>
 
@@ -68,8 +68,8 @@
         <p class="hero-sub">Fresh espresso drinks, pizzas, burgers and cold & hot juices. Order quickly — we prepare fast.</p>
 
         <div class="hero-actions">
-          <a class="btn" href="https://tnine1.github.io/lechiccafe/#menu">See Menu</a>
-          <a class="btn btn-outline" href="https://tnine1.github.io/lechiccafe/#contact">Contact</a>
+          <a class="btn" href="#menu">See Menu</a>
+          <a class="btn btn-outline" href="#contact">Contact</a>
         </div>
       </div>
     </section>
@@ -78,7 +78,7 @@
     <div id="chatToggle" style="display: none;">Ask Ciero</div>
 
     <!-- CHATBOT -->
-    <div id="chatbot">
+    <div id="chatbot" class="hidden">
       <div id="chatHeader">
         I am Ciero – Le Chic Café virtual assistant
         <span id="closeChat">✕</span>
@@ -86,12 +86,12 @@
 
       <div id="chatBody">
         <div class="msg-bot"><b>Ciero 🤍:</b> <span class="typing">Hello 👋 Welcome to Le Chic Café ☕<br>Ask me about menu items, prices, recommendations, location, or opening hours 😊</span></div>
-        <div class="msg-user">How much does coffee buys</div>
-        <div class="msg-bot"><b>Ciero 🤍:</b> <span class="typing">I found several items matching that name:<br>Black Coffee — 2000 RWF<br>Customized Coffee — </span></div>
       </div>
 
-      <input type="text" id="chatInput" placeholder="Feel free to ask me about menu, prices, location… I'm here 24/7 😊">
-      <button id="sendBtn">➡️</button>
+      <div class="chat-input-area" style="display: flex;">
+        <input type="text" id="chatInput" placeholder="Feel free to ask me about menu, prices, location… I'm here 24/7 😊">
+        <button id="sendBtn" type="button">➡️</button>
+      </div>
     </div>
 
     <div class="menu-search container">
@@ -107,7 +107,7 @@
       <div class="menu-grid" id="menuGrid">
         <!-- Espresso-based drinks -->
         <article class="menu-item" data-id="single-espresso" data-name="Single Espresso" data-price="1500" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1583165278997-0250ea5d72e2" alt="Single Espresso">
+          <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=400&q=80" alt="Single Espresso">
           <h4>Single Espresso</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions">
@@ -116,7 +116,7 @@
         </article>
 
         <article class="menu-item" data-id="double-espresso" data-name="Double Espresso" data-price="2000" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1583165278997-0250ea5d72e2" alt="Double Espresso">
+          <img src="https://images.unsplash.com/photo-1579992367140-d9cfc5847424?auto=format&fit=crop&w=400&q=80" alt="Double Espresso">
           <h4>Double Espresso</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions">
@@ -125,7 +125,7 @@
         </article>
 
         <article class="menu-item" data-id="americano" data-name="Americano" data-price="2000" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1611162458324-aae1eb4129a4" alt="Americano">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" alt="Americano">
           <h4>Americano</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions">
@@ -134,7 +134,7 @@
         </article>
 
         <article class="menu-item" data-id="black-coffee" data-name="Black Coffee" data-price="2000" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1669872484166-e11b9638b50e" alt="Black Coffee">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80" alt="Black Coffee">
           <h4>Black Coffee</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions">
@@ -143,7 +143,7 @@
         </article>
 
         <article class="menu-item" data-id="black-coffee-strong" data-name="Black Coffee Strong" data-price="2000" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1669872484166-e11b9638b50e" alt="Black Coffee Strong">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" alt="Black Coffee Strong">
           <h4>Black Coffee Strong</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions">
@@ -152,7 +152,7 @@
         </article>
 
         <article class="menu-item" data-id="cafe-latte" data-name="Café Latte" data-price="2500" style="display: block;">
-          <img src="./Le Chic Cafe_files/premium_photo-1663932463883-897e71481fc4" alt="Café Latte">
+          <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=400&q=80" alt="Café Latte">
           <h4>Café Latte</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions">
@@ -161,7 +161,7 @@
         </article>
 
         <article class="menu-item" data-id="cappuccino" data-name="Cappuccino" data-price="2500" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1708430651927-20e2e1f1e8f7" alt="Cappuccino">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80" alt="Cappuccino">
           <h4>Cappuccino</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions">
@@ -170,7 +170,7 @@
         </article>
 
         <article class="menu-item" data-id="cappuccino-big" data-name="Cappuccino Big" data-price="3000" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1541167760496-1628856ab772" alt="Cappuccino Big">
+          <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=400&q=80" alt="Cappuccino Big">
           <h4>Cappuccino Big</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -179,7 +179,7 @@
         </article>
 
         <article class="menu-item" data-id="strong-cappuccino" data-name="Strong Cappuccino" data-price="3000" style="display: block;">
-          <img src="./Le Chic Cafe_files/photo-1541167760496-1628856ab772(1)" alt="Strong Cappuccino">
+          <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80" alt="Strong Cappuccino">
           <h4>Strong Cappuccino</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -188,7 +188,7 @@
         </article>
 
         <article class="menu-item" data-id="macchiato" data-name="Macchiato" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-1397676276-612x612.webp" alt="Macchiato">
+          <img src="https://images.unsplash.com/photo-1557006155-2d334575c2e9?auto=format&fit=crop&w=400&q=80" alt="Macchiato">
           <h4>Macchiato</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions">
@@ -197,7 +197,7 @@
         </article>
 
         <article class="menu-item" data-id="cafe-mocha" data-name="Café Mocha" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1530629159325-9c378fc150b9" alt="Café Mocha">
+          <img src="https://images.unsplash.com/photo-1578314675249-a6919f3cbce3?auto=format&fit=crop&w=400&q=80" alt="Café Mocha">
           <h4>Café Mocha</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -206,7 +206,7 @@
         </article>
 
         <article class="menu-item" data-id="afrogato" data-name="Afrogato" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-2182327087-612x612.webp" alt="Afrogato">
+          <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=400&q=80" alt="Afrogato">
           <h4>Afrogato</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -215,7 +215,7 @@
         </article>
 
         <article class="menu-item" data-id="flyte-white" data-name="Flyte White" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1541167760496-1628856ab772(1)" alt="Flate White">
+          <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=400&q=80" alt="Flate White">
           <h4>Flate White</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions">
@@ -224,7 +224,7 @@
         </article>
 
         <article class="menu-item" data-id="customized-coffee" data-name="Customized Coffee" data-price="3500" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.2pHS_wQp5Rugwa4n1ku9uwHaLH" alt="Customized Coffee">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Customized Coffee">
           <h4>Customized Coffee</h4>
           <p class="price">RF 3500</p>
           <div class="item-actions">
@@ -233,7 +233,7 @@
         </article>
 
         <article class="menu-item" data-id="african-coffee" data-name="African Coffee" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1699357215753-3f377be13c8f" alt="African Coffee">
+          <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=400&q=80" alt="African Coffee">
           <h4>African Coffee</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -242,7 +242,7 @@
         </article>
 
         <article class="menu-item" data-id="hot-chocolate" data-name="Hot Chocolate" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1561394026-0f29a9f0829c" alt="Hot Chocolate">
+          <img src="https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=400&q=80" alt="Hot Chocolate">
           <h4>Hot Chocolate</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions">
@@ -251,7 +251,7 @@
         </article>
 
         <article class="menu-item" data-id="vanilla-latte" data-name="Vanilla Late" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1517701550927-30cf4ba1dba5" alt="Vanilla Late">
+          <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=400&q=80" alt="Vanilla Late">
           <h4>Vanilla Late</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -260,7 +260,7 @@
         </article>
 
         <article class="menu-item" data-id="caramel-macchiato" data-name="Caramel Machiato" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1517701550927-30cf4ba1dba5" alt="Caramel Machiato">
+          <img src="https://images.unsplash.com/photo-1485808191679-edf8ad13cb6a?auto=format&fit=crop&w=400&q=80" alt="Caramel Machiato">
           <h4>Caramel Machiato</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions">
@@ -269,574 +269,574 @@
         </article>
 
         <article class="menu-item" data-id="iced-cream-coffee" data-name="Iced Cream Coffee" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-1293312056-612x612.webp" alt="Iced Cream Coffee">
+          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80" alt="Iced Cream Coffee">
           <h4>Iced Cream Coffee</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-vanilla-latin" data-name="Iced Vanilla Latin" data-price="4000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1728978095941-ac7dea0cebdf" alt="Iced Vanilla Latin">
+          <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80" alt="Iced Vanilla Latin">
           <h4>Iced Vanilla Latin</h4>
           <p class="price">RF 4000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-latte" data-name="Iced Latte" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1671759545218-831c32bfe92d" alt="Iced Latte">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80" alt="Iced Latte">
           <h4>Iced Latte</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-cappuccino" data-name="Iced Cappuccino" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1671759545218-831c32bfe92d" alt="Iced Cappuccino">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80" alt="Iced Cappuccino">
           <h4>Iced Cappuccino</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-mocha" data-name="Iced Mocha" data-price="3500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1517701550927-30cf4ba1dba5(1)" alt="Iced Mocha">
+          <img src="https://images.unsplash.com/photo-1578314675249-a6919f3cbce3?auto=format&fit=crop&w=400&q=80" alt="Iced Mocha">
           <h4>Iced Mocha</h4>
           <p class="price">RF 3500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-americano" data-name="Iced Americano" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1671759545218-831c32bfe92d" alt="Iced Americano">
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=400&q=80" alt="Iced Americano">
           <h4>Iced Americano</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-frappuccino" data-name="Iced Frappuccino" data-price="3500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1728978095941-ac7dea0cebdf" alt="Iced Frappuccino">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Iced Frappuccino">
           <h4>Iced Frappuccino</h4>
           <p class="price">RF 3500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-mocha-frappe" data-name="Iced Mocha Frappe" data-price="4000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.HfCbHllClt-5eGLff9ZetgAAAA" alt="Iced Mocha Frappe">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Iced Mocha Frappe">
           <h4>Iced Mocha Frappe</h4>
           <p class="price">RF 4000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-black-coffee" data-name="Iced Black Coffee" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.nfo0z-JIc5TizQ75OcoSOwHaHa" alt="Iced Black Coffee">
+          <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=400&q=80" alt="Iced Black Coffee">
           <h4>Iced Black Coffee</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="iced-vanilla-frappee" data-name="Iced Vanilla Frappee" data-price="4000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.ldRB54glhs8wuGAi2hRlvAHaLG" alt="Iced Vanilla Frappee">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Iced Vanilla Frappee">
           <h4>Iced Vanilla Frappee</h4>
           <p class="price">RF 4000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="black-tea" data-name="Black Tea" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.XkbIAc6zEmBB-WeL-2jWugHaE7" alt="Black Tea">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Black Tea">
           <h4>Black Tea</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="green-tea" data-name="Green Tea" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.rIZO7ovlJkWG1LuufcpFggHaE8" alt="Green Tea">
+          <img src="https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&w=400&q=80" alt="Green Tea">
           <h4>Green Tea</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="african-tea" data-name="African Tea" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.fdx_SilCKnI9FrztCxpYoQHaE8" alt="African Tea">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="African Tea">
           <h4>African Tea</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="ginger-tea" data-name="Ginger Tea" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.bM5op2MHWs5LsIqgq4g1LAAAAA" alt="Ginger Tea">
+          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=400&q=80" alt="Ginger Tea">
           <h4>Ginger Tea</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="lemon-tea" data-name="Lemon Tea" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.3FCXZji2f3uhrfwwYl4dvAHaHa" alt="Lemon Tea">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Lemon Tea">
           <h4>Lemon Tea</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="hot-milk" data-name="Hot Milk" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1550583724-b2692b85b150" alt="Hot Milk">
+          <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80" alt="Hot Milk">
           <h4>Hot Milk</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="hot-water-lemon" data-name="Hot Water + Lemon" data-price="1500" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-692227210-612x612.jpg" alt="Hot Water + Lemon">
+          <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" alt="Hot Water + Lemon">
           <h4>Hot Water + Lemon</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="hot-water" data-name="Hot Water" data-price="1000" style="display: none;">
-          <img src="./Le Chic Cafe_files/hot-water-cup-kettle.jpg" alt="Hot Water">
+          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=400&q=80" alt="Hot Water">
           <h4>Hot Water</h4>
           <p class="price">RF 1000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="fresh-milk" data-name="Fresh Milk" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1550583724-b2692b85b150" alt="Fresh Milk">
+          <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80" alt="Fresh Milk">
           <h4>Fresh Milk</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="spice-tea" data-name="Spice Tea" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Spice Tea">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Spice Tea">
           <h4>Spice Tea</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="mint-tea" data-name="Mint Tea" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Mint Tea">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Mint Tea">
           <h4>Mint Tea</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="russian-tea" data-name="Russian Tea" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Russian Tea">
+          <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Russian Tea">
           <h4>Russian Tea</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="dawa-tea" data-name="Dawa Tea" data-price="3500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1576092768241-dec231879fc3" alt="Dawa Tea">
+          <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=400&q=80" alt="Dawa Tea">
           <h4>Dawa Tea</h4>
           <p class="price">RF 3500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="passion-juice" data-name="Passion Juice" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1591267990439-1c6f9b7c5644" alt="Passion Juice">
+          <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=400&q=80" alt="Passion Juice">
           <h4>Passion Juice</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="mango-juice" data-name="Mango Juice" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1553279768-865429fa0078" alt="Mango Juice">
+          <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=400&q=80" alt="Mango Juice">
           <h4>Mango Juice</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="mixed-juice" data-name="Mixed Juice" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Mixed Juice">
+          <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=80" alt="Mixed Juice">
           <h4>Mixed Juice</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="watermelon-juice" data-name="Watermelon Juice" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1581375321225-496add5a55a1" alt="Watermelon Juice">
+          <img src="https://images.unsplash.com/photo-1581375321225-496add5a55a1?auto=format&fit=crop&w=400&q=80" alt="Watermelon Juice">
           <h4>Watermelon Juice</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="pineapple-juice" data-name="Pineapple Juice" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1550258987-190a2d41a8ba" alt="Pineapple Juice">
+          <img src="https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=400&q=80" alt="Pineapple Juice">
           <h4>Pineapple Juice</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="orange-juice" data-name="Orange Juice" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Orange Juice">
+          <img src="https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=400&q=80" alt="Orange Juice">
           <h4>Orange Juice</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="lemon-juice" data-name="Lemon Juice" data-price="1500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Lemon Juice">
+          <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=400&q=80" alt="Lemon Juice">
           <h4>Lemon Juice</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="apple-juice" data-name="Apple Juice" data-price="2500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1570913149827-d2ac84ab3f9a" alt="Apple Juice">
+          <img src="https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?auto=format&fit=crop&w=400&q=80" alt="Apple Juice">
           <h4>Apple Juice</h4>
           <p class="price">RF 2500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="banana-juice" data-name="Banana Juice" data-price="2000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1600271886742-f049cd451bba" alt="Banana Juice">
+          <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=80" alt="Banana Juice">
           <h4>Banana Juice</h4>
           <p class="price">RF 2000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="avocado-juice" data-name="Avocado Juice" data-price="3000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1523049673857-eb18f1d7b578" alt="Avocado Juice">
+          <img src="https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=400&q=80" alt="Avocado Juice">
           <h4>Avocado Juice</h4>
           <p class="price">RF 3000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="starmoon-special-smoothie" data-name="Starmoon Special Smoothie" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1502741338009-cac2772e18bc" alt="Starmoon Special Smoothie">
+          <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Starmoon Special Smoothie">
           <h4>le chic Special Smoothie</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="mango-berry-smoothie" data-name="Mango Berry Smoothie" data-price="6000" style="display: none;">
-          <img src="./Le Chic Cafe_files/image" alt="Mango Berry Smoothie">
+          <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" alt="Mango Berry Smoothie">
           <h4>Mango Berry Smoothie</h4>
           <p class="price">RF 6000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="tropical-smoothie" data-name="Tropical Smoothie" data-price="6000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.9b-vN51lGxgILyGOIGZaYwHaHa" alt="Tropical Smoothie">
+          <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" alt="Tropical Smoothie">
           <h4>Tropical Smoothie</h4>
           <p class="price">RF 6000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="avocado-smoothie" data-name="Avocado Smoothie" data-price="6000" style="display: none;">
-          <img src="./Le Chic Cafe_files/avocado-smoothie-7-1024x1536.jpg" alt="Avocado Smoothie">
+          <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=400&q=80" alt="Avocado Smoothie">
           <h4>Avocado Smoothie</h4>
           <p class="price">RF 6000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="banana-smoothie" data-name="Banana Smoothie" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.cEt7_ufuI_nnbowL62_EfAHaLH" alt="Banana Smoothie">
+          <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" alt="Banana Smoothie">
           <h4>Banana Smoothie</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="mixed-fruit-smoothie" data-name="Mixed Fruit Smoothie" data-price="6000" style="display: none;">
-          <img src="./Le Chic Cafe_files/Fruit-Smoothie.jpg" alt="Mixed Fruit Smoothie">
+          <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=400&q=80" alt="Mixed Fruit Smoothie">
           <h4>Mixed Fruit Smoothie</h4>
           <p class="price">RF 6000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="vanilla-milkshake" data-name="Vanilla Milkshake" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.PPLoKnz14gdy4vZtCP_8rAHaFk" alt="Vanilla Milkshake">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Vanilla Milkshake">
           <h4>Vanilla Milkshake</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chocolate-milkshake" data-name="Chocolate Milkshake" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/chocolate-milkshake_961280-618.jpg" alt="Chocolate Milkshake">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Chocolate Milkshake">
           <h4>Chocolate Milkshake</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="strawberry-milkshake" data-name="Strawberry Milkshake" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/R.579224835d868b78153ec232397a8da0" alt="Strawberry Milkshake">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Strawberry Milkshake">
           <h4>Strawberry Milkshake</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="mixed-shake" data-name="Mixed Shake" data-price="6000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.h-3S_wCGDN263tV6QFir0wHaE7" alt="Mixed Shake">
+          <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80" alt="Mixed Shake">
           <h4>Mixed milkShake</h4>
           <p class="price">RF 6000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="macedoine" data-name="Macedoine" data-price="4000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.QzmTvNes7w22WNjDLfx7xQHaFE" alt="Macedoine">
+          <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=400&q=80" alt="Macedoine">
           <h4>Macedoine</h4>
           <p class="price">RF 4000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="fruit-plater" data-name="Fruit Plater" data-price="5500" style="display: none;">
-          <img src="./Le Chic Cafe_files/img_2841.jpg" alt="Fruit Plater">
+          <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=400&q=80" alt="Fruit Plater">
           <h4>Fruit Plater</h4>
           <p class="price">RF 5500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="macedoine-icecream" data-name="Macedoine with Icecream" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Macedoine with Icecream">
+          <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=400&q=80" alt="Macedoine with Icecream">
           <h4>Macedoine with Icecream</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="ice-cream-scoop" data-name="Ice Cream One Scoop" data-price="1000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1488900128323-21503983a07a" alt="Ice Cream One Scoop">
+          <img src="https://images.unsplash.com/photo-1488900128323-21503983a07a?auto=format&fit=crop&w=400&q=80" alt="Ice Cream One Scoop">
           <h4>Ice Cream One Scoop</h4>
           <p class="price">RF 1000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="ice-cream-fruit" data-name="Ice Cream Fruit" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/OIP.iWdA_lTYnIFA8vmvhxzo3wHaE7" alt="Ice Cream Fruit">
+          <img src="https://images.unsplash.com/photo-1488900128323-21503983a07a?auto=format&fit=crop&w=400&q=80" alt="Ice Cream Fruit">
           <h4>Ice Cream Fruit</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="big-water" data-name="Big Water" data-price="1500" style="display: none;">
-          <img src="./Le Chic Cafe_files/128_6787bf7893138.png" alt="Big Water">
+          <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=400&q=80" alt="Big Water">
           <h4>Big Water</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="plastic-water" data-name="Plastic Water" data-price="1500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1550505095-81378a674395" alt="Plastic Water">
+          <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=400&q=80" alt="Plastic Water">
           <h4>Plastic Water</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="small-fanta" data-name="Small Fanta" data-price="1000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1622597467836-f3c7ddad5f12" alt="Small Fanta">
+          <img src="https://images.unsplash.com/photo-1622597467836-f3c7ddad5f12?auto=format&fit=crop&w=400&q=80" alt="Small Fanta">
           <h4>Small Fanta</h4>
           <p class="price">RF 1000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="tonic-fanta" data-name="Tonic Fanta" data-price="1500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1622597467836-f3c7ddad5f12" alt="Tonic Fanta">
+          <img src="https://images.unsplash.com/photo-1622597467836-f3c7ddad5f12?auto=format&fit=crop&w=400&q=80" alt="Tonic Fanta">
           <h4>Tonic Fanta</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="vitalo-sparkling-water" data-name="Vitalo Sparkling Water" data-price="1500" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-1419371090-612x612.webp" alt="Vitalo Sparkling Water">
+          <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=400&q=80" alt="Vitalo Sparkling Water">
           <h4>Vitalo Sparkling Water</h4>
           <p class="price">RF 1500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="fried-eggs-toast" data-name="3 Fried Eggs with Toast Bread" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1586444248902-2f64eddc13df" alt="3 Fried Eggs with Toast Bread">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80" alt="3 Fried Eggs with Toast Bread">
           <h4>3 Fried Eggs with Toast Bread</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="sausage-chips-salad" data-name="Sausage with Chips & Salad" data-price="5500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1562967916-eb82221dfb92" alt="Sausage with Chips & Salad">
+          <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=400&q=80" alt="Sausage with Chips & Salad">
           <h4>Sausage with Chips & Salad</h4>
           <p class="price">RF 5500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="pancakes-omelette" data-name="Pancakes + Plain Omelette" data-price="6500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1565299624946-b28f40a0ae38" alt="Pancakes + Plain Omelette">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" alt="Pancakes + Plain Omelette">
           <h4>Pancakes + Plain Omelette</h4>
           <p class="price">RF 6500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="scrambled-eggs-toast" data-name="Scrambled Eggs + Toast Bread" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1586444248902-2f64eddc13df" alt="Scrambled Eggs + Toast Bread">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80" alt="Scrambled Eggs + Toast Bread">
           <h4>Scrambled Eggs + Toast Bread</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="cheese-mushroom-wedges" data-name="Cheese & Mushroom + Potato Wedges" data-price="4500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1565299624946-b28f40a0ae38" alt="Cheese & Mushroom + Potato Wedges">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" alt="Cheese & Mushroom + Potato Wedges">
           <h4>Cheese & Mushroom + Potato Wedges</h4>
           <p class="price">RF 4500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="spinach-omelet-wedges" data-name="Spinach Omelet + Wedges/Toast" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-2235290327-612x612.webp" alt="Spinach Omelet + Wedges/Toast">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80" alt="Spinach Omelet + Wedges/Toast">
           <h4>Spinach Omelet + Wedges/Toast</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="spanish-omelet-toast" data-name="Spanish Omelet + Toast" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-2235290327-612x612.webp" alt="Spanish Omelet + Toast">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80" alt="Spanish Omelet + Toast">
           <h4>Spanish Omelet + Toast</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="special-omelet" data-name="Special Omelet" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/istockphoto-2235290327-612x612.webp" alt="Special Omelet">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=400&q=80" alt="Special Omelet">
           <h4>Special Omelet</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="capati-rolex" data-name="Capati Rolex" data-price="4000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Capati Rolex">
+          <img src="https://images.unsplash.com/photo-1525373612132-b3e820b87cea?auto=format&fit=crop&w=400&q=80" alt="Capati Rolex">
           <h4>Capati Rolex</h4>
           <p class="price">RF 4000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="vegetable-capati-rolex" data-name="Vegetable Capati Rolex" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Vegetable Capati Rolex">
+          <img src="https://images.unsplash.com/photo-1525373612132-b3e820b87cea?auto=format&fit=crop&w=400&q=80" alt="Vegetable Capati Rolex">
           <h4>Vegetable Capati Rolex</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="steak-omelet" data-name="Steak Omelet" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Steak Omelet">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80" alt="Steak Omelet">
           <h4>Steak Omelet</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-wrap" data-name="Chicken Wrap" data-price="5500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Chicken Wrap">
+          <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" alt="Chicken Wrap">
           <h4>Chicken Wrap</h4>
           <p class="price">RF 5500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="beef-wrap" data-name="Beef Wrap" data-price="5000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Beef Wrap">
+          <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" alt="Beef Wrap">
           <h4>Beef Wrap</h4>
           <p class="price">RF 5000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="vegetable-wrap" data-name="Vegetable Wrap" data-price="4000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1525373612132-b3e820b87cea" alt="Vegetable Wrap">
+          <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" alt="Vegetable Wrap">
           <h4>Vegetable Wrap</h4>
           <p class="price">RF 4000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-leg" data-name="Chicken Leg" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1626677837222-8a7c2f892c31" alt="Chicken Leg">
+          <img src="https://images.unsplash.com/photo-1626677837222-8a7c2f892c31?auto=format&fit=crop&w=400&q=80" alt="Chicken Leg">
           <h4>Chicken Leg</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-stew" data-name="Chicken Stew" data-price="7500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Stew">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Chicken Stew">
           <h4>Chicken Stew</h4>
           <p class="price">RF 7500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-sukal" data-name="Chicken Sukal" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Sukal">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Chicken Sukal">
           <h4>Chicken Sukal</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-curry" data-name="Chicken Curry" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Curry">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Chicken Curry">
           <h4>Chicken Curry</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-wings" data-name="Chicken Wings" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1562967916-eb82221dfb92" alt="Chicken Wings">
+          <img src="https://images.unsplash.com/photo-1562967916-eb82221dfb92?auto=format&fit=crop&w=400&q=80" alt="Chicken Wings">
           <h4>Chicken Wings</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-breast" data-name="Chicken Breast" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1626677837222-8a7c2f892c31" alt="Chicken Breast">
+          <img src="https://images.unsplash.com/photo-1626677837222-8a7c2f892c31?auto=format&fit=crop&w=400&q=80" alt="Chicken Breast">
           <h4>Chicken Breast</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-stroganoff" data-name="Chicken Stroganoff" data-price="7500" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Chicken Stroganoff">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Chicken Stroganoff">
           <h4>Chicken Stroganoff</h4>
           <p class="price">RF 7500</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-steak" data-name="Chicken Steak" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1626677837222-8a7c2f892c31" alt="Chicken Steak">
+          <img src="https://images.unsplash.com/photo-1626677837222-8a7c2f892c31?auto=format&fit=crop&w=400&q=80" alt="Chicken Steak">
           <h4>Chicken Steak</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="ugali-chicken-stew" data-name="Ugali with Chicken Stew" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Ugali with Chicken Stew">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Ugali with Chicken Stew">
           <h4>Ugali with Chicken Stew</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="kawunga-chicken-stew" data-name="Kawunga with Chicken Stew" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/photo-1582234262369-3e0c238711b2" alt="Kawunga with Chicken Stew">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Kawunga with Chicken Stew">
           <h4>Kawunga with Chicken Stew</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="chicken-boil" data-name="Chicken Boil w/ Banana & Potatoes" data-price="7000" style="display: none;">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Chicken Boil with Banana & Potatoes">
+          <img src="https://images.unsplash.com/photo-1582234262369-3e0c238711b2?auto=format&fit=crop&w=400&q=80" alt="Chicken Boil with Banana & Potatoes">
           <h4>Chicken Boil w/ Banana & Potatoes</h4>
           <p class="price">RF 7000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="fish-stew" data-name="Fish Stew" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Fish Stew">
+          <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=400&q=80" alt="Fish Stew">
           <h4>Fish Stew</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="fish-curry" data-name="Fish Curry" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Fish Curry">
+          <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=400&q=80" alt="Fish Curry">
           <h4>Fish Curry</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="fish-fillet" data-name="Fish Fillet" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Fish Fillet">
+          <img src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=400&q=80" alt="Fish Fillet">
           <h4>Fish Fillet</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
         </article>
 
         <article class="menu-item" data-id="beef-stew" data-name="Beef Stew" data-price="8000" style="display: none;">
-          <img src="./Le Chic Cafe_files/logo.jpeg" alt="Beef Stew">
+          <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80" alt="Beef Stew">
           <h4>Beef Stew</h4>
           <p class="price">RF 8000</p>
           <div class="item-actions"><button class="btn buy-btn" type="button">Buy Now</button></div>
@@ -864,7 +864,7 @@
 
       <!-- Embedded Google map (iframe) -->
       <div class="map-wrap">
-        <iframe title="Le Chic Cafe location" src="./Le Chic Cafe_files/embed.html" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe title="Le Chic Cafe location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.525540306357!2d30.05885!3d-1.9441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwNTYnMzguOCJTIDMsMKKwMDMnMzEuOSJF!5e0!3m2!1sen!2srw!4f16" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
 
       <p class="muted">
@@ -922,3 +922,4 @@
   <script src="service-worker.js" defer=""></script>
 </body>
 </html>
+```[cite: 8]
